@@ -1,5 +1,7 @@
 import './style.css'
+import { createLoginPage } from './pages/login'
 
+createLoginPage();
 
 /**
  * PASOS NECESARIOS 
