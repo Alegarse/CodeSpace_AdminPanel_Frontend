@@ -1,7 +1,10 @@
 import './style.css'
 import { createLoginPage } from './pages/login'
+import { loginListener } from './events/login-events';
 
 createLoginPage();
+
+loginListener();
 
 /**
  * PASOS NECESARIOS 
