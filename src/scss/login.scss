@@ -1,15 +1,18 @@
 body {
-    margin: 0 auto;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    justify-items: center;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: green;
+    background-image: url('../imgs/body-back.jpeg') ;
+    position: relative;
 }
 
 .login-container {
+    position: absolute;
+    //top: 50%;
+    //left:50%;
+    transform: translate(-50%, 50%);
     background-color: rgba(255, 255, 255, 0.779);
     padding: 2rem;
     border-radius: 0.625rem;
@@ -23,11 +26,13 @@ body {
     & input {
         margin-bottom: 1rem;
         padding: 0.5rem;
+        border-radius:5px;
     }
 
     & button {
-        background-color: #007bff;
+        background-color: #426500;
         color: white;
+        font-weight: 500;
         border:none;
         cursor: pointer;
         border-radius: 5px;
