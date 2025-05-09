@@ -1,5 +1,5 @@
-import './style.css'
-import { createLoginPage } from './pages/login'
+import './scss/style.scss';
+import { createLoginPage } from './pages/login';
 import { loginListener } from './events/login-events';
 
 createLoginPage();
