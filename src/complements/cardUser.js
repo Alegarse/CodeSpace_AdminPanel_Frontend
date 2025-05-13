@@ -12,9 +12,12 @@ function createCardUser(userData) {
   dataUser.appendChild(createDateUser(userData.date));
 
   //Creo un div para los botones
-  const buttonsContainer = document.createButtom("div");
+  const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
+  buttonsContainer.createButtonforDeleteUser();
+  buttonsContainer.createButtonforUpdateUser();
+  buttonsContainer.createButtonforDisableUser();
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.url));
@@ -26,7 +29,7 @@ function createCardUser(userData) {
 
 //Creacion de hueco para la foto
 function createImgUser(url) {
-  const imgUser = document.createImgUser("img");
+  const imgUser = document.createElement("img");
   imgUser.setAttribute("src", url);
   imgUser.setAttribute("alt", "user photo");
   imgUser.classList = "photo-user";
@@ -73,13 +76,24 @@ function createButtonforDisableUser(){
   
 }
 
-function createCardsUsersContainer(dataUsers) {
+export function createCardsUsersContainer(dataUsers) {
 
-  
+  /*
+  EJEMPLO PARA VER SI ESTA BIEN O NO
+  dataUsers = [
+    {
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+  ]*/
+
+  const anchorElement = document.querySelector('#elements-panel-container')
 
   //Creo un div para englobar todo
-  const createContainer = document.createElement("div");
-  createContainer.classList = "list-card-container";
+  const userListContainer = document.createElement("div");
+  userListContainer.classList = "list-card-container";
 
   //El titulo del div
   const cardTitle = document.createElement("h2");
@@ -93,5 +107,8 @@ function createCardsUsersContainer(dataUsers) {
     cardsContainer.appendChild(createCardUser(user))
   })
 
+  userListContainer.appendChild(cardTitle);
+  userListContainer.appendChild(cardsContainer);
 
+  anchorElement.appendChild(userListContainer);
 }
