@@ -1,0 +1,25 @@
+.opacity-bg-img {
+    background-color: rgba(255,255,255,0.5);
+    background-blend-mode: lighten;
+}
+
+.sidebar-container {
+    background-color: var(--color-bg-primary-transparent);
+    padding: 2rem;
+    border-radius: 0.625rem;
+}
+
+.logo-admin {
+    width: 100%;
+    height: auto;
+}
+
+.adminPanel-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: 100vh;
+}
+
+.sidebar-container {
+    padding: 1rem;
+}
