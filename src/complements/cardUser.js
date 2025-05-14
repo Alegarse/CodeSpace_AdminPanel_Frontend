@@ -5,7 +5,7 @@ function createCardUser(userData) {
 
   // Div de los datos del usuario
   const dataUser = document.createElement("div");
-  dataUser.classList = "user-data"
+  dataUser.classList = "user-data";
   // Aqui appendchild de los datos
   dataUser.appendChild(createNameUser(userData.name));
   dataUser.appendChild(createMailUser(userData.mail));
@@ -61,23 +61,36 @@ function createDateUser(date) {
 }
 
 //Creacion boton modificar
-function createButtonforUpdateUser(){
-  
+function createButtonforUpdateUser() {
+  const buttonUpdate = document.createElement("button");
+  buttonUpdate.setAttribute("id", "update-btn");
+  buttonUpdate.setAttribute("type", "button");
+  buttonUpdate.classList = "btn-update";
+
+  return buttonUpdate;
 }
 
-
 //Creacion boton borrar
-function createButtonforDeleteUser(){
-  
+function createButtonforDeleteUser() {
+  const buttonDelete = document.createElement("button");
+  buttonDelete.setAttribute("id", "delete-btn");
+  buttonDelete.setAttribute("type", "button");
+  buttonDelete.classList = "btn-delete";
+
+  return buttonDelete;
 }
 
 //Creacion boton deshabilitar
-function createButtonforDisableUser(){
-  
+function createButtonforDisableUser() {
+  const buttonDisable = document.createElement("button");
+  buttonDisable.setAttribute("id", "disable-btn");
+  buttonDisable.setAttribute("type", "button");
+  buttonDisable.classList = "btn-disable";
+
+  return buttonDisable;
 }
 
 export function createCardsUsersContainer(dataUsers) {
-
   /*
   EJEMPLO PARA VER SI ESTA BIEN O NO
   dataUsers = [
@@ -89,7 +102,7 @@ export function createCardsUsersContainer(dataUsers) {
     },
   ]*/
 
-  const anchorElement = document.querySelector('#elements-panel-container')
+  const anchorElement = document.querySelector("#elements-panel-container");
 
   //Creo un div para englobar todo
   const userListContainer = document.createElement("div");
@@ -103,9 +116,9 @@ export function createCardsUsersContainer(dataUsers) {
   const cardsContainer = document.createElement("div");
   cardsContainer.classList = "cards-container";
 
-  dataUsers.forEach(user => {
-    cardsContainer.appendChild(createCardUser(user))
-  })
+  dataUsers.forEach((user) => {
+    cardsContainer.appendChild(createCardUser(user));
+  });
 
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);
