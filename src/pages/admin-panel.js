@@ -10,14 +10,13 @@ export function createAdminPanel() {
 
   const sidebarElement = createSidebarElement();
 
-  adminPanelElement.appendChild(sidebarElement);
-  appContainerElement.appendChild(adminPanelElement);
-  /* aquí se seguirá construyendo con el listado de usuarios (MARINA)
-    te dejo creada la constante con el div donde ya vas metiendo todos los elementos
-    lo suyo es hacerlo en funciones separadas como hice con el sideBar y aquí solo añadir los elementos */
-
   const adminUsersPanelElement = document.createElement("div");
-  appContainerElement.appendChild(adminUsersPanelElement);
+  adminUsersPanelElement.id = 'elements-panel-container'
+
+  adminPanelElement.appendChild(sidebarElement);
+  adminPanelElement.appendChild(adminUsersPanelElement);
+
+  appContainerElement.appendChild(adminPanelElement);
 }
 
 function createSidebarElement() {
