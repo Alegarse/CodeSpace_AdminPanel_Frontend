@@ -4,11 +4,11 @@ import { loginListener } from './events/login-events';
 import { createAdminPanel } from './pages/admin-panel';
 import { createCardsUsersContainer } from './complements/cardUser';
 
-createLoginPage();
+//createLoginPage();
 
-loginListener();
+//loginListener();
 
-//createAdminPanel();
+createAdminPanel();
 
 createCardsUsersContainer();
 
