@@ -15,9 +15,9 @@ function createCardUser(userData) {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
-  buttonsContainer.createButtonforDeleteUser();
-  buttonsContainer.createButtonforUpdateUser();
-  buttonsContainer.createButtonforDisableUser();
+  buttonsContainer.appendChild(createButtonforUpdateUser());
+  buttonsContainer.appendChild(createButtonforDeleteUser());
+  buttonsContainer.appendChild(createButtonforDisableUser());
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.url));
