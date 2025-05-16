@@ -2,11 +2,10 @@ import './scss/style.scss';
 import { createLoginPage } from './pages/login';
 import { loginListener } from './events/login-events';
 import { createAdminPanel } from './pages/admin-panel';
+import { createCardsUsersContainer } from './complements/cardUser';
 
 createLoginPage();
 loginListener();
-
-//createAdminPanel();
 
 /**
  * PASOS NECESARIOS 

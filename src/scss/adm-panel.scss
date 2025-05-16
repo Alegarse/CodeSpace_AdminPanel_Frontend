@@ -1,20 +1,61 @@
 .opacity-bg-img {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.7);
     background-blend-mode: lighten;
 }
 
 .sidebar-container {
-    background-color: var(--color-bg-primary-transparent);
+    background-color: #7fae7f;
+    //background-color: var(--color-bg-primary);
     padding: 2rem;
-    border-radius: 0.625rem;
+    text-align: center;
 }
 
 .logo-admin {
-    width: 100%;
+    width: 80%;
     height: auto;
 }
 
+.admin-name {
+    color: var(--color-font-title);
+    font-family: var(--font-title);
+    font-weight: normal;
+    margin-top: 1rem;
+
+}
+
+.line {
+    border: none;
+    border-top: 2px solid #1B4D2B;
+    margin: 20px 0;
+}
+
+.sidebar-items {
+    text-align: left;
+}
+
+.admin-navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: var(--color-font-title);
+    font-family: var(--font-title);
+    transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: #1B4D2B;
+    font-weight: bold;
+    font-size: 18px;
+    transform: scale(1.2)
+}
+
 .adminPanel-container {
+    width: 100%;
     display: grid;
     grid-template-columns: 20% 80%;
     height: 100vh;
