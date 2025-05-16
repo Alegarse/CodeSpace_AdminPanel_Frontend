@@ -5,14 +5,14 @@ export async function loginUser(userEmail, userPassword) {
   try {
     const dataUserLogin = {
       email: userEmail,
-      password: userPassword
-    }
+      password: userPassword,
+    };
     const urlLogin = apiConfig.baseUrl;
     const userLogged = await fetch(urlLogin, {
       method: "POST",
-      headers: { "Content-Type": "application/json"},
-      body: JSON.stringify(dataUserLogin)
-    })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataUserLogin),
+    });
     const dataUserLogged = await userLogged.json();
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("access_token", dataUserLogged.token);
@@ -28,17 +28,21 @@ async function getUserProfile() {
     const urlToProfile = apiConfig.profileUrl;
     const userProfileData = await fetch(urlToProfile, {
       method: "GET",
-      headers: { "Content-Type": "application/json", "token-auth": localStorage.getItem("access_token")},
-    })
+      headers: {
+        "Content-Type": "application/json",
+        "token-auth": localStorage.getItem("access_token"),
+      },
+    });
     const user = await userProfileData.json();
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("userData", JSON.stringify(user.data));
 
     // GOT TO ADMIN PANEL
-    const appContainerElement = document.querySelector("#app");
-    appContainerElement.innerHTML = '';
-    createAdminPanel();
-
+    if (user.data.role === "admin") {
+      const appContainerElement = document.querySelector("#app");
+      appContainerElement.innerHTML = "";
+      createAdminPanel();
+    }
   } catch (error) {
     console.error(error.message);
   }
