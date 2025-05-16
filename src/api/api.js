@@ -30,9 +30,9 @@ async function getUserProfile() {
       method: "GET",
       headers: { "Content-Type": "application/json", "token-auth": localStorage.getItem("access_token")},
     })
-    console.log(await userProfileData.json());
+    const user = await userProfileData.json();
     // SAVE DATA TO LOCAL STORAGE
-    localStorage.setItem("userData", JSON.stringify(userProfileData.data));
+    localStorage.setItem("userData", JSON.stringify(user.data));
 
     // GOT TO ADMIN PANEL
     const appContainerElement = document.querySelector("#app");

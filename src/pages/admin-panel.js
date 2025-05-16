@@ -27,7 +27,8 @@ function createSidebarElement() {
   const logoElement = createLogoElement();
 
   const adminName = document.createElement("h2");
-  adminName.textContent = localStorage.getItem("userData.name");
+  const user = JSON.parse(localStorage.getItem("userData"));
+  adminName.textContent = user.name;
 
   const navbarElement = createNavbarItemsElements();
 
