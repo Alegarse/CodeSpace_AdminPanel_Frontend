@@ -44,6 +44,8 @@ async function getUserProfile() {
       appContainerElement.innerHTML = "";
       createAdminPanel();
       createCardsUsersContainer();
+    } else {
+      // Aqui cargariamos el panel del usuario normal
     }
   } catch (error) {
     console.error(error.message);

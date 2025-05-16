@@ -4,9 +4,9 @@ function createSidebarElement() {
 
   const logoElement = createLogoElement();
 
-  const adminName = document.createElement("h2");
+  const user = JSON.parse(localStorage.getItem("userData")); 
 
-  const user = JSON.parse(localStorage.getItem("userData"));
+  const adminName = document.createElement("h2");
   adminName.textContent = user.name;
   adminName.classList = "admin-name"
 
@@ -19,6 +19,12 @@ function createSidebarElement() {
   const navbarElement = createNavbarItemsElements();
 
   adminSidebarContainer.appendChild(logoElement);
+  if (user.role === "admin") {
+    const userRoleTitle = document.createElement("h3");
+    userRoleTitle.textContent = "ADMINISTRADOR";
+    userRoleTitle.classList = "admin-name";
+    adminSidebarContainer.appendChild(userRoleTitle);
+  }
   adminSidebarContainer.appendChild(adminName);
   adminSidebarContainer.appendChild(adminUserPanelLine);
   adminSidebarItems.appendChild(navbarElement);
