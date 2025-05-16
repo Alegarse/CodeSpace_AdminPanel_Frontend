@@ -4,13 +4,8 @@ import { loginListener } from './events/login-events';
 import { createAdminPanel } from './pages/admin-panel';
 import { createCardsUsersContainer } from './complements/cardUser';
 
-//createLoginPage();
-
-//loginListener();
-
-createAdminPanel();
-
-createCardsUsersContainer();
+createLoginPage();
+loginListener();
 
 /**
  * PASOS NECESARIOS 

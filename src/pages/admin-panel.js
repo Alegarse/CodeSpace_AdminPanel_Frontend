@@ -5,8 +5,10 @@ function createSidebarElement() {
   const logoElement = createLogoElement();
 
   const adminName = document.createElement("h2");
+
+  const user = JSON.parse(localStorage.getItem("userData"));
+  adminName.textContent = user.name;
   adminName.classList = "admin-name"
-  adminName.textContent = "ADMINISTRADOR";
 
   const adminUserPanelLine = document.createElement("hr");
   adminUserPanelLine.classList = "line";

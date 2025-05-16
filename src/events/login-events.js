@@ -1,4 +1,4 @@
-import { loginPanel } from "../api/api";
+import { loginUser } from "../api/api";
 
 export function loginListener() {
 
@@ -10,6 +10,6 @@ export function loginListener() {
         event.preventDefault();
         const email = emailElement.value;
         const password = passwordElement.value;
-        loginPanel(email, password);
+        loginUser(email, password);
     })
 }
