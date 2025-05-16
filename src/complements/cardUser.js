@@ -67,6 +67,7 @@ function createButtonforUpdateUser() {
   buttonUpdate.setAttribute("id", "update-btn");
   buttonUpdate.setAttribute("type", "button");
   buttonUpdate.classList = "btn-update";
+  buttonUpdate.textContent = "Modificar"
 
   return buttonUpdate;
 }
@@ -77,6 +78,7 @@ function createButtonforDeleteUser() {
   buttonDelete.setAttribute("id", "delete-btn");
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
+  buttonDelete.textContent = "Eliminar"
 
   return buttonDelete;
 }
@@ -87,13 +89,14 @@ function createButtonforDisableUser() {
   buttonDisable.setAttribute("id", "disable-btn");
   buttonDisable.setAttribute("type", "button");
   buttonDisable.classList = "btn-disable";
+  buttonDisable.textContent = "Desahibilitar"
 
   return buttonDisable;
 }
 
 export function createCardsUsersContainer(dataUsers) {
 
- /*dataUsers = [
+ dataUsers = [
     {
       name: "Pepito",
       email: "aaa@aaa.es",
@@ -124,7 +127,7 @@ export function createCardsUsersContainer(dataUsers) {
       date: "20-05-2021",
       url: ""
     },
-  ]*/
+  ]
 
   const anchorElement = document.querySelector("#elements-panel-container");
 
@@ -140,9 +143,9 @@ export function createCardsUsersContainer(dataUsers) {
   const cardsContainer = document.createElement("div");
   cardsContainer.classList = "cards-container";
 
-  /*dataUsers.forEach((user) => {
+  dataUsers.forEach((user) => {
     cardsContainer.appendChild(createCardUser(user));
-  });*/
+  });
   
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);

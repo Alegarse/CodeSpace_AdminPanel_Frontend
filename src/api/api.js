@@ -15,6 +15,7 @@ export async function loginUser(userEmail, userPassword) {
       body: JSON.stringify(dataUserLogin),
     });
     const dataUserLogged = await userLogged.json();
+
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("access_token", dataUserLogged.token);
     localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
@@ -35,6 +36,7 @@ async function getUserProfile() {
       },
     });
     const user = await userProfileData.json();
+    console.log(user);
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("userData", JSON.stringify(user.data));
 
