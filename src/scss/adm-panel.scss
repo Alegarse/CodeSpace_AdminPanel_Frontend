@@ -24,25 +24,46 @@
     padding: 1rem;
 }
 
-// CSS QUE NO SE PORQUE NO SE VE ME EN EL PROYECTO
+// CSS LISTA DE USUARIOS
+
 .cards-container{
     display: flex;
-     background-color:white;
+    flex-direction: column;
+    background-color: white;
+
 }
 
 .user-card{
     display: flex;
     background-color: #bbcc99;
+    border-radius: 0.625rem;
+}
+ // NO ME COGE LA VARIABLE
+
+.h2 {
+  font-family: --font-title;  
 }
 
-/*.name-user {
+.photo-user{
+    display: flex;
+    width: 10%;
+    height: auto;
+}
 
+.name-user{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .mail-user {
-
+    display: flex;
+      flex-direction: column;
+     gap: 15px;
 }
 
-.user-date{
-
-} */
+.user-data {
+    display: flex;
+    flex-direction: column;
+     gap: 15px;
+}
