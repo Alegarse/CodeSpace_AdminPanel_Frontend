@@ -15,6 +15,7 @@ function createCardUser(userData) {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
+
   buttonsContainer.appendChild(createButtonforUpdateUser());
   buttonsContainer.appendChild(createButtonforDeleteUser());
   buttonsContainer.appendChild(createButtonforDisableUser());
@@ -91,9 +92,32 @@ function createButtonforDisableUser() {
 }
 
 export function createCardsUsersContainer(dataUsers) {
-  /*
-  EJEMPLO PARA VER SI ESTA BIEN O NO
-  dataUsers = [
+
+ /*dataUsers = [
+    {
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
     {
       name: "Pepito",
       email: "aaa@aaa.es",
@@ -116,10 +140,10 @@ export function createCardsUsersContainer(dataUsers) {
   const cardsContainer = document.createElement("div");
   cardsContainer.classList = "cards-container";
 
-  dataUsers.forEach((user) => {
+  /*dataUsers.forEach((user) => {
     cardsContainer.appendChild(createCardUser(user));
-  });
-
+  });*/
+  
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);
 
