@@ -1,5 +1,6 @@
 import { apiConfig } from "./apiConfig";
 import { createAdminPanel } from "../pages/admin-panel";
+import { createCardsUsersContainer } from '../complements/cardUser';
 
 export async function loginUser(userEmail, userPassword) {
   try {
@@ -42,6 +43,7 @@ async function getUserProfile() {
       const appContainerElement = document.querySelector("#app");
       appContainerElement.innerHTML = "";
       createAdminPanel();
+      createCardsUsersContainer();
     }
   } catch (error) {
     console.error(error.message);
