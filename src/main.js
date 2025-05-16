@@ -4,7 +4,6 @@ import { loginListener } from './events/login-events';
 import { createAdminPanel } from './pages/admin-panel';
 
 createLoginPage();
-
 loginListener();
 
 //createAdminPanel();
