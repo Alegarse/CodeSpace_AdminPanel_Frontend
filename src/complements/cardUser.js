@@ -1,3 +1,7 @@
+import { user } from "../pages/user-details";
+import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
+
+
 function createCardUser(userData) {
   //Creo el div para cada card
   const cardContainer = document.createElement("div");
@@ -7,8 +11,8 @@ function createCardUser(userData) {
   const dataUser = document.createElement("div");
   dataUser.classList = "user-data";
   // Aqui appendchild de los datos
-  dataUser.appendChild(createNameUser(userData.name));
-  dataUser.appendChild(createMailUser(userData.mail));
+  dataUser.appendChild(createNameUser(userData.name, userData.lastname));
+  dataUser.appendChild(createEMailUser(userData.email));
   dataUser.appendChild(createDateUser(userData.date));
 
   //Creo un div para los botones
@@ -26,39 +30,6 @@ function createCardUser(userData) {
   cardContainer.appendChild(buttonsContainer);
 
   return cardContainer;
-}
-
-//Creacion de hueco para la foto
-function createImgUser(url) {
-  const imgUser = document.createElement("img");
-  imgUser.setAttribute("src", url);
-  imgUser.setAttribute("alt", "user photo");
-  imgUser.classList = "photo-user";
-  return imgUser;
-}
-
-//creacion del nombre
-function createNameUser(name) {
-  const nameUser = document.createElement("h4");
-  nameUser.textContent = name;
-  nameUser.classList = "name-user";
-  return nameUser;
-}
-
-//creacion de mail
-function createMailUser(mail) {
-  const mailUser = document.createElement("h5");
-  mailUser.textContent = mail;
-  mailUser.classList = "mail-user";
-  return mailUser;
-}
-
-//Creacion de la fecha del usuario
-function createDateUser(date) {
-  const dateUser = document.createElement("p");
-  dateUser.classList = "user-date";
-  dateUser.textContent = new Date(date).getFullYear();
-  return dateUser;
 }
 
 //Creacion boton modificar
