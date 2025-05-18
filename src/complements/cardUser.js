@@ -1,4 +1,5 @@
-import { user } from "../pages/user-details";
+//import { user } from "../pages/user-details";
+import { createUserModal } from "../pages/user-details";
 import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
 
 
@@ -20,9 +21,9 @@ function createCardUser(userData) {
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
 
-  buttonsContainer.appendChild(createButtonforUpdateUser());
-  buttonsContainer.appendChild(createButtonforDeleteUser());
-  buttonsContainer.appendChild(createButtonforDisableUser());
+  buttonsContainer.appendChild(createButtonforUpdateUser(userData.id)); // añadido id
+  buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
+  buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.url));
@@ -33,12 +34,19 @@ function createCardUser(userData) {
 }
 
 //Creacion boton modificar
-function createButtonforUpdateUser() {
+export function createButtonforUpdateUser(userId) {
   const buttonUpdate = document.createElement("button");
   buttonUpdate.setAttribute("id", "update-btn");
   buttonUpdate.setAttribute("type", "button");
   buttonUpdate.classList = "btn-update";
-  buttonUpdate.textContent = "Modificar"
+  buttonUpdate.textContent = "Modificar";
+  buttonUpdate.setAttribute("data-bs-toggle", "modal");
+  buttonUpdate.setAttribute("data-bs-target", "#modal");
+
+  buttonUpdate.addEventListener('click', (event) => { // añadido
+    //event.preventDefault();
+    const modal = createUserModal(userId);
+  })
 
   return buttonUpdate;
 }
@@ -69,30 +77,35 @@ export function createCardsUsersContainer(dataUsers) {
 
  dataUsers = [
     {
+      id: 'id1',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",
       url: ""
     },
     {
+      id: 'id2',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",
       url: ""
     },
     {
+      id: 'id3',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",
       url: ""
     },
     {
+      id: 'id4',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",
       url: ""
     },
     {
+      id: 'id5',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",

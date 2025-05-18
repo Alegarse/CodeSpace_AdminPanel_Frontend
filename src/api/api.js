@@ -43,9 +43,9 @@ async function getUserProfile() {
     // GOT TO ADMIN PANEL
     if (user.data.role === "admin") {
       const appContainerElement = document.querySelector("#app");
-      appContainerElement.innerHTML = "";
+      appContainerElement.textContent = "";
       createAdminPanel();
-      createCardsUsersContainer();
+      createCardsUsersContainer(); // esto debe ir dentro de createAdminPanel
     }
   } catch (error) {
     console.error(error.message);
