@@ -72,7 +72,6 @@ export function createAdminPanel() {
 
   const adminPanelElement = document.createElement("div");
   adminPanelElement.classList = "adminPanel-container";
-  //ESTE DIV PUEDE SER INNECESARIO, LO VEMOS EN EL SPRINT
 
   const sidebarElement = createSidebarElement();
 

@@ -1,5 +1,6 @@
 import { apiConfig } from "./apiConfig";
 import { createAdminPanel } from "../pages/admin-panel";
+import { createUserProfile } from "../pages/user-profile";
 import { createCardsUsersContainer } from '../complements/cardUser';
 
 export async function loginUser(userEmail, userPassword) {
@@ -19,7 +20,10 @@ export async function loginUser(userEmail, userPassword) {
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("access_token", dataUserLogged.token);
     localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
+
+    // Try to get Data User
     getUserProfile();
+
   } catch (error) {
     console.error(error.message);
   }
@@ -40,12 +44,16 @@ async function getUserProfile() {
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("userData", JSON.stringify(user.data));
 
-    // GOT TO ADMIN PANEL
-    if (user.data.role === "admin") {
-      const appContainerElement = document.querySelector("#app");
+    // GOT TO ADMIN PANEL OR USER PROFILE
+    const appContainerElement = document.querySelector("#app");
       appContainerElement.innerHTML = "";
+    if (user.data.role === "admin") {
+      console.log("Perfil administrador");
       createAdminPanel();
       createCardsUsersContainer();
+    } else {
+      console.log("Perfil usuario");
+      createUserProfile();
     }
   } catch (error) {
     console.error(error.message);
