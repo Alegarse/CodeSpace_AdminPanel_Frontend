@@ -32,7 +32,7 @@ function createNavbarItemsElements() {
   userNavbarElement.classList = "user-navbar";
 
   const navItems = [
-    { name: "PERFIL", href: "#profile" },
+    { name: "PERFIL", href: "#" },
     { name: "CERRAR SESIÓN", href: "#logOut" },
   ];
 
@@ -63,6 +63,9 @@ function createLogoElement() {
 }
 
 export function createUserProfile() {
+  const bodyElement = document.querySelector("body");
+  bodyElement.classList.add("opacity-bg-img");
+
   const appContainerElement = document.querySelector("#app");
 
   const userPanelElement = document.createElement("div");
