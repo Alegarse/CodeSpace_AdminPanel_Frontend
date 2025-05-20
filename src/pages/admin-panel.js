@@ -1,3 +1,5 @@
+import { createModalElement } from "../complements/modal-structure";
+
 function createSidebarElement() {
   const adminSidebarContainer = document.createElement("nav");
   adminSidebarContainer.classList = "sidebar-container";
@@ -82,4 +84,5 @@ export function createAdminPanel() {
   adminPanelElement.appendChild(adminUsersPanelElement);
 
   appContainerElement.appendChild(adminPanelElement);
+  appContainerElement.appendChild(createModalElement())
 }

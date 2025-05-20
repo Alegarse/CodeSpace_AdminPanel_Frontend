@@ -40,7 +40,7 @@ async function getUserProfile() {
       },
     });
     const user = await userProfileData.json();
-    console.log(user);
+
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("userData", JSON.stringify(user.data));
 
@@ -48,11 +48,9 @@ async function getUserProfile() {
     const appContainerElement = document.querySelector("#app");
       appContainerElement.innerHTML = "";
     if (user.data.role === "admin") {
-      console.log("Perfil administrador");
       createAdminPanel();
-      createCardsUsersContainer();
+      createCardsUsersContainer(); // esto debe ir dentro de createAdminPanel
     } else {
-      console.log("Perfil usuario");
       createUserProfile();
     }
   } catch (error) {
