@@ -1,4 +1,5 @@
 import { createModalElement } from "../complements/modal-structure";
+import { createCardsUsersContainer } from "../complements/cardUser";
 
 function createSidebarElement() {
   const adminSidebarContainer = document.createElement("nav");
@@ -84,5 +85,7 @@ export function createAdminPanel() {
   adminPanelElement.appendChild(adminUsersPanelElement);
 
   appContainerElement.appendChild(adminPanelElement);
-  appContainerElement.appendChild(createModalElement())
+  appContainerElement.appendChild(createModalElement());
+
+  createCardsUsersContainer();
 }
