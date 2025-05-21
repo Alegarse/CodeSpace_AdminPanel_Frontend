@@ -65,9 +65,12 @@ async function refreshToken() {
   }
 }
 
-function goToLogin() {
-  const app = document.querySelector("#app");
-  app.innerHTML = "";
+export function goToLogin() {
+  const appContainerElement = document.querySelector("#app");
+  appContainerElement.innerHTML = "";
+  const bodyElement = document.querySelector("body");
+  bodyElement.classList.remove("opacity-bg-img");
+  // EMPTY LOCAL STORAGE
   localStorage.clear();
   createLoginPage();
   loginListener();

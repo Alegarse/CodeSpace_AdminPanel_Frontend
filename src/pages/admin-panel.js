@@ -1,5 +1,6 @@
 import { createModalElement } from "../complements/modal-structure";
 import { createCardsUsersContainer } from "../complements/cardUser";
+import { clearSessionListener } from "../events/general-events";
 
 function createSidebarElement() {
   const adminSidebarContainer = document.createElement("nav");
@@ -47,7 +48,7 @@ function createNavbarItemsElements() {
     { name: "PERFIL", href: "#profile" },
     { name: "USUARIOS", href: "#users" },
     { name: "CONFIGURACIÓN", href: "#config" },
-    { name: "CERRAR SESIÓN", href: "#logOut" },
+    { name: "CERRAR SESIÓN", href: "#logOut", id: "clear-session" },
   ];
 
   navItems.forEach((item) => {
@@ -59,6 +60,7 @@ function createNavbarItemsElements() {
     aElement.textContent = item.name;
     aElement.href = item.href;
     aElement.target = "_self";
+    if (item.href === "#logOut") aElement.id = item.id;
 
     liElement.appendChild(aElement);
     adminNavbarElement.appendChild(liElement);
@@ -88,4 +90,5 @@ export function createAdminPanel() {
   appContainerElement.appendChild(createModalElement());
 
   createCardsUsersContainer();
+  clearSessionListener();
 }

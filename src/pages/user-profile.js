@@ -1,3 +1,5 @@
+import { clearSessionListener } from "../events/general-events";
+
 function createSidebarElement() {
   const userSidebarContainer = document.createElement("nav");
   userSidebarContainer.classList = "sidebar-container";
@@ -33,7 +35,7 @@ function createNavbarItemsElements() {
 
   const navItems = [
     { name: "PERFIL", href: "#" },
-    { name: "CERRAR SESIÓN", href: "#logOut" },
+    { name: "CERRAR SESIÓN", href: "#logOut", id: "clear-session" },
   ];
 
   navItems.forEach((item) => {
@@ -45,6 +47,7 @@ function createNavbarItemsElements() {
     aElement.textContent = item.name;
     aElement.href = item.href;
     aElement.target = "_self";
+    if (item.href === "#logOut") aElement.id = item.id;
 
     liElement.appendChild(aElement);
     userNavbarElement.appendChild(liElement);
@@ -80,4 +83,6 @@ export function createUserProfile() {
   userPanelElement.appendChild(usersPanelElement);
 
   appContainerElement.appendChild(userPanelElement);
+
+  clearSessionListener();
 }
