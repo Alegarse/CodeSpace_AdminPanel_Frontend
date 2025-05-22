@@ -4,6 +4,7 @@ import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
 import { loginListener } from "../events/login-events";
 
+// All endpoints call
 async function callApi(method, url, data = null) {
   try {
     return await makeAuthorizedRequest(method, url, data);
@@ -20,6 +21,7 @@ async function callApi(method, url, data = null) {
   }
 }
 
+// Verify Authorized petition
 async function makeAuthorizedRequest(method, url, data = null) {
 
   const token = localStorage.getItem("access_token");
@@ -37,16 +39,15 @@ async function makeAuthorizedRequest(method, url, data = null) {
     error.status = response.status;
     throw error;
   }
-
   return response.json();
 }
 
+// Get Token refresh
 async function refreshToken() {
   const refresh = localStorage.getItem("refresh_token");
   if (!refresh) throw new Error("Token de resfresco no existe");
 
   const urlLogin = apiConfig.baseUrl;
-
   try {
     const renoveTokens = await fetch(urlLogin, {
       method: "GET",
@@ -59,12 +60,13 @@ async function refreshToken() {
       localStorage.setItem("refresh_token", dataTokens.token_refresh);
     }
   } catch (error) {
-    if (error.status === 401) { // Correccion realizada
+    if (error.status === 401) {
       goToLogin();
     }
   }
 }
 
+// Function to close session and route to login page
 export function goToLogin() {
   const appContainerElement = document.querySelector("#app");
   appContainerElement.innerHTML = "";
@@ -76,6 +78,7 @@ export function goToLogin() {
   loginListener();
 }
 
+// Function to Make Login
 export async function loginUser(userEmail, userPassword) {
   try {
     const dataUserLogin = {
@@ -101,11 +104,11 @@ export async function loginUser(userEmail, userPassword) {
   }
 }
 
-//callApi(method, url, data = null)
+// Function to get Profile [Admin And User]
 async function getUserProfile() {
   try {
     const urlToProfile = apiConfig.profileUrl;
-    const user = await callApi("GET", urlToProfile); // Falla aqui
+    const user = await callApi("GET", urlToProfile);
 
     // SAVE DATA TO LOCAL STORAGE
     localStorage.setItem("userData", JSON.stringify(user.data));
