@@ -3,6 +3,7 @@ import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
 import { loginListener } from "../events/login-events";
+import { errorMessage } from "../../utils/general";
 
 // All endpoints call
 export async function callApi(method, url, data = null) {
@@ -73,7 +74,7 @@ export function goToLogin() {
   bodyElement.classList.remove("opacity-bg-img");
   const appContainerElement = document.querySelector("#app");
   appContainerElement.innerHTML = "";
-  
+
   // EMPTY LOCAL STORAGE
   localStorage.clear();
   createLoginPage();
@@ -95,12 +96,21 @@ export async function loginUser(userEmail, userPassword) {
     });
     const dataUserLogged = await userLogged.json();
 
-    // SAVE DATA TO LOCAL STORAGE
-    localStorage.setItem("access_token", dataUserLogged.token);
-    localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
+    if (dataUserLogged.status === "ERR_LOGIN") {
+      const errorContainer = document.querySelector(".login-container");
+      const messageElement = errorMessage(dataUserLogged.status);
+      errorContainer.appendChild(messageElement);
+      setTimeout(() => {
+        errorContainer.removeChild(messageElement);
+      },5000);
+    } else {
+      // SAVE DATA TO LOCAL STORAGE
+      localStorage.setItem("access_token", dataUserLogged.token);
+      localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
 
-    // Try to get Data User
-    getUserProfile();
+      // Try to get Data User
+      getUserProfile();
+    }
   } catch (error) {
     throw error;
   }
