@@ -24,7 +24,7 @@ export function createLoginPage() {
   inputEmail.setAttribute("required", true);
   inputEmail.placeholder = "example@dominio.com";
   inputEmail.id = "input-email";
-  inputEmail.type = "text";
+  inputEmail.type = "email";
 
   const labelPassword = document.createElement("label");
   labelPassword.textContent = "Contraseña";

@@ -102,6 +102,7 @@ export async function loginUser(userEmail, userPassword) {
       errorContainer.appendChild(messageElement);
       setTimeout(() => {
         errorContainer.removeChild(messageElement);
+        document.querySelector("#form-login").reset();
       },5000);
     } else {
       // SAVE DATA TO LOCAL STORAGE
