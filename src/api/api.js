@@ -3,7 +3,7 @@ import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
 import { loginListener } from "../events/login-events";
-import { errorMessage } from "../../utils/general";
+import { errorMessage } from "../utils/general";
 
 // All endpoints call
 export async function callApi(method, url, data = null) {

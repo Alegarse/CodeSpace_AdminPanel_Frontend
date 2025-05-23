@@ -1,4 +1,4 @@
-import { getUserProfile, goToLogin } from "../src/api/api";
+import { getUserProfile, goToLogin } from "../api/api";
 import { codeError } from "./errors";
 
 export async function checkIsLogged() {
