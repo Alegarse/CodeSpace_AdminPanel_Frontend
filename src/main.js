@@ -3,14 +3,17 @@ import { createLoginPage } from './pages/login';
 import { loginListener } from './events/login-events';
 import { createAdminPanel } from './pages/admin-panel';
 import { createCardsUsersContainer } from './complements/cardUser';
+import { createRegisterPage } from './pages/register';
 
-createLoginPage();
+//createLoginPage();
 
-loginListener();
+//loginListener();
 
 //createAdminPanel();
 
-createCardsUsersContainer();
+//createCardsUsersContainer();
+createRegisterPage();
+
 
 /**
  * PASOS NECESARIOS 
