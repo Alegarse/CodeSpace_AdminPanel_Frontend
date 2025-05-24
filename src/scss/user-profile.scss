@@ -63,4 +63,9 @@
 
 .sidebar-container {
     padding: 1rem;
+    overflow: hidden;
+}
+
+#elements-panel-container { 
+    overflow-y: auto;
 }

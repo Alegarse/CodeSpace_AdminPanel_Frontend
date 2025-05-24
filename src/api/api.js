@@ -95,7 +95,7 @@ export async function loginUser(userEmail, userPassword) {
     });
     const dataUserLogged = await userLogged.json();
 
-    if (dataUserLogged.status === "ERR_LOGIN") {
+    if (dataUserLogged.status !== "Success") {
       const errorContainer = document.querySelector(".login-container");
       const messageElement = errorMessage(dataUserLogged.status);
       errorContainer.appendChild(messageElement);

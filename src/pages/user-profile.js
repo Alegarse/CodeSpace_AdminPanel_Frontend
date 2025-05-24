@@ -1,73 +1,117 @@
+import { createSidebarElement } from "../complements/sidebar";
 import { clearSessionListener } from "../events/general-events";
+import { getFormattedDate } from "../utils/general";
 
-function createSidebarElement() {
-  const userSidebarContainer = document.createElement("nav");
-  userSidebarContainer.classList = "sidebar-container";
+function createSubscriptionInfo(subscription) {
+  const subscriptionElement = document.createElement("div");
+  subscriptionElement.classList = "subscription-info-container";
 
-  const logoElement = createLogoElement();
+  const titleSubscription = document.createElement("p");
+  titleSubscription.classList = "title-subscription";
+  titleSubscription.textContent = "Subscripción:";
 
-  const userName = document.createElement("h2");
+  const subscriptionTypeActive = document.createElement("p");
+  subscriptionTypeActive.classList = "active-subscription";
+  subscriptionTypeActive.textContent = subscription.toUpperCase();
 
-  const user = JSON.parse(localStorage.getItem("userData"));
-  userName.textContent = user.name;
-  userName.classList = "user-name";
+  subscriptionElement.appendChild(titleSubscription);
+  subscriptionElement.appendChild(subscriptionTypeActive);
 
-  const userPanelLine = document.createElement("hr");
-  userPanelLine.classList = "line";
-
-  const userSidebarItems = document.createElement("div");
-  userSidebarItems.classList = "sidebar-items";
-
-  const navbarElement = createNavbarItemsElements();
-
-  userSidebarContainer.appendChild(logoElement);
-  userSidebarContainer.appendChild(userName);
-  userSidebarContainer.appendChild(userPanelLine);
-  userSidebarItems.appendChild(navbarElement);
-  userSidebarContainer.appendChild(userSidebarItems);
-
-  return userSidebarContainer;
+  return subscriptionElement;
 }
 
-function createNavbarItemsElements() {
-  const userNavbarElement = document.createElement("ul");
-  userNavbarElement.classList = "user-navbar";
+function createProfileInfo(userData) {
+  const profileContainerElement = document.createElement("div");
+  profileContainerElement.classList = "profile-container";
 
-  const navItems = [
-    { name: "PERFIL", href: "#" },
-    { name: "CERRAR SESIÓN", href: "#logOut", id: "clear-session" },
-  ];
+  const userPhoto = document.createElement("img");
+  userPhoto.classList = "photo-profile";
+  userPhoto.src =
+    userData.profilePictureUrl === ""
+      ? "/src/imgs/empty-photo-profile.png"
+      : userData.profilePictureUrl;
 
-  navItems.forEach((item) => {
-    const liElement = document.createElement("li");
-    liElement.classList = "navbar-item";
+  const userLastAccessLabel = document.createElement("p");
+  userLastAccessLabel.textContent = "Ultimo acceso:";
+  userLastAccessLabel.classList = "user-lastaccess-label";
 
-    const aElement = document.createElement("a");
-    aElement.classList = "navbar-link";
-    aElement.textContent = item.name;
-    aElement.href = item.href;
-    aElement.target = "_self";
-    if (item.href === "#logOut") aElement.id = item.id;
+  const userLastAccess = document.createElement("p");
+  userLastAccess.textContent = getFormattedDate(userData.lastAccess, true);
+  userLastAccess.classList = "user-lastaccess";
 
-    liElement.appendChild(aElement);
-    userNavbarElement.appendChild(liElement);
-  });
+  const userNameLabel = document.createElement("p");
+  userNameLabel.textContent = "Nombre:";
+  userNameLabel.classList = "user-name-label";
 
-  return userNavbarElement;
-}
+  const userName = document.createElement("p");
+  userName.textContent = userData.name;
+  userName.classList = "name-user";
 
-function createLogoElement() {
-  const logoElement = document.createElement("img");
-  logoElement.classList = "logo-user";
-  logoElement.src = "/src/imgs/logo-plants.png";
-  logoElement.alt = "logo";
+  const userLastnameLabel = document.createElement("p");
+  userLastnameLabel.textContent = "Apellidos:";
+  userLastnameLabel.classList = "user-lastname-label";
 
-  return logoElement;
+  const userLastname = document.createElement("p");
+  userLastname.textContent = userData.lastName;
+  userLastname.classList = "lastname-user";
+
+  const userAddressLabel = document.createElement("p");
+  userAddressLabel.textContent = "Direccion:";
+  userAddressLabel.classList = "user-address-label";
+
+  const userAddress = document.createElement("p");
+  userAddress.textContent = userData.address;
+  userAddress.classList = "address.user";
+
+  const userPhoneLabel = document.createElement("p");
+  userPhoneLabel.textContent = "Teléfono:";
+  userPhoneLabel.classList = "user-phone-label";
+
+  const userPhone = document.createElement("p");
+  userPhone.textContent = userData.phone;
+  userPhone.classList = "phone-user";
+
+  const userBirthdateLabel = document.createElement("p");
+  userBirthdateLabel.textContent = "Fecha de nacimiento:";
+  userBirthdateLabel.classList = "user-birthdate-label";
+
+  const userBirthdate = document.createElement("p");
+  userBirthdate.textContent = getFormattedDate(userData.birthDate);
+  userBirthdate.classList = "birthdate-user";
+
+  const userEmailLabel = document.createElement("p");
+  userEmailLabel.textContent = "Email:";
+  userEmailLabel.classList = "user-email-label";
+
+  const userEmail = document.createElement("p");
+  userEmail.textContent = userData.email;
+  userEmail.classList = "email-user";
+
+  profileContainerElement.appendChild(userPhoto);
+  profileContainerElement.appendChild(userLastAccessLabel);
+  profileContainerElement.appendChild(userLastAccess);
+  profileContainerElement.appendChild(userNameLabel);
+  profileContainerElement.appendChild(userName);
+  profileContainerElement.appendChild(userLastnameLabel);
+  profileContainerElement.appendChild(userLastname);
+  profileContainerElement.appendChild(userAddressLabel);
+  profileContainerElement.appendChild(userAddress);
+  profileContainerElement.appendChild(userPhoneLabel);
+  profileContainerElement.appendChild(userPhone);
+  profileContainerElement.appendChild(userBirthdateLabel);
+  profileContainerElement.appendChild(userBirthdate);
+  profileContainerElement.appendChild(userEmailLabel);
+  profileContainerElement.appendChild(userEmail);
+
+  return profileContainerElement;
 }
 
 export function createUserProfile() {
   const bodyElement = document.querySelector("body");
   bodyElement.classList.add("opacity-bg-img");
+
+  const userData = JSON.parse(localStorage.getItem("userData"));
+console.log(userData);
 
   const appContainerElement = document.querySelector("#app");
 
@@ -79,10 +123,17 @@ export function createUserProfile() {
   const usersPanelElement = document.createElement("div");
   usersPanelElement.id = "elements-panel-container";
 
+  //Subscription Info
+  usersPanelElement.appendChild(createSubscriptionInfo(userData.subscription));
+
+  //Data user Info
+  usersPanelElement.appendChild(createProfileInfo(userData));
+
   userPanelElement.appendChild(sidebarElement);
   userPanelElement.appendChild(usersPanelElement);
 
   appContainerElement.appendChild(userPanelElement);
 
+  // LOGOUT Listener
   clearSessionListener();
 }
