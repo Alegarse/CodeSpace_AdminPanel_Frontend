@@ -1,8 +1,7 @@
-import './scss/style.scss';
-import * as bootstrap from 'bootstrap'
-import { createLoginPage } from './pages/login';
-import { loginListener } from './events/login-events';
-import { createModalElement } from './complements/modal-structure';
+import "./scss/style.scss";
+import * as bootstrap from "bootstrap";
+import { checkIsLogged } from "./utils/general";
 
-createLoginPage();
-loginListener();
+document.addEventListener("DOMContentLoaded", () => {
+  checkIsLogged();
+});

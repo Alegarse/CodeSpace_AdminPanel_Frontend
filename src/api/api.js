@@ -3,9 +3,10 @@ import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
 import { loginListener } from "../events/login-events";
+import { errorMessage } from "../utils/general";
 
 // All endpoints call
-async function callApi(method, url, data = null) {
+export async function callApi(method, url, data = null) {
   try {
     return await makeAuthorizedRequest(method, url, data);
   } catch (error) {
@@ -15,6 +16,7 @@ async function callApi(method, url, data = null) {
         return await makeAuthorizedRequest(method, url, data);
       } catch (refreshError) {
         throw refreshError;
+        goToLogin();
       }
     }
     throw error;
@@ -23,9 +25,10 @@ async function callApi(method, url, data = null) {
 
 // Verify Authorized petition
 async function makeAuthorizedRequest(method, url, data = null) {
-
   const token = localStorage.getItem("access_token");
-  if (!token) throw new Error("Token no existe");
+  if (!token) {
+    throw new Error("Token no existe");
+  }
   const headers = { "Content-Type": "application/json", "auth-token": token };
 
   const response = await fetch(url, {
@@ -44,11 +47,10 @@ async function makeAuthorizedRequest(method, url, data = null) {
 
 // Get Token refresh
 async function refreshToken() {
-  const refresh = localStorage.getItem("refresh_token");
-  if (!refresh) throw new Error("Token de resfresco no existe");
-
-  const urlLogin = apiConfig.baseUrl;
   try {
+    const refresh = localStorage.getItem("refresh_token");
+    if (!refresh) throw new Error("Token de resfresco no existe");
+    const urlLogin = apiConfig.baseUrl;
     const renoveTokens = await fetch(urlLogin, {
       method: "GET",
       headers: { "Content-Type": "application/json", "auth-token": refresh },
@@ -68,10 +70,11 @@ async function refreshToken() {
 
 // Function to close session and route to login page
 export function goToLogin() {
-  const appContainerElement = document.querySelector("#app");
-  appContainerElement.innerHTML = "";
   const bodyElement = document.querySelector("body");
   bodyElement.classList.remove("opacity-bg-img");
+  const appContainerElement = document.querySelector("#app");
+  appContainerElement.innerHTML = "";
+
   // EMPTY LOCAL STORAGE
   localStorage.clear();
   createLoginPage();
@@ -93,19 +96,29 @@ export async function loginUser(userEmail, userPassword) {
     });
     const dataUserLogged = await userLogged.json();
 
-    // SAVE DATA TO LOCAL STORAGE
-    localStorage.setItem("access_token", dataUserLogged.token);
-    localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
+    if (dataUserLogged.status === "ERR_LOGIN") {
+      const errorContainer = document.querySelector(".login-container");
+      const messageElement = errorMessage(dataUserLogged.status);
+      errorContainer.appendChild(messageElement);
+      setTimeout(() => {
+        errorContainer.removeChild(messageElement);
+        document.querySelector("#form-login").reset();
+      },5000);
+    } else {
+      // SAVE DATA TO LOCAL STORAGE
+      localStorage.setItem("access_token", dataUserLogged.token);
+      localStorage.setItem("refresh_token", dataUserLogged.token_refresh);
 
-    // Try to get Data User
-    getUserProfile();
+      // Try to get Data User
+      getUserProfile();
+    }
   } catch (error) {
     throw error;
   }
 }
 
 // Function to get Profile [Admin And User]
-async function getUserProfile() {
+export async function getUserProfile() {
   try {
     const urlToProfile = apiConfig.profileUrl;
     const user = await callApi("GET", urlToProfile);
