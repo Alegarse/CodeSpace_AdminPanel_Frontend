@@ -15,7 +15,6 @@ export async function callApi(method, url, data = null) {
         await refreshToken();
         return await makeAuthorizedRequest(method, url, data);
       } catch (refreshError) {
-        throw refreshError;
         goToLogin();
       }
     }
