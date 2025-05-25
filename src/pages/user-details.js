@@ -113,8 +113,8 @@ function createPersonalAddressElement(address) {
   personalTitleAddress.textContent = "Dirección:";
   personalTitleAddress.setAttribute("for", "Address");
 
-  const personalDataAddress = document.createElement("span");
-  personalDataAddress.textContent = address;
+  const personalDataAddress = document.createElement("input");
+  personalDataAddress.value = address;
 
   personalAddressContainer.appendChild(personalTitleAddress);
   personalAddressContainer.appendChild(personalDataAddress);
@@ -250,20 +250,20 @@ function createUserFavorites(userData) {
   userFavoritesTitle.appendChild(userFavoritePlants);
   userFavoritePlants.appendChild(createPlantFavorites(userData.favPlants));
 
-  /*const userFavoriteProducts = document.createElement("h3");
+  const userFavoriteProducts = document.createElement("h3");
   userFavoriteProducts.textContent = "PRODUCTOS FAVORITOS";
   userFavoritesTitle.appendChild(userFavoriteProducts)
-  userFavoriteProducts.appendChild(createProductFavorites(userData.products));
+  userFavoriteProducts.appendChild(createProductFavorites(userData.favProducts));
 
   const userFavoriteTools = document.createElement("h3");
   userFavoriteTools.textContent = "HERRAMIENTAS FAVORITAS";
   userFavoritesTitle.appendChild(userFavoriteTools);
-  userFavoriteTools.appendChild(createToolFavorites(userData.tools));
+  userFavoriteTools.appendChild(createToolFavorites(userData.favTools));
 
   const userFavoriteAccessories = document.createElement("h3");
   userFavoriteAccessories.textContent = "ACCESORIOS FAVORITAS";
   userFavoritesTitle.appendChild(userFavoriteAccessories);
-  userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.accessories));*/
+  userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.favAccessories));
 
   return userFavoritesContainer;
 }
@@ -281,8 +281,42 @@ function createPlantFavorites(plants) {
   return plantFavoritesContainer;
 }
 
-function createProductFavorites(userData) {}
+function createProductFavorites(userData) {
+  const plantFavoritesContainer = document.createElement("ul");
+  plantFavoritesContainer.classList = "plant-favorites";
 
-function createToolFavorites(userData) {}
+  plants.forEach((plant) => {
+    const itemPlant = document.createElement("li");
+    itemPlant.textContent = plant;
+    plantFavoritesContainer.appendChild(itemPlant);
+  });
 
-function createAccessoryFavorites(userData) {}
+  return plantFavoritesContainer;
+}
+
+
+function createToolFavorites(userData) {
+  const plantFavoritesContainer = document.createElement("ul");
+  plantFavoritesContainer.classList = "plant-favorites";
+
+  plants.forEach((plant) => {
+    const itemPlant = document.createElement("li");
+    itemPlant.textContent = plant;
+    plantFavoritesContainer.appendChild(itemPlant);
+  });
+
+  return plantFavoritesContainer;
+}
+
+function createAccessoryFavorites(userData) {
+  const plantFavoritesContainer = document.createElement("ul");
+  plantFavoritesContainer.classList = "plant-favorites";
+
+  plants.forEach((plant) => {
+    const itemPlant = document.createElement("li");
+    itemPlant.textContent = plant;
+    plantFavoritesContainer.appendChild(itemPlant);
+  });
+
+  return plantFavoritesContainer;
+}
