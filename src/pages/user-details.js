@@ -64,9 +64,9 @@ function createPersonalData(userData) {
 
   personalDataContainer.appendChild(personalDataTitle);
 
-  personalDataTitle.appendChild(createPersonalEmailElement(userData.email));
-  personalDataTitle.appendChild(createPersonalPhoneElement(userData.phone));
-  personalDataTitle.appendChild(createPersonalAddressElement(userData.address));
+  personalDataContainer.appendChild(createPersonalEmailElement(userData.email));
+  personalDataContainer.appendChild(createPersonalPhoneElement(userData.phone));
+  personalDataContainer.appendChild(createPersonalAddressElement(userData.address));
 
   return personalDataContainer;
 }
@@ -124,8 +124,6 @@ function createPersonalAddressElement(address) {
 
 //Creo el apartado de los datos de registro y sus mini funciones anidadas
 function createUserResgistration(userData) {
-  console.log('-------------')
-  console.log(userData)
   const userRegistrationContainer = document.createElement("div");
   userRegistrationContainer.classList = "registration-container";
 
@@ -135,15 +133,15 @@ function createUserResgistration(userData) {
 
   userRegistrationContainer.appendChild(userRegistrationTitle);
 
-  userRegistrationTitle.appendChild(createDateUserElement(userData.date));
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(createDateUserElement(userData.date));
+  userRegistrationContainer.appendChild(
     createOrderCountElement(userData.orderCount)
   );
-  userRegistrationTitle.appendChild(createPasswordElement(userData.password));
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(createPasswordElement(userData.password));
+  userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
   );
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(
     createBankAccountNumberElement(userData.bankAccountNumber)
   );
 
