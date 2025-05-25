@@ -10,20 +10,6 @@ export async function checkIsLogged() {
   }
 }
 
-export function errorMessage(code) {
-    const errorContainer = document.createElement('div');
-
-    errorContainer.classList = "error-message-container"
-
-    const messageError = document.createElement("p");
-    messageError.classList = "error-message";
-    messageError.textContent = codeError[code];
-
-    errorContainer.appendChild(messageError);
-
-    return errorContainer;
-}
-
 export function getFormattedDate(date,includeTime = false) {
 
   const constDate  = new Date(date);

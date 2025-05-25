@@ -1,12 +1,11 @@
 export function createRegisterPage() {
-  
   const domContainer = document.querySelector("#app");
 
   const registerElement = document.createElement("div");
   registerElement.classList = "register-container";
 
   const registerTitle = document.createElement("h2");
-  registerTitle.className = 'title-register'
+  registerTitle.className = "title-register";
   registerTitle.textContent = "Registrar nuevo usuario";
 
   const formContainer = document.createElement("form");
@@ -73,9 +72,12 @@ export function createRegisterPage() {
   buttonRegister.classList = "button-register";
   buttonRegister.textContent = "Registrarse";
 
-  const separatorElement = document.createElement('div');
-  separatorElement.classList = "separator"
-  separatorElement.textContent = "ó"
+  const errorMessageContainer = document.createElement("div");
+  errorMessageContainer.classList = "error-message-container";
+
+  const separatorElement = document.createElement("div");
+  separatorElement.classList = "separator";
+  separatorElement.textContent = "ó";
 
   const buttonBackToLogin = document.createElement("button");
   buttonBackToLogin.type = "button";
@@ -95,9 +97,9 @@ export function createRegisterPage() {
   formContainer.appendChild(labelPassword);
   formContainer.appendChild(inputPassword);
   formContainer.appendChild(buttonRegister);
+  formContainer.appendChild(errorMessageContainer);
   formContainer.appendChild(separatorElement);
   formContainer.appendChild(buttonBackToLogin);
-
 
   registerElement.appendChild(registerTitle);
   registerElement.appendChild(formContainer);

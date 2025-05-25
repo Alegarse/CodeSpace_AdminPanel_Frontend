@@ -3,7 +3,7 @@ import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
 import { goToRegisterPageListener, loginListener } from "../events/login-events";
-import { errorMessage } from "../utils/general";
+import { codeError } from "../utils/errors";
 
 // All endpoints call
 export async function callApi(method, url, data = null) {
@@ -97,11 +97,10 @@ export async function loginUser(userEmail, userPassword) {
     const dataUserLogged = await userLogged.json();
 
     if (dataUserLogged.status !== "Success") {
-      const errorContainer = document.querySelector(".login-container");
-      const messageElement = errorMessage(dataUserLogged.status);
-      errorContainer.appendChild(messageElement);
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = codeError[code];
       setTimeout(() => {
-        errorContainer.removeChild(messageElement);
+        errorContainer.textContent = ""
         document.querySelector("#form-login").reset();
       },5000);
     } else {
@@ -139,11 +138,10 @@ export async function registerUser(userName, userLastName, userEmail, userAddres
     console.log(dataUserRegistered);
 
     if (dataUserRegistered.status !== "Success") {
-      const errorContainer = document.querySelector(".register-container");
-      const messageElement = errorMessage(dataUserRegistered.status);
-      errorContainer.appendChild(messageElement);
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = codeError[code];
       setTimeout(() => {
-        errorContainer.removeChild(messageElement);
+        errorContainer.textContent = "";
         //document.querySelector("#form-register").reset();
       },5000);
     } else {

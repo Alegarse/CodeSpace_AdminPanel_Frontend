@@ -38,6 +38,9 @@ export function createLoginPage() {
   buttonLogin.classList = "button-login";
   buttonLogin.textContent = "Entrar";
 
+  const errorMessageContainer = document.createElement('div');
+  errorMessageContainer.classList = "error-message-container"  
+
   const separatorElement = document.createElement('div');
   separatorElement.classList = "separator"
   separatorElement.textContent = "ó"
@@ -54,6 +57,7 @@ export function createLoginPage() {
   formContainer.appendChild(labelPassword);
   formContainer.appendChild(inputPassword);
   formContainer.appendChild(buttonLogin);
+  formContainer.appendChild(errorMessageContainer);
   formContainer.appendChild(separatorElement);
   formContainer.appendChild(buttonRegister);
 
