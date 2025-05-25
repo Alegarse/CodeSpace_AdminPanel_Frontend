@@ -1,3 +1,4 @@
+import { callApi, getUserDetails } from "../api/api";
 import { updateModalElement } from "../complements/modal-structure";
 import {
   createDateUser,
@@ -5,40 +6,19 @@ import {
   createNameUser,
 } from "../complements/user-helper-methods";
 
-export const user = {
-  _id: {
-    $oid: "682795eb78fdfc8b6e247647",
-  },
-  name: "Elena",
-  lastName: "Obregón",
-  email: "elena@vivero.com",
-  date: "2024-08-22",
-  address: "Calle Vivero nº22",
-  password: "$2b$10$U8T5L29FIdnWysCvEjI8q.uOnHR.LMr11CkYomHeOGfRHMydU9cBm",
-  role: "admin",
-  phone: "666777888",
-  orderCount: 3,
-  subscription: "test",
-  bankAccountNumber: "TEST1234",
-  plants: ["plant1"],
-  products: ["product1"],
-  tools: ["tool1"],
-  accessories: ["a1"],
-  profilePictureUrl: "",
-  __v: 0,
-};
-
-//añadir: número de pedidos, contraseña, número de cuenta, tipo de suscripcion
 
 //Creo el modal anidando todo
-export function createUserModal(userId=null) {
+export async function createUserModal(userId=null) {
   const modalContent = document.createElement("div");
   modalContent.classList = "modal-container";
 
   const modalPrincipalInfoElement = document.createElement("div");
   modalPrincipalInfoElement.classList = "modal-principalInfo";
 
-  const userData = user; // Hacer llamada aquí al backend para traer datos del usuario con el userId
+  // Llamamos al backend para traer detalles de usuario
+  const testUserId = '682795eb78fdfc8b6e247647'; // borrar es solo para test
+  const userData = (await getUserDetails(testUserId))?.data;
+  console.log(userData)
 
   modalPrincipalInfoElement.appendChild(
     createImgUser(userData.profilePictureUrl, "photo-user-details")
@@ -91,7 +71,7 @@ function createPersonalData(userData) {
   return personalDataContainer;
 }
 
-function createPersonalEmailElement(userData) {
+function createPersonalEmailElement(email) {
   const personalEmailContainer = document.createElement("div");
   personalEmailContainer.classList = "email-container";
 
@@ -100,7 +80,7 @@ function createPersonalEmailElement(userData) {
   personalTitleEmail.setAttribute("for", "Email");
 
   const personalDataEmail = document.createElement("span");
-  personalDataEmail.textContent = userData.email;
+  personalDataEmail.textContent = email;
 
   personalEmailContainer.appendChild(personalTitleEmail);
   personalEmailContainer.appendChild(personalDataEmail);
@@ -108,7 +88,7 @@ function createPersonalEmailElement(userData) {
   return personalEmailContainer;
 }
 
-function createPersonalPhoneElement(userData) {
+function createPersonalPhoneElement(phone) {
   const personalPhoneContainer = document.createElement("div");
   personalPhoneContainer.classList = "phone-container";
 
@@ -117,7 +97,7 @@ function createPersonalPhoneElement(userData) {
   personalTitlePhone.setAttribute("for", "Phone");
 
   const personalDataPhone = document.createElement("span");
-  personalDataPhone.textContent = userData.phone;
+  personalDataPhone.textContent = phone;
 
   personalPhoneContainer.appendChild(personalTitlePhone);
   personalPhoneContainer.appendChild(personalDataPhone);
@@ -125,7 +105,7 @@ function createPersonalPhoneElement(userData) {
   return personalPhoneContainer;
 }
 
-function createPersonalAddressElement(userData) {
+function createPersonalAddressElement(address) {
   const personalAddressContainer = document.createElement("div");
   personalAddressContainer.classList = "address-container";
 
@@ -134,7 +114,7 @@ function createPersonalAddressElement(userData) {
   personalTitleAddress.setAttribute("for", "Address");
 
   const personalDataAddress = document.createElement("span");
-  personalDataAddress.textContent = userData.address;
+  personalDataAddress.textContent = address;
 
   personalAddressContainer.appendChild(personalTitleAddress);
   personalAddressContainer.appendChild(personalDataAddress);
@@ -144,6 +124,8 @@ function createPersonalAddressElement(userData) {
 
 //Creo el apartado de los datos de registro y sus mini funciones anidadas
 function createUserResgistration(userData) {
+  console.log('-------------')
+  console.log(userData)
   const userRegistrationContainer = document.createElement("div");
   userRegistrationContainer.classList = "registration-container";
 
@@ -184,7 +166,7 @@ function createDateUserElement(userData) {
   return dateUserContainer;
 }
 
-function createOrderCountElement(userData) {
+function createOrderCountElement(orderCountData) {
   const orderCountContainer = document.createElement("div");
   orderCountContainer.classList = "order-count-container";
 
@@ -193,7 +175,7 @@ function createOrderCountElement(userData) {
   orderCountTitle.setAttribute("for", "ordercount"); //iría así o separado?
 
   const orderCount = document.createElement("span");
-  orderCount.textContent = userData.orderCount;
+  orderCount.textContent = orderCountData;
 
   orderCountContainer.appendChild(orderCountTitle);
   orderCountContainer.appendChild(orderCount);
@@ -201,7 +183,7 @@ function createOrderCountElement(userData) {
   return orderCountContainer;
 }
 
-function createPasswordElement(userData) {
+function createPasswordElement(passwordData) {
   const passwordContainer = document.createElement("div");
   passwordContainer.classList = "password-container";
 
@@ -210,7 +192,7 @@ function createPasswordElement(userData) {
   passwordTitle.setAttribute("for", "password");
 
   const password = document.createElement("span");
-  password.textContent = userData.password;
+  password.textContent = passwordData;
 
   passwordContainer.appendChild(passwordTitle);
   passwordContainer.appendChild(password);
@@ -218,7 +200,7 @@ function createPasswordElement(userData) {
   return passwordContainer;
 }
 
-function createSubscriptionTypeElement(userData) {
+function createSubscriptionTypeElement(subscriptionData) {
   const subscriptionTypeContainer = document.createElement("div");
   subscriptionTypeContainer.classList = "subscription-container";
 
@@ -227,7 +209,7 @@ function createSubscriptionTypeElement(userData) {
   subscriptionTypeTitle.setAttribute("for", "subscription");
 
   const subscriptionType = document.createElement("span");
-  subscriptionType.textContent = userData.subscription;
+  subscriptionType.textContent = subscriptionData;
 
   subscriptionTypeContainer.appendChild(subscriptionTypeTitle);
   subscriptionTypeContainer.appendChild(subscriptionType);
@@ -235,7 +217,7 @@ function createSubscriptionTypeElement(userData) {
   return subscriptionTypeContainer;
 }
 
-function createBankAccountNumberElement(userData) {
+function createBankAccountNumberElement(bankAccountNumberData) {
   const bankAccountNumberContainer = document.createElement("div");
   bankAccountNumberContainer.classList = "bank-account-container";
 
@@ -244,7 +226,7 @@ function createBankAccountNumberElement(userData) {
   bankAccountNumberTitle.setAttribute("for", "bankAccountNumber");
 
   const bankAccountNumber = document.createElement("span");
-  bankAccountNumber.textContent = userData.bankAccountNumber;
+  bankAccountNumber.textContent = bankAccountNumberData;
 
   bankAccountNumberContainer.appendChild(bankAccountNumberTitle);
   bankAccountNumberContainer.appendChild(bankAccountNumber);
@@ -266,7 +248,7 @@ function createUserFavorites(userData) {
   const userFavoritePlants = document.createElement("h3");
   userFavoritePlants.textContent = "PLANTAS FAVORITAS";
   userFavoritesTitle.appendChild(userFavoritePlants);
-  userFavoritePlants.appendChild(createPlantFavorites(userData.plants));
+  userFavoritePlants.appendChild(createPlantFavorites(userData.favPlants));
 
   /*const userFavoriteProducts = document.createElement("h3");
   userFavoriteProducts.textContent = "PRODUCTOS FAVORITOS";
