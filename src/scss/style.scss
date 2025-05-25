@@ -1,5 +1,13 @@
 @use './reset.scss';
+//@use "../../node_modules/bootstrap/scss/bootstrap";
+@use './general.scss';
 @use './login.scss';
 @use './register.scss';
 @use './variables.scss';
 @use './adm-panel.scss';
+@use './user-profile.scss';
+@use './button.scss';
+@use './user-details.scss';
+
+@import "bootstrap/scss/bootstrap";
+

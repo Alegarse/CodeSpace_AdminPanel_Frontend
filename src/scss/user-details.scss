@@ -1,0 +1,44 @@
+.modal-header {
+  background-color: var(--color-bar-bg);
+}
+
+/* .modal-body {
+    border: var(--color-line)
+} */
+
+.modal-body {
+    padding: 2rem !important;
+}
+
+.modal-title {
+  color: var(--color-font-title);
+  font-family: var(--font-title);
+  font-weight: normal;
+  margin-block: 1rem;
+  font-size: 1.7rem !important;
+}
+
+.name-user {
+    font-size: 2rem;
+    font-family: var(--font-text);
+}
+
+.personal-data-title {
+    font-family: var(--font-text);
+    font-size: 1.4rem;
+}
+
+.registration-data-title {
+    font-family: var(--font-text);
+    font-size: 1.4rem;
+}
+
+.favorites-title {
+    font-family: var(--font-text);
+    font-size: 1.4rem;
+}
+
+.plants {
+    font-family: var(--font-text);
+    font-size: 1rem;
+}

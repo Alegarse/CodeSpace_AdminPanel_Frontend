@@ -1,3 +1,8 @@
+//import { user } from "../pages/user-details";
+import { createUserModal } from "../pages/user-details";
+import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
+
+
 function createCardUser(userData) {
   //Creo el div para cada card
   const cardContainer = document.createElement("div");
@@ -7,17 +12,18 @@ function createCardUser(userData) {
   const dataUser = document.createElement("div");
   dataUser.classList = "user-data";
   // Aqui appendchild de los datos
-  dataUser.appendChild(createNameUser(userData.name));
-  dataUser.appendChild(createMailUser(userData.mail));
+  dataUser.appendChild(createNameUser(userData.name, userData.lastname));
+  dataUser.appendChild(createEMailUser(userData.email));
   dataUser.appendChild(createDateUser(userData.date));
 
   //Creo un div para los botones
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
-  buttonsContainer.appendChild(createButtonforUpdateUser());
-  buttonsContainer.appendChild(createButtonforDeleteUser());
-  buttonsContainer.appendChild(createButtonforDisableUser());
+
+  buttonsContainer.appendChild(createButtonforUpdateUser(userData.id)); // añadido id
+  buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
+  buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.url));
@@ -27,45 +33,20 @@ function createCardUser(userData) {
   return cardContainer;
 }
 
-//Creacion de hueco para la foto
-function createImgUser(url) {
-  const imgUser = document.createElement("img");
-  imgUser.setAttribute("src", url);
-  imgUser.setAttribute("alt", "user photo");
-  imgUser.classList = "photo-user";
-  return imgUser;
-}
-
-//creacion del nombre
-function createNameUser(name) {
-  const nameUser = document.createElement("h4");
-  nameUser.textContent = name;
-  nameUser.classList = "name-user";
-  return nameUser;
-}
-
-//creacion de mail
-function createMailUser(mail) {
-  const mailUser = document.createElement("h5");
-  mailUser.textContent = mail;
-  mailUser.classList = "mail-user";
-  return mailUser;
-}
-
-//Creacion de la fecha del usuario
-function createDateUser(date) {
-  const dateUser = document.createElement("p");
-  dateUser.classList = "user-date";
-  dateUser.textContent = new Date(date).getFullYear();
-  return dateUser;
-}
-
 //Creacion boton modificar
-function createButtonforUpdateUser() {
+export function createButtonforUpdateUser(userId) {
   const buttonUpdate = document.createElement("button");
   buttonUpdate.setAttribute("id", "update-btn");
   buttonUpdate.setAttribute("type", "button");
   buttonUpdate.classList = "btn-update";
+  buttonUpdate.textContent = "Modificar";
+  buttonUpdate.setAttribute("data-bs-toggle", "modal");
+  buttonUpdate.setAttribute("data-bs-target", "#modal");
+
+  buttonUpdate.addEventListener('click', (event) => { // añadido
+    //event.preventDefault();
+    const modal = createUserModal(userId);
+  })
 
   return buttonUpdate;
 }
@@ -76,6 +57,7 @@ function createButtonforDeleteUser() {
   buttonDelete.setAttribute("id", "delete-btn");
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
+  buttonDelete.textContent = "Eliminar"
 
   return buttonDelete;
 }
@@ -86,21 +68,50 @@ function createButtonforDisableUser() {
   buttonDisable.setAttribute("id", "disable-btn");
   buttonDisable.setAttribute("type", "button");
   buttonDisable.classList = "btn-disable";
+  buttonDisable.textContent = "Desahibilitar"
 
   return buttonDisable;
 }
 
 export function createCardsUsersContainer(dataUsers) {
-  /*
-  EJEMPLO PARA VER SI ESTA BIEN O NO
-  dataUsers = [
+
+ dataUsers = [
     {
+      id: 'id1',
       name: "Pepito",
       email: "aaa@aaa.es",
       date: "20-05-2021",
       url: ""
     },
-  ]*/
+    {
+      id: 'id2',
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      id: 'id3',
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      id: 'id4',
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+    {
+      id: 'id5',
+      name: "Pepito",
+      email: "aaa@aaa.es",
+      date: "20-05-2021",
+      url: ""
+    },
+  ]
 
   const anchorElement = document.querySelector("#elements-panel-container");
 
@@ -119,7 +130,7 @@ export function createCardsUsersContainer(dataUsers) {
   dataUsers.forEach((user) => {
     cardsContainer.appendChild(createCardUser(user));
   });
-
+  
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);
 

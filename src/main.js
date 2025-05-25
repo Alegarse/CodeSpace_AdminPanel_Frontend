@@ -1,24 +1,10 @@
-import './scss/style.scss';
-import { createLoginPage } from './pages/login';
-import { loginListener } from './events/login-events';
-import { createAdminPanel } from './pages/admin-panel';
-import { createCardsUsersContainer } from './complements/cardUser';
+import "./scss/style.scss";
+import * as bootstrap from "bootstrap";
+import { checkIsLogged } from "./utils/general";
 import { createRegisterPage } from './pages/register';
 
-//createLoginPage();
-
-//loginListener();
-
-//createAdminPanel();
-
-//createCardsUsersContainer();
 createRegisterPage();
 
-
-/**
- * PASOS NECESARIOS 
- * 1. Crear los inputs y sus correspondientes label
- * 2. Crear el boton para hacer login
- * 3. Imagen representativa
- * 4. Link para recuperar contraseña
- */
+document.addEventListener("DOMContentLoaded", () => {
+  checkIsLogged();
+});
