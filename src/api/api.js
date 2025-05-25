@@ -140,11 +140,13 @@ export async function getUserProfile() {
 }
 
 //Function to obtain user favourites
-export async function getUserFavourites() {
+export async function getUserFavourite(idFavourite, type) {
   try {
-    const urlFavourites = apiConfig.favouritesUrl;
+    let urlFavourites = apiConfig.favouritesUrl;
+    urlFavourites += `/${type}/${idFavourite}`;
     const favourite = await callApi("GET", urlFavourites);
-    return favourite
+    console.log(favourite);
+     return favourite.data;
   } catch (error) {
     throw error;
   }

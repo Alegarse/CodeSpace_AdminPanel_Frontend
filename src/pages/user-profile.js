@@ -1,3 +1,4 @@
+import { getUserFavourite } from "../api/api";
 import { createSidebarElement } from "../complements/sidebar";
 import { clearSessionListener } from "../events/general-events";
 import { getFormattedDate } from "../utils/general";
@@ -131,15 +132,15 @@ function createToolsAndFavouritesInfo(userData) {
   const favsContainerElement = document.createElement("div");
   favsContainerElement.classList = "favourites-general-container";
 
-  favsContainerElement.appendChild(createGroupedFavsContainer("Plantas favoritas", userData.favPlants));
-  favsContainerElement.appendChild(createGroupedFavsContainer("Accesorios favoritos", userData.favAccessories));
-  favsContainerElement.appendChild(createGroupedFavsContainer("Productos favoritos", userData.favProducts));
-  favsContainerElement.appendChild(createGroupedFavsContainer("Herramientas favoritas", userData.favTools));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Plantas favoritas", userData.favPlants, "plant"));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Accesorios favoritos", userData.favAccessories, "accesory"));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Productos favoritos", userData.favProducts, "product"));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Herramientas favoritas", userData.favTools, "tool"));
 
   return favsContainerElement;
 }
 
-function createGroupedFavsContainer(title, content) {
+function createGroupedFavsContainer(title, content, type) {
 
   const favouritesContainer = document.createElement('div');
   favouritesContainer.classList = "favourites-container"
@@ -151,10 +152,11 @@ function createGroupedFavsContainer(title, content) {
   const contentContainer = document.createElement('div')
   contentContainer.classList = "favourites-content"
 
-  content.forEach((fav) => {
+  content.forEach(async (fav) => {
     const pElement = document.createElement('p')
     pElement.classList = "fav-item"
-    pElement.textContent = fav;
+    const favourite = await getUserFavourite(fav, type);
+    pElement.textContent = favourite.name;
     contentContainer.appendChild(pElement);
   })
 
