@@ -1,11 +1,13 @@
 export function createRegisterPage() {
+  
   const domContainer = document.querySelector("#app");
 
   const registerElement = document.createElement("div");
   registerElement.classList = "register-container";
 
   const registerTitle = document.createElement("h2");
-  registerTitle.textContent = "Registrar usuario";
+  registerTitle.className = 'title-register'
+  registerTitle.textContent = "Registrar nuevo usuario";
 
   const formContainer = document.createElement("form");
   formContainer.classList = "form-register";
@@ -36,15 +38,15 @@ export function createRegisterPage() {
   const inputTelefono = document.createElement("input");
   inputTelefono.setAttribute("required", true);
   inputTelefono.id = "input-telephone";
-  inputTelefono.type = "number";
+  inputTelefono.type = "text";
 
   const labelDireccion = document.createElement("label");
   labelDireccion.textContent = "Direccion";
-  labelDireccion.htmlFor = "input-Direction";
+  labelDireccion.htmlFor = "input-address";
 
   const inputDireccion = document.createElement("input");
   inputDireccion.setAttribute("required", true);
-  inputDireccion.id = "input-Direction";
+  inputDireccion.id = "input-address";
   inputDireccion.type = "text";
 
   const labelEmail = document.createElement("label");
@@ -53,9 +55,8 @@ export function createRegisterPage() {
 
   const inputEmail = document.createElement("input");
   inputEmail.setAttribute("required", true);
-  inputEmail.placeholder = "example@dominio.com";
   inputEmail.id = "input-email";
-  inputEmail.type = "text";
+  inputEmail.type = "email";
 
   const labelPassword = document.createElement("label");
   labelPassword.textContent = "Contraseña";
@@ -70,7 +71,16 @@ export function createRegisterPage() {
   const buttonRegister = document.createElement("button");
   buttonRegister.type = "submit";
   buttonRegister.classList = "button-register";
-  buttonRegister.textContent = "Registrar";
+  buttonRegister.textContent = "Registrarse";
+
+  const separatorElement = document.createElement('div');
+  separatorElement.classList = "separator"
+  separatorElement.textContent = "ó"
+
+  const buttonBackToLogin = document.createElement("button");
+  buttonBackToLogin.type = "button";
+  buttonBackToLogin.classList = "button-backtologin";
+  buttonBackToLogin.textContent = "Volver a Iniciar Sesión";
 
   formContainer.appendChild(labelNombre);
   formContainer.appendChild(inputNombre);
@@ -85,6 +95,9 @@ export function createRegisterPage() {
   formContainer.appendChild(labelPassword);
   formContainer.appendChild(inputPassword);
   formContainer.appendChild(buttonRegister);
+  formContainer.appendChild(separatorElement);
+  formContainer.appendChild(buttonBackToLogin);
+
 
   registerElement.appendChild(registerTitle);
   registerElement.appendChild(formContainer);

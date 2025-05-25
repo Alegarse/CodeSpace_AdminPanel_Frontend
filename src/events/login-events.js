@@ -1,4 +1,6 @@
 import { loginUser } from "../api/api";
+import { createRegisterPage } from "../pages/register";
+import { backToLoginPageButtonListener, registerButtonListener } from "./register-events";
 
 export function loginListener() {
 
@@ -12,4 +14,19 @@ export function loginListener() {
         const password = passwordElement.value;
         loginUser(email, password);
     })
+}
+
+export function goToRegisterPageListener() {
+  const buttonGoToRegisterPage = document.querySelector(".button-register");
+
+  buttonGoToRegisterPage.addEventListener("click", (event) => {
+    event.preventDefault();
+    // GO TO REGISTER PAGE
+    console.log("Click")
+    const appContainerElement = document.querySelector("#app");
+    appContainerElement.innerHTML = "";
+    createRegisterPage();
+    registerButtonListener();
+    backToLoginPageButtonListener();
+  });
 }

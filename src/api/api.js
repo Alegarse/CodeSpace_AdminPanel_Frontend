@@ -2,7 +2,7 @@ import { apiConfig } from "./api-config";
 import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
-import { loginListener } from "../events/login-events";
+import { goToRegisterPageListener, loginListener } from "../events/login-events";
 import { errorMessage } from "../utils/general";
 
 // All endpoints call
@@ -78,6 +78,7 @@ export function goToLogin() {
   localStorage.clear();
   createLoginPage();
   loginListener();
+  goToRegisterPageListener();
 }
 
 // Function to Make Login
@@ -110,6 +111,43 @@ export async function loginUser(userEmail, userPassword) {
 
       // Try to get Data User
       getUserProfile();
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Fucntion to register new user
+export async function registerUser(userName, userLastName, userEmail, userAddress, userPhone, userPassword) { 
+  try {
+    const dataUserRegister = {
+      name: userName,
+      lastName: userLastName,
+      email: userEmail,
+      address: userAddress,
+      phone: userPhone,
+      password: userPassword,
+    };
+    const urlRegister = apiConfig.registerUrl;
+    const userRegistered = await fetch(urlRegister, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataUserRegister),
+    });
+    const dataUserRegistered = await userRegistered.json();
+    console.log(dataUserRegistered);
+
+    if (dataUserRegistered.status !== "Success") {
+      const errorContainer = document.querySelector(".register-container");
+      const messageElement = errorMessage(dataUserRegistered.status);
+      errorContainer.appendChild(messageElement);
+      setTimeout(() => {
+        errorContainer.removeChild(messageElement);
+        //document.querySelector("#form-register").reset();
+      },5000);
+    } else {
+      //GO TO LOGIN PAGE
+      //goToLogin()
     }
   } catch (error) {
     throw error;
