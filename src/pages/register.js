@@ -74,6 +74,7 @@ export function createRegisterPage() {
 
   const errorMessageContainer = document.createElement("div");
   errorMessageContainer.classList = "error-message-container";
+  errorMessageContainer.textContent = "\u00A0";
 
   const separatorElement = document.createElement("div");
   separatorElement.classList = "separator";

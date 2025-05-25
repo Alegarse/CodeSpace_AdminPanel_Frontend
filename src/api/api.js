@@ -2,7 +2,10 @@ import { apiConfig } from "./api-config";
 import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
-import { goToRegisterPageListener, loginListener } from "../events/login-events";
+import {
+  goToRegisterPageListener,
+  loginListener,
+} from "../events/login-events";
 import { codeError } from "../utils/errors";
 
 // All endpoints call
@@ -98,11 +101,11 @@ export async function loginUser(userEmail, userPassword) {
 
     if (dataUserLogged.status !== "Success") {
       const errorContainer = document.querySelector(".error-message-container");
-      errorContainer.textContent = codeError[code];
+      errorContainer.textContent = codeError[dataUserLogged.status];
       setTimeout(() => {
-        errorContainer.textContent = ""
-        document.querySelector("#form-login").reset();
-      },5000);
+        errorContainer.textContent = "\u00A0";
+        //document.querySelector("#form-login").reset();
+      }, 5000);
     } else {
       // SAVE DATA TO LOCAL STORAGE
       localStorage.setItem("access_token", dataUserLogged.token);
@@ -117,7 +120,15 @@ export async function loginUser(userEmail, userPassword) {
 }
 
 // Fucntion to register new user
-export async function registerUser(userName, userLastName, userEmail, userAddress, userPhone, userPassword, userBirthdate) { 
+export async function registerUser(
+  userName,
+  userLastName,
+  userEmail,
+  userAddress,
+  userPhone,
+  userPassword,
+  userBirthdate
+) {
   try {
     const dataUserRegister = {
       name: userName,
@@ -135,18 +146,17 @@ export async function registerUser(userName, userLastName, userEmail, userAddres
       body: JSON.stringify(dataUserRegister),
     });
     const dataUserRegistered = await userRegistered.json();
-    console.log(dataUserRegistered);
 
     if (dataUserRegistered.status !== "Success") {
       const errorContainer = document.querySelector(".error-message-container");
-      errorContainer.textContent = codeError[code];
+      errorContainer.textContent = codeError[dataUserRegistered.status];
       setTimeout(() => {
-        errorContainer.textContent = "";
+        errorContainer.textContent = "\u00A0";
         //document.querySelector("#form-register").reset();
-      },5000);
+      }, 5000);
     } else {
       //GO TO LOGIN PAGE
-      goToLogin()
+      goToLogin();
     }
   } catch (error) {
     throw error;
@@ -182,8 +192,7 @@ export async function getUserFavourite(idFavourite, type) {
     let urlFavourites = apiConfig.favouritesUrl;
     urlFavourites += `/${type}/${idFavourite}`;
     const favourite = await callApi("GET", urlFavourites);
-    console.log(favourite);
-     return favourite.data;
+    return favourite.data;
   } catch (error) {
     throw error;
   }
@@ -193,11 +202,7 @@ export async function getUserFavourite(idFavourite, type) {
 export async function getUserDetails(userId) {
   try {
     const userDetailsUrl = apiConfig.userDetailsUrl + userId;
-    console.log(userDetailsUrl)
     const user = await callApi("GET", userDetailsUrl);
-    console.log('prueba')
-    console.log(user);
-    
     return user;
   } catch (error) {
     throw error;

@@ -22,7 +22,6 @@ export function goToRegisterPageListener() {
   buttonGoToRegisterPage.addEventListener("click", (event) => {
     event.preventDefault();
     // GO TO REGISTER PAGE
-    console.log("Click")
     const appContainerElement = document.querySelector("#app");
     appContainerElement.innerHTML = "";
     createRegisterPage();

@@ -68,7 +68,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: 20px;
     margin-bottom: 20px;
     font-weight: 600;
   }
@@ -77,9 +76,6 @@ body {
 .error-message-container {
   display: flex;
   align-items: center;
-}
-
-.error-message {
   font-weight: 700;
   color: rgb(252, 37, 37);
   font-size: small;

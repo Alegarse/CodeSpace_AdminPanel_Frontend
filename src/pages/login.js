@@ -39,7 +39,8 @@ export function createLoginPage() {
   buttonLogin.textContent = "Entrar";
 
   const errorMessageContainer = document.createElement('div');
-  errorMessageContainer.classList = "error-message-container"  
+  errorMessageContainer.classList = "error-message-container" 
+  errorMessageContainer.textContent = "\u00A0"
 
   const separatorElement = document.createElement('div');
   separatorElement.classList = "separator"
