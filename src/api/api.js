@@ -138,3 +138,14 @@ export async function getUserProfile() {
     throw error;
   }
 }
+
+//Function to obtain user favourites
+export async function getUserFavourites() {
+  try {
+    const urlFavourites = apiConfig.favouritesUrl;
+    const favourite = await callApi("GET", urlFavourites);
+    return favourite
+  } catch (error) {
+    throw error;
+  }
+}

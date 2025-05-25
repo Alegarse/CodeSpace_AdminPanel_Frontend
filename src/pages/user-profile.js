@@ -24,8 +24,8 @@ function createProfileInfo(userData) {
   const profileContainerElement = document.createElement("div");
   profileContainerElement.classList = "profile-container";
 
-  const photoContainerElement = document.createElement('div');
-  photoContainerElement.classList = "photo-container"
+  const photoContainerElement = document.createElement("div");
+  photoContainerElement.classList = "photo-container";
 
   const userPhoto = document.createElement("img");
   userPhoto.classList = "photo-profile";
@@ -46,8 +46,15 @@ function createProfileInfo(userData) {
   photoContainerElement.appendChild(userLastAccessLabel);
   photoContainerElement.appendChild(userLastAccess);
 
-  const infoUserContainerElement = document.createElement('div');
+  const infoUserContainerElement = document.createElement("div");
   infoUserContainerElement.classList = "info-container";
+
+  const firstDataContainer = document.createElement("div");
+  firstDataContainer.classList = "data-user-container";
+  const secondDataContainer = document.createElement("div");
+  secondDataContainer.classList = "data-user-container";
+  const thirdDataContainer = document.createElement("div");
+  thirdDataContainer.classList = "data-user-container";
 
   const userNameLabel = document.createElement("p");
   userNameLabel.textContent = "Nombre:";
@@ -97,18 +104,22 @@ function createProfileInfo(userData) {
   userEmail.textContent = userData.email;
   userEmail.classList = "email-user";
 
-  infoUserContainerElement.appendChild(userNameLabel);
-  infoUserContainerElement.appendChild(userName);
-  infoUserContainerElement.appendChild(userLastnameLabel);
-  infoUserContainerElement.appendChild(userLastname);
-  infoUserContainerElement.appendChild(userAddressLabel);
-  infoUserContainerElement.appendChild(userAddress);
-  infoUserContainerElement.appendChild(userPhoneLabel);
-  infoUserContainerElement.appendChild(userPhone);
-  infoUserContainerElement.appendChild(userBirthdateLabel);
-  infoUserContainerElement.appendChild(userBirthdate);
-  infoUserContainerElement.appendChild(userEmailLabel);
-  infoUserContainerElement.appendChild(userEmail);
+  firstDataContainer.appendChild(userNameLabel);
+  firstDataContainer.appendChild(userName);
+  firstDataContainer.appendChild(userLastnameLabel);
+  firstDataContainer.appendChild(userLastname);
+  secondDataContainer.appendChild(userAddressLabel);
+  secondDataContainer.appendChild(userAddress);
+  secondDataContainer.appendChild(userBirthdateLabel);
+  secondDataContainer.appendChild(userBirthdate);
+  thirdDataContainer.appendChild(userPhoneLabel);
+  thirdDataContainer.appendChild(userPhone);
+  thirdDataContainer.appendChild(userEmailLabel);
+  thirdDataContainer.appendChild(userEmail);
+
+  infoUserContainerElement.appendChild(firstDataContainer);
+  infoUserContainerElement.appendChild(secondDataContainer);
+  infoUserContainerElement.appendChild(thirdDataContainer);
 
   profileContainerElement.appendChild(photoContainerElement);
   profileContainerElement.appendChild(infoUserContainerElement);
@@ -116,12 +127,48 @@ function createProfileInfo(userData) {
   return profileContainerElement;
 }
 
+function createToolsAndFavouritesInfo(userData) {
+  const favsContainerElement = document.createElement("div");
+  favsContainerElement.classList = "favourites-general-container";
+
+  favsContainerElement.appendChild(createGroupedFavsContainer("Plantas favoritas", userData.favPlants));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Accesorios favoritos", userData.favAccessories));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Productos favoritos", userData.favProducts));
+  favsContainerElement.appendChild(createGroupedFavsContainer("Herramientas favoritas", userData.favTools));
+
+  return favsContainerElement;
+}
+
+function createGroupedFavsContainer(title, content) {
+
+  const favouritesContainer = document.createElement('div');
+  favouritesContainer.classList = "favourites-container"
+
+  const titleElement = document.createElement('p');
+  titleElement.classList = "favourites-title";
+  titleElement.textContent = title;
+
+  const contentContainer = document.createElement('div')
+  contentContainer.classList = "favourites-content"
+
+  content.forEach((fav) => {
+    const pElement = document.createElement('p')
+    pElement.classList = "fav-item"
+    pElement.textContent = fav;
+    contentContainer.appendChild(pElement);
+  })
+
+  favouritesContainer.appendChild(titleElement);
+  favouritesContainer.appendChild(contentContainer);
+
+  return favouritesContainer;
+}
+
 export function createUserProfile() {
   const bodyElement = document.querySelector("body");
   bodyElement.classList.add("opacity-bg-img");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
-console.log(userData);
 
   const appContainerElement = document.querySelector("#app");
 
@@ -138,6 +185,9 @@ console.log(userData);
 
   //Data user Info
   usersPanelElement.appendChild(createProfileInfo(userData));
+
+  // Tools user and favourites
+  usersPanelElement.appendChild(createToolsAndFavouritesInfo(userData));
 
   userPanelElement.appendChild(sidebarElement);
   userPanelElement.appendChild(usersPanelElement);
