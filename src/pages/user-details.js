@@ -77,10 +77,13 @@ function createPersonalEmailElement(email) {
 
   const personalTitleEmail = document.createElement("label");
   personalTitleEmail.textContent = "Correo electrónico:";
-  personalTitleEmail.setAttribute("for", "Email");
+  personalTitleEmail.setAttribute("for", "email");
 
-  const personalDataEmail = document.createElement("span");
-  personalDataEmail.textContent = email;
+  const personalDataEmail = document.createElement("input");
+  personalDataEmail.setAttribute("type", "text");
+  personalDataEmail.setAttribute("id", "email");
+  personalDataEmail.setAttribute("name", "email");
+  personalDataEmail.setAttribute("value", email);
 
   personalEmailContainer.appendChild(personalTitleEmail);
   personalEmailContainer.appendChild(personalDataEmail);
@@ -94,10 +97,13 @@ function createPersonalPhoneElement(phone) {
 
   const personalTitlePhone = document.createElement("label");
   personalTitlePhone.textContent = "Teléfono:";
-  personalTitlePhone.setAttribute("for", "Phone");
+  personalTitlePhone.setAttribute("for", "phone");
 
-  const personalDataPhone = document.createElement("span");
-  personalDataPhone.textContent = phone;
+  const personalDataPhone = document.createElement("input");
+  personalDataPhone.setAttribute("type", "number");
+  personalDataPhone.setAttribute("id", "phone");
+  personalDataPhone.setAttribute("name", "phone");
+  personalDataPhone.setAttribute("value", phone);
 
   personalPhoneContainer.appendChild(personalTitlePhone);
   personalPhoneContainer.appendChild(personalDataPhone);
@@ -111,10 +117,13 @@ function createPersonalAddressElement(address) {
 
   const personalTitleAddress = document.createElement("label");
   personalTitleAddress.textContent = "Dirección:";
-  personalTitleAddress.setAttribute("for", "Address");
+  personalTitleAddress.setAttribute("for", "address");
 
   const personalDataAddress = document.createElement("input");
-  personalDataAddress.value = address;
+  personalDataAddress.setAttribute("type", "text");
+  personalDataAddress.setAttribute("id", "address");
+  personalDataAddress.setAttribute("name", "address");
+  personalDataAddress.setAttribute("value", address);
 
   personalAddressContainer.appendChild(personalTitleAddress);
   personalAddressContainer.appendChild(personalDataAddress);
@@ -148,7 +157,7 @@ function createUserResgistration(userData) {
   return userRegistrationContainer;
 }
 
-function createDateUserElement(userData) {
+function createDateUserElement(date) {
   const dateUserContainer = document.createElement("div");
   dateUserContainer.classList = "date-container";
 
@@ -156,7 +165,7 @@ function createDateUserElement(userData) {
   dateUserTitle.textContent = "Fecha de registro:";
   dateUserTitle.setAttribute("for", "date");
 
-  const dateUser = createDateUser(userData.date, "span");
+  const dateUser = createDateUser(date, "span");
 
   dateUserContainer.appendChild(dateUserTitle);
   dateUserContainer.appendChild(dateUser);
@@ -170,10 +179,13 @@ function createOrderCountElement(orderCountData) {
 
   const orderCountTitle = document.createElement("label");
   orderCountTitle.textContent = "Número de pedidos:";
-  orderCountTitle.setAttribute("for", "ordercount"); //iría así o separado?
+  orderCountTitle.setAttribute("for", "orderCount"); 
 
-  const orderCount = document.createElement("span");
-  orderCount.textContent = orderCountData;
+  const orderCount = document.createElement("input");
+  orderCount.setAttribute("type", "number");
+  orderCount.setAttribute("id", "orderCount");
+  orderCount.setAttribute("name", "orderCount");
+  orderCount.setAttribute("value", orderCountData);
 
   orderCountContainer.appendChild(orderCountTitle);
   orderCountContainer.appendChild(orderCount);
@@ -189,8 +201,11 @@ function createPasswordElement(passwordData) {
   passwordTitle.textContent = "Contraseña:";
   passwordTitle.setAttribute("for", "password");
 
-  const password = document.createElement("span");
-  password.textContent = passwordData;
+  const password = document.createElement("input");
+  password.setAttribute("type", "password");
+  password.setAttribute("id", "password");
+  password.setAttribute("name", "password");
+  password.setAttribute("value", passwordData);
 
   passwordContainer.appendChild(passwordTitle);
   passwordContainer.appendChild(password);
@@ -206,8 +221,11 @@ function createSubscriptionTypeElement(subscriptionData) {
   subscriptionTypeTitle.textContent = "Tipo de suscripción:";
   subscriptionTypeTitle.setAttribute("for", "subscription");
 
-  const subscriptionType = document.createElement("span");
-  subscriptionType.textContent = subscriptionData;
+  const subscriptionType = document.createElement("input");
+  subscriptionType.setAttribute("type", "text");
+  subscriptionType.setAttribute("id", "subscription");
+  subscriptionType.setAttribute("name", "subscription");
+  subscriptionType.setAttribute("value", subscriptionData);
 
   subscriptionTypeContainer.appendChild(subscriptionTypeTitle);
   subscriptionTypeContainer.appendChild(subscriptionType);
@@ -223,8 +241,11 @@ function createBankAccountNumberElement(bankAccountNumberData) {
   bankAccountNumberTitle.textContent = "Cuenta bancaria:";
   bankAccountNumberTitle.setAttribute("for", "bankAccountNumber");
 
-  const bankAccountNumber = document.createElement("span");
-  bankAccountNumber.textContent = bankAccountNumberData;
+  const bankAccountNumber = document.createElement("input");
+  bankAccountNumber.setAttribute("type", "number");
+  bankAccountNumber.setAttribute("id", "bankAccountNumber");
+  bankAccountNumber.setAttribute("name", "bankAccountNumber");
+  bankAccountNumber.setAttribute("value", bankAccountNumberData);
 
   bankAccountNumberContainer.appendChild(bankAccountNumberTitle);
   bankAccountNumberContainer.appendChild(bankAccountNumber);
