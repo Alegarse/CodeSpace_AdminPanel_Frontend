@@ -138,3 +138,18 @@ export async function getUserProfile() {
     throw error;
   }
 }
+
+// Function to get user details
+export async function getUserDetails(userId) {
+  try {
+    const userDetailsUrl = apiConfig.userDetailsUrl + userId;
+    console.log(userDetailsUrl)
+    const user = await callApi("GET", userDetailsUrl);
+    console.log('prueba')
+    console.log(user);
+    
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
