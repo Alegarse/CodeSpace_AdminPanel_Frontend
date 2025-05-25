@@ -63,7 +63,7 @@ function createProfileInfo(userData) {
 
   const userName = document.createElement("p");
   userName.textContent = userData.name;
-  userName.classList = "name-user";
+  userName.classList = "name-user_";
 
   const userLastnameLabel = document.createElement("p");
   userLastnameLabel.textContent = "Apellidos:";
