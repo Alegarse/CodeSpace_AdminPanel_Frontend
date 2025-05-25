@@ -143,10 +143,7 @@ export async function getUserProfile() {
 export async function getUserDetails(userId) {
   try {
     const userDetailsUrl = apiConfig.userDetailsUrl + userId;
-    console.log(userDetailsUrl)
     const user = await callApi("GET", userDetailsUrl);
-    console.log('prueba')
-    console.log(user);
     
     return user;
   } catch (error) {

@@ -17,7 +17,6 @@ export async function createUserModal(userId = null) {
   // Llamamos al backend para traer detalles de usuario
   const testUserId = "682795eb78fdfc8b6e247647"; // borrar es solo para test
   const userData = (await getUserDetails(testUserId))?.data;
-  console.log(userData);
 
   modalPrincipalInfoElement.appendChild(
     createImgUser(userData.profilePictureUrl, "photo-user-details")
