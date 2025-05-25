@@ -24,7 +24,7 @@ export function createModalElement() {
   modalContent.appendChild(modalHeader);
 
   const modalTitle = document.createElement("h1");
-  modalTitle.classList = "modal-title fs-5";
+  modalTitle.classList = "modal-title";
   modalTitle.id = "modal-title";
   modalHeader.appendChild(modalTitle);
 
