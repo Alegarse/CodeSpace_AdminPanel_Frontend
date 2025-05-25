@@ -1,3 +1,4 @@
+import { callApi, getUserDetails } from "../api/api";
 import { updateModalElement } from "../complements/modal-structure";
 import {
   createDateUser,
@@ -5,40 +6,19 @@ import {
   createNameUser,
 } from "../complements/user-helper-methods";
 
-export const user = {
-  _id: {
-    $oid: "682795eb78fdfc8b6e247647",
-  },
-  name: "Elena",
-  lastName: "Obregón",
-  email: "elena@vivero.com",
-  date: "2024-08-22",
-  address: "Calle Vivero nº22",
-  password: "$2b$10$U8T5L29FIdnWysCvEjI8q.uOnHR.LMr11CkYomHeOGfRHMydU9cBm",
-  role: "admin",
-  phone: "666777888",
-  orderCount: 3,
-  subscription: "test",
-  bankAccountNumber: "TEST1234",
-  plants: ["plant1"],
-  products: ["product1"],
-  tools: ["tool1"],
-  accessories: ["a1"],
-  profilePictureUrl: "",
-  __v: 0,
-};
-
-//añadir: número de pedidos, contraseña, número de cuenta, tipo de suscripcion
 
 //Creo el modal anidando todo
-export function createUserModal(userId=null) {
+export async function createUserModal(userId=null) {
   const modalContent = document.createElement("div");
   modalContent.classList = "modal-container";
 
   const modalPrincipalInfoElement = document.createElement("div");
   modalPrincipalInfoElement.classList = "modal-principalInfo";
 
-  const userData = user; // Hacer llamada aquí al backend para traer datos del usuario con el userId
+  // Llamamos al backend para traer detalles de usuario
+  const testUserId = '682795eb78fdfc8b6e247647'; // borrar es solo para test
+  const userData = (await getUserDetails(testUserId))?.data;
+  console.log(userData)
 
   modalPrincipalInfoElement.appendChild(
     createImgUser(userData.profilePictureUrl, "photo-user-details")
@@ -84,23 +64,26 @@ function createPersonalData(userData) {
 
   personalDataContainer.appendChild(personalDataTitle);
 
-  personalDataTitle.appendChild(createPersonalEmailElement(userData.email));
-  personalDataTitle.appendChild(createPersonalPhoneElement(userData.phone));
-  personalDataTitle.appendChild(createPersonalAddressElement(userData.address));
+  personalDataContainer.appendChild(createPersonalEmailElement(userData.email));
+  personalDataContainer.appendChild(createPersonalPhoneElement(userData.phone));
+  personalDataContainer.appendChild(createPersonalAddressElement(userData.address));
 
   return personalDataContainer;
 }
 
-function createPersonalEmailElement(userData) {
+function createPersonalEmailElement(email) {
   const personalEmailContainer = document.createElement("div");
   personalEmailContainer.classList = "email-container";
 
   const personalTitleEmail = document.createElement("label");
   personalTitleEmail.textContent = "Correo electrónico:";
-  personalTitleEmail.setAttribute("for", "Email");
+  personalTitleEmail.setAttribute("for", "email");
 
-  const personalDataEmail = document.createElement("span");
-  personalDataEmail.textContent = userData.email;
+  const personalDataEmail = document.createElement("input");
+  personalDataEmail.setAttribute("type", "text");
+  personalDataEmail.setAttribute("id", "email");
+  personalDataEmail.setAttribute("name", "email");
+  personalDataEmail.setAttribute("value", email);
 
   personalEmailContainer.appendChild(personalTitleEmail);
   personalEmailContainer.appendChild(personalDataEmail);
@@ -108,16 +91,19 @@ function createPersonalEmailElement(userData) {
   return personalEmailContainer;
 }
 
-function createPersonalPhoneElement(userData) {
+function createPersonalPhoneElement(phone) {
   const personalPhoneContainer = document.createElement("div");
   personalPhoneContainer.classList = "phone-container";
 
   const personalTitlePhone = document.createElement("label");
   personalTitlePhone.textContent = "Teléfono:";
-  personalTitlePhone.setAttribute("for", "Phone");
+  personalTitlePhone.setAttribute("for", "phone");
 
-  const personalDataPhone = document.createElement("span");
-  personalDataPhone.textContent = userData.phone;
+  const personalDataPhone = document.createElement("input");
+  personalDataPhone.setAttribute("type", "number");
+  personalDataPhone.setAttribute("id", "phone");
+  personalDataPhone.setAttribute("name", "phone");
+  personalDataPhone.setAttribute("value", phone);
 
   personalPhoneContainer.appendChild(personalTitlePhone);
   personalPhoneContainer.appendChild(personalDataPhone);
@@ -125,16 +111,19 @@ function createPersonalPhoneElement(userData) {
   return personalPhoneContainer;
 }
 
-function createPersonalAddressElement(userData) {
+function createPersonalAddressElement(address) {
   const personalAddressContainer = document.createElement("div");
   personalAddressContainer.classList = "address-container";
 
   const personalTitleAddress = document.createElement("label");
   personalTitleAddress.textContent = "Dirección:";
-  personalTitleAddress.setAttribute("for", "Address");
+  personalTitleAddress.setAttribute("for", "address");
 
-  const personalDataAddress = document.createElement("span");
-  personalDataAddress.textContent = userData.address;
+  const personalDataAddress = document.createElement("input");
+  personalDataAddress.setAttribute("type", "text");
+  personalDataAddress.setAttribute("id", "address");
+  personalDataAddress.setAttribute("name", "address");
+  personalDataAddress.setAttribute("value", address);
 
   personalAddressContainer.appendChild(personalTitleAddress);
   personalAddressContainer.appendChild(personalDataAddress);
@@ -153,22 +142,22 @@ function createUserResgistration(userData) {
 
   userRegistrationContainer.appendChild(userRegistrationTitle);
 
-  userRegistrationTitle.appendChild(createDateUserElement(userData.date));
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(createDateUserElement(userData.date));
+  userRegistrationContainer.appendChild(
     createOrderCountElement(userData.orderCount)
   );
-  userRegistrationTitle.appendChild(createPasswordElement(userData.password));
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(createPasswordElement(userData.password));
+  userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
   );
-  userRegistrationTitle.appendChild(
+  userRegistrationContainer.appendChild(
     createBankAccountNumberElement(userData.bankAccountNumber)
   );
 
   return userRegistrationContainer;
 }
 
-function createDateUserElement(userData) {
+function createDateUserElement(date) {
   const dateUserContainer = document.createElement("div");
   dateUserContainer.classList = "date-container";
 
@@ -176,7 +165,7 @@ function createDateUserElement(userData) {
   dateUserTitle.textContent = "Fecha de registro:";
   dateUserTitle.setAttribute("for", "date");
 
-  const dateUser = createDateUser(userData.date, "span");
+  const dateUser = createDateUser(date, "span");
 
   dateUserContainer.appendChild(dateUserTitle);
   dateUserContainer.appendChild(dateUser);
@@ -184,16 +173,19 @@ function createDateUserElement(userData) {
   return dateUserContainer;
 }
 
-function createOrderCountElement(userData) {
+function createOrderCountElement(orderCountData) {
   const orderCountContainer = document.createElement("div");
   orderCountContainer.classList = "order-count-container";
 
   const orderCountTitle = document.createElement("label");
   orderCountTitle.textContent = "Número de pedidos:";
-  orderCountTitle.setAttribute("for", "ordercount"); //iría así o separado?
+  orderCountTitle.setAttribute("for", "orderCount"); 
 
-  const orderCount = document.createElement("span");
-  orderCount.textContent = userData.orderCount;
+  const orderCount = document.createElement("input");
+  orderCount.setAttribute("type", "number");
+  orderCount.setAttribute("id", "orderCount");
+  orderCount.setAttribute("name", "orderCount");
+  orderCount.setAttribute("value", orderCountData);
 
   orderCountContainer.appendChild(orderCountTitle);
   orderCountContainer.appendChild(orderCount);
@@ -201,7 +193,7 @@ function createOrderCountElement(userData) {
   return orderCountContainer;
 }
 
-function createPasswordElement(userData) {
+function createPasswordElement(passwordData) {
   const passwordContainer = document.createElement("div");
   passwordContainer.classList = "password-container";
 
@@ -209,8 +201,11 @@ function createPasswordElement(userData) {
   passwordTitle.textContent = "Contraseña:";
   passwordTitle.setAttribute("for", "password");
 
-  const password = document.createElement("span");
-  password.textContent = userData.password;
+  const password = document.createElement("input");
+  password.setAttribute("type", "password");
+  password.setAttribute("id", "password");
+  password.setAttribute("name", "password");
+  password.setAttribute("value", passwordData);
 
   passwordContainer.appendChild(passwordTitle);
   passwordContainer.appendChild(password);
@@ -218,7 +213,7 @@ function createPasswordElement(userData) {
   return passwordContainer;
 }
 
-function createSubscriptionTypeElement(userData) {
+function createSubscriptionTypeElement(subscriptionData) {
   const subscriptionTypeContainer = document.createElement("div");
   subscriptionTypeContainer.classList = "subscription-container";
 
@@ -226,8 +221,11 @@ function createSubscriptionTypeElement(userData) {
   subscriptionTypeTitle.textContent = "Tipo de suscripción:";
   subscriptionTypeTitle.setAttribute("for", "subscription");
 
-  const subscriptionType = document.createElement("span");
-  subscriptionType.textContent = userData.subscription;
+  const subscriptionType = document.createElement("input");
+  subscriptionType.setAttribute("type", "text");
+  subscriptionType.setAttribute("id", "subscription");
+  subscriptionType.setAttribute("name", "subscription");
+  subscriptionType.setAttribute("value", subscriptionData);
 
   subscriptionTypeContainer.appendChild(subscriptionTypeTitle);
   subscriptionTypeContainer.appendChild(subscriptionType);
@@ -235,7 +233,7 @@ function createSubscriptionTypeElement(userData) {
   return subscriptionTypeContainer;
 }
 
-function createBankAccountNumberElement(userData) {
+function createBankAccountNumberElement(bankAccountNumberData) {
   const bankAccountNumberContainer = document.createElement("div");
   bankAccountNumberContainer.classList = "bank-account-container";
 
@@ -243,8 +241,11 @@ function createBankAccountNumberElement(userData) {
   bankAccountNumberTitle.textContent = "Cuenta bancaria:";
   bankAccountNumberTitle.setAttribute("for", "bankAccountNumber");
 
-  const bankAccountNumber = document.createElement("span");
-  bankAccountNumber.textContent = userData.bankAccountNumber;
+  const bankAccountNumber = document.createElement("input");
+  bankAccountNumber.setAttribute("type", "number");
+  bankAccountNumber.setAttribute("id", "bankAccountNumber");
+  bankAccountNumber.setAttribute("name", "bankAccountNumber");
+  bankAccountNumber.setAttribute("value", bankAccountNumberData);
 
   bankAccountNumberContainer.appendChild(bankAccountNumberTitle);
   bankAccountNumberContainer.appendChild(bankAccountNumber);
@@ -266,22 +267,22 @@ function createUserFavorites(userData) {
   const userFavoritePlants = document.createElement("h3");
   userFavoritePlants.textContent = "PLANTAS FAVORITAS";
   userFavoritesTitle.appendChild(userFavoritePlants);
-  userFavoritePlants.appendChild(createPlantFavorites(userData.plants));
+  userFavoritePlants.appendChild(createPlantFavorites(userData.favPlants));
 
-  /*const userFavoriteProducts = document.createElement("h3");
+  const userFavoriteProducts = document.createElement("h3");
   userFavoriteProducts.textContent = "PRODUCTOS FAVORITOS";
   userFavoritesTitle.appendChild(userFavoriteProducts)
-  userFavoriteProducts.appendChild(createProductFavorites(userData.products));
+  userFavoriteProducts.appendChild(createProductFavorites(userData.favProducts));
 
   const userFavoriteTools = document.createElement("h3");
   userFavoriteTools.textContent = "HERRAMIENTAS FAVORITAS";
   userFavoritesTitle.appendChild(userFavoriteTools);
-  userFavoriteTools.appendChild(createToolFavorites(userData.tools));
+  userFavoriteTools.appendChild(createToolFavorites(userData.favTools));
 
   const userFavoriteAccessories = document.createElement("h3");
-  userFavoriteAccessories.textContent = "ACCESORIOS FAVORITAS";
+  userFavoriteAccessories.textContent = "ACCESORIOS FAVORITOS";
   userFavoritesTitle.appendChild(userFavoriteAccessories);
-  userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.accessories));*/
+  userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.favAccessories));
 
   return userFavoritesContainer;
 }
@@ -299,8 +300,42 @@ function createPlantFavorites(plants) {
   return plantFavoritesContainer;
 }
 
-function createProductFavorites(userData) {}
+function createProductFavorites(products) {
+  const productFavoritesContainer = document.createElement("ul");
+  productFavoritesContainer.classList = "product-favorites";
 
-function createToolFavorites(userData) {}
+  products.forEach((product) => {
+    const itemProduct = document.createElement("li");
+    itemProduct.textContent = product;
+    productFavoritesContainer.appendChild(itemProduct);
+  });
 
-function createAccessoryFavorites(userData) {}
+  return productFavoritesContainer;
+}
+
+
+function createToolFavorites(tools) {
+  const toolFavoritesContainer = document.createElement("ul");
+  toolFavoritesContainer.classList = "tool-favorites";
+
+  tools.forEach((tool) => {
+    const itemTool = document.createElement("li");
+    itemTool.textContent = tool;
+    toolFavoritesContainer.appendChild(itemTool);
+  });
+
+  return toolFavoritesContainer;
+}
+
+function createAccessoryFavorites(accessories) {
+  const accessoryFavoritesContainer = document.createElement("ul");
+  accessoryFavoritesContainer.classList = "accessory-favorites";
+
+  accessories.forEach((accesory) => {
+    const itemAccessory = document.createElement("li");
+    itemAccessory.textContent = accesory;
+    accessoryFavoritesContainer.appendChild(itemAccessory);
+  });
+
+  return accessoryFavoritesContainer;
+}
