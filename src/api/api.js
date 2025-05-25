@@ -178,6 +178,19 @@ export async function getUserProfile() {
   }
 }
 
+//Function to obtain user favourites
+export async function getUserFavourite(idFavourite, type) {
+  try {
+    let urlFavourites = apiConfig.favouritesUrl;
+    urlFavourites += `/${type}/${idFavourite}`;
+    const favourite = await callApi("GET", urlFavourites);
+    console.log(favourite);
+     return favourite.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Function to get user details
 export async function getUserDetails(userId) {
   try {
