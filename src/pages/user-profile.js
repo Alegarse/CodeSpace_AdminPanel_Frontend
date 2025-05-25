@@ -111,7 +111,6 @@ export function createUserProfile() {
   bodyElement.classList.add("opacity-bg-img");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
-console.log(userData);
 
   const appContainerElement = document.querySelector("#app");
 

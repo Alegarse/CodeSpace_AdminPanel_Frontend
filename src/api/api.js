@@ -118,7 +118,7 @@ export async function loginUser(userEmail, userPassword) {
 }
 
 // Fucntion to register new user
-export async function registerUser(userName, userLastName, userEmail, userAddress, userPhone, userPassword) { 
+export async function registerUser(userName, userLastName, userEmail, userAddress, userPhone, userPassword, userBirthdate) { 
   try {
     const dataUserRegister = {
       name: userName,
@@ -127,6 +127,7 @@ export async function registerUser(userName, userLastName, userEmail, userAddres
       address: userAddress,
       phone: userPhone,
       password: userPassword,
+      birthDate: userBirthdate,
     };
     const urlRegister = apiConfig.registerUrl;
     const userRegistered = await fetch(urlRegister, {
@@ -147,7 +148,7 @@ export async function registerUser(userName, userLastName, userEmail, userAddres
       },5000);
     } else {
       //GO TO LOGIN PAGE
-      //goToLogin()
+      goToLogin()
     }
   } catch (error) {
     throw error;

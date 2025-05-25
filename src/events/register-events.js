@@ -17,7 +17,8 @@ export function registerButtonListener() {
     const lastName = lastNameElement.value;
     const phone = phoneElement.value;
     const address = addressElement.value;
-    registerUser(name, lastName, email, address, phone, password);
+    const birthDate = "1980-09-16";
+    registerUser(name, lastName, email, address, phone, password, birthDate);
   });
 }
 
