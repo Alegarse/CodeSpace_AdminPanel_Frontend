@@ -24,6 +24,9 @@ function createProfileInfo(userData) {
   const profileContainerElement = document.createElement("div");
   profileContainerElement.classList = "profile-container";
 
+  const photoContainerElement = document.createElement('div');
+  photoContainerElement.classList = "photo-container"
+
   const userPhoto = document.createElement("img");
   userPhoto.classList = "photo-profile";
   userPhoto.src =
@@ -38,6 +41,13 @@ function createProfileInfo(userData) {
   const userLastAccess = document.createElement("p");
   userLastAccess.textContent = getFormattedDate(userData.lastAccess, true);
   userLastAccess.classList = "user-lastaccess";
+
+  photoContainerElement.appendChild(userPhoto);
+  photoContainerElement.appendChild(userLastAccessLabel);
+  photoContainerElement.appendChild(userLastAccess);
+
+  const infoUserContainerElement = document.createElement('div');
+  infoUserContainerElement.classList = "info-container";
 
   const userNameLabel = document.createElement("p");
   userNameLabel.textContent = "Nombre:";
@@ -87,21 +97,21 @@ function createProfileInfo(userData) {
   userEmail.textContent = userData.email;
   userEmail.classList = "email-user";
 
-  profileContainerElement.appendChild(userPhoto);
-  profileContainerElement.appendChild(userLastAccessLabel);
-  profileContainerElement.appendChild(userLastAccess);
-  profileContainerElement.appendChild(userNameLabel);
-  profileContainerElement.appendChild(userName);
-  profileContainerElement.appendChild(userLastnameLabel);
-  profileContainerElement.appendChild(userLastname);
-  profileContainerElement.appendChild(userAddressLabel);
-  profileContainerElement.appendChild(userAddress);
-  profileContainerElement.appendChild(userPhoneLabel);
-  profileContainerElement.appendChild(userPhone);
-  profileContainerElement.appendChild(userBirthdateLabel);
-  profileContainerElement.appendChild(userBirthdate);
-  profileContainerElement.appendChild(userEmailLabel);
-  profileContainerElement.appendChild(userEmail);
+  infoUserContainerElement.appendChild(userNameLabel);
+  infoUserContainerElement.appendChild(userName);
+  infoUserContainerElement.appendChild(userLastnameLabel);
+  infoUserContainerElement.appendChild(userLastname);
+  infoUserContainerElement.appendChild(userAddressLabel);
+  infoUserContainerElement.appendChild(userAddress);
+  infoUserContainerElement.appendChild(userPhoneLabel);
+  infoUserContainerElement.appendChild(userPhone);
+  infoUserContainerElement.appendChild(userBirthdateLabel);
+  infoUserContainerElement.appendChild(userBirthdate);
+  infoUserContainerElement.appendChild(userEmailLabel);
+  infoUserContainerElement.appendChild(userEmail);
+
+  profileContainerElement.appendChild(photoContainerElement);
+  profileContainerElement.appendChild(infoUserContainerElement);
 
   return profileContainerElement;
 }
