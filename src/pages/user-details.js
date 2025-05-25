@@ -15,8 +15,8 @@ export async function createUserModal(userId = null) {
   modalPrincipalInfoElement.classList = "modal-principalInfo";
 
   // Llamamos al backend para traer detalles de usuario
-  const testUserId = "682795eb78fdfc8b6e247647"; // borrar es solo para test
-  const userData = (await getUserDetails(testUserId))?.data;
+  //const testUserId = "682795eb78fdfc8b6e247647"; // borrar es solo para test
+  const userData = (await getUserDetails(userId))?.data;
 
   modalPrincipalInfoElement.appendChild(
     createImgUser(userData.profilePictureUrl, "photo-user-details")
