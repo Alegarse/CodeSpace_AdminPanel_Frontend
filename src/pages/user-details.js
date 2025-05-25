@@ -259,7 +259,7 @@ function createUserFavorites(userData) {
   userFavoriteTools.appendChild(createToolFavorites(userData.favTools));
 
   const userFavoriteAccessories = document.createElement("h3");
-  userFavoriteAccessories.textContent = "ACCESORIOS FAVORITAS";
+  userFavoriteAccessories.textContent = "ACCESORIOS FAVORITOS";
   userFavoritesTitle.appendChild(userFavoriteAccessories);
   userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.favAccessories));
 
@@ -279,42 +279,42 @@ function createPlantFavorites(plants) {
   return plantFavoritesContainer;
 }
 
-function createProductFavorites(userData) {
-  const plantFavoritesContainer = document.createElement("ul");
-  plantFavoritesContainer.classList = "plant-favorites";
+function createProductFavorites(products) {
+  const productFavoritesContainer = document.createElement("ul");
+  productFavoritesContainer.classList = "product-favorites";
 
-  plants.forEach((plant) => {
-    const itemPlant = document.createElement("li");
-    itemPlant.textContent = plant;
-    plantFavoritesContainer.appendChild(itemPlant);
+  products.forEach((product) => {
+    const itemProduct = document.createElement("li");
+    itemProduct.textContent = product;
+    productFavoritesContainer.appendChild(itemProduct);
   });
 
-  return plantFavoritesContainer;
+  return productFavoritesContainer;
 }
 
 
-function createToolFavorites(userData) {
-  const plantFavoritesContainer = document.createElement("ul");
-  plantFavoritesContainer.classList = "plant-favorites";
+function createToolFavorites(tools) {
+  const toolFavoritesContainer = document.createElement("ul");
+  toolFavoritesContainer.classList = "tool-favorites";
 
-  plants.forEach((plant) => {
-    const itemPlant = document.createElement("li");
-    itemPlant.textContent = plant;
-    plantFavoritesContainer.appendChild(itemPlant);
+  tools.forEach((tool) => {
+    const itemTool = document.createElement("li");
+    itemTool.textContent = tool;
+    toolFavoritesContainer.appendChild(itemTool);
   });
 
-  return plantFavoritesContainer;
+  return toolFavoritesContainer;
 }
 
-function createAccessoryFavorites(userData) {
-  const plantFavoritesContainer = document.createElement("ul");
-  plantFavoritesContainer.classList = "plant-favorites";
+function createAccessoryFavorites(accessories) {
+  const accessoryFavoritesContainer = document.createElement("ul");
+  accessoryFavoritesContainer.classList = "accessory-favorites";
 
-  plants.forEach((plant) => {
-    const itemPlant = document.createElement("li");
-    itemPlant.textContent = plant;
-    plantFavoritesContainer.appendChild(itemPlant);
+  accessories.forEach((accesory) => {
+    const itemAccessory = document.createElement("li");
+    itemAccessory.textContent = accesory;
+    accessoryFavoritesContainer.appendChild(itemAccessory);
   });
 
-  return plantFavoritesContainer;
+  return accessoryFavoritesContainer;
 }
