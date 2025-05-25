@@ -6,9 +6,8 @@ import {
   createNameUser,
 } from "../complements/user-helper-methods";
 
-
 //Creo el modal anidando todo
-export async function createUserModal(userId=null) {
+export async function createUserModal(userId = null) {
   const modalContent = document.createElement("div");
   modalContent.classList = "modal-container";
 
@@ -16,7 +15,7 @@ export async function createUserModal(userId=null) {
   modalPrincipalInfoElement.classList = "modal-principalInfo";
 
   // Llamamos al backend para traer detalles de usuario
-  const testUserId = '682795eb78fdfc8b6e247647'; // borrar es solo para test
+  const testUserId = "682795eb78fdfc8b6e247647"; // borrar es solo para test
   const userData = (await getUserDetails(testUserId))?.data;
 
   modalPrincipalInfoElement.appendChild(
@@ -34,18 +33,17 @@ export async function createUserModal(userId=null) {
 
   modalContent.appendChild(createUserFavorites(userData));
 
-  updateModalElement(
-    'Detalles de usuario',
-    modalContent,
-    [createUserModalSaveButton()]
-  )
+  updateModalElement("Detalles de usuario", modalContent, [
+    createUserModalSaveButton(),
+  ]);
 
-  return modal
+  return modal;
 }
 
 function createUserModalSaveButton() {
   const modalFooterButton = document.createElement("button");
   modalFooterButton.classList = "btn btn-primary";
+  modalFooterButton.id = "saveButton";
   modalFooterButton.setAttribute("type", "button");
   modalFooterButton.textContent = "Guardar cambios";
 
@@ -65,7 +63,9 @@ function createPersonalData(userData) {
 
   personalDataContainer.appendChild(createPersonalEmailElement(userData.email));
   personalDataContainer.appendChild(createPersonalPhoneElement(userData.phone));
-  personalDataContainer.appendChild(createPersonalAddressElement(userData.address));
+  personalDataContainer.appendChild(
+    createPersonalAddressElement(userData.address)
+  );
 
   return personalDataContainer;
 }
@@ -145,7 +145,9 @@ function createUserResgistration(userData) {
   userRegistrationContainer.appendChild(
     createOrderCountElement(userData.orderCount)
   );
-  userRegistrationContainer.appendChild(createPasswordElement(userData.password));
+  userRegistrationContainer.appendChild(
+    createPasswordElement(userData.password)
+  );
   userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
   );
@@ -178,7 +180,7 @@ function createOrderCountElement(orderCountData) {
 
   const orderCountTitle = document.createElement("label");
   orderCountTitle.textContent = "Número de pedidos:";
-  orderCountTitle.setAttribute("for", "orderCount"); 
+  orderCountTitle.setAttribute("for", "orderCount");
 
   const orderCount = document.createElement("input");
   orderCount.setAttribute("type", "number");
@@ -206,8 +208,20 @@ function createPasswordElement(passwordData) {
   password.setAttribute("name", "password");
   password.setAttribute("value", passwordData);
 
+  const buttonPassword = document.createElement("button");
+  buttonPassword.setAttribute("type", "button");
+  buttonPassword.classList = "btn";
+  buttonPassword.id = "buttonPassword";
+  buttonPassword.textContent = "Mostrar";
+
+  buttonPassword.addEventListener("click", () => {
+    const isPassword = password.type === "password";
+    password.type = isPassword ? "text" : "password";
+  });
+
   passwordContainer.appendChild(passwordTitle);
   passwordContainer.appendChild(password);
+  passwordContainer.appendChild(buttonPassword);
 
   return passwordContainer;
 }
@@ -220,11 +234,27 @@ function createSubscriptionTypeElement(subscriptionData) {
   subscriptionTypeTitle.textContent = "Tipo de suscripción:";
   subscriptionTypeTitle.setAttribute("for", "subscription");
 
-  const subscriptionType = document.createElement("input");
-  subscriptionType.setAttribute("type", "text");
+  const subscriptionType = document.createElement("select");
   subscriptionType.setAttribute("id", "subscription");
   subscriptionType.setAttribute("name", "subscription");
-  subscriptionType.setAttribute("value", subscriptionData);
+
+  const options = [
+    { value: "basic", label: "Básica" },
+    { value: "premium", label: "Premium" },
+    { value: "gold", label: "Gold" },
+  ];
+
+  options.forEach((optionData) => {
+    const option = document.createElement("option");
+    option.value = optionData.value;
+    option.textContent = optionData.label;
+
+    if (optionData.value === subscriptionData) {
+      option.selected = true;
+    }
+
+    subscriptionType.appendChild(option);
+  });
 
   subscriptionTypeContainer.appendChild(subscriptionTypeTitle);
   subscriptionTypeContainer.appendChild(subscriptionType);
@@ -265,23 +295,31 @@ function createUserFavorites(userData) {
 
   const userFavoritePlants = document.createElement("h3");
   userFavoritePlants.textContent = "PLANTAS FAVORITAS";
+  userFavoritePlants.classList = "favorite-plants";
   userFavoritesTitle.appendChild(userFavoritePlants);
   userFavoritePlants.appendChild(createPlantFavorites(userData.favPlants));
 
   const userFavoriteProducts = document.createElement("h3");
   userFavoriteProducts.textContent = "PRODUCTOS FAVORITOS";
-  userFavoritesTitle.appendChild(userFavoriteProducts)
-  userFavoriteProducts.appendChild(createProductFavorites(userData.favProducts));
+  userFavoriteProducts.classList = "favorite-products";
+  userFavoritesTitle.appendChild(userFavoriteProducts);
+  userFavoriteProducts.appendChild(
+    createProductFavorites(userData.favProducts)
+  );
 
   const userFavoriteTools = document.createElement("h3");
   userFavoriteTools.textContent = "HERRAMIENTAS FAVORITAS";
+  userFavoriteTools.classList = "favorite-tools";
   userFavoritesTitle.appendChild(userFavoriteTools);
   userFavoriteTools.appendChild(createToolFavorites(userData.favTools));
 
   const userFavoriteAccessories = document.createElement("h3");
   userFavoriteAccessories.textContent = "ACCESORIOS FAVORITOS";
+  userFavoriteAccessories.classList = "favorite-accesories";
   userFavoritesTitle.appendChild(userFavoriteAccessories);
-  userFavoriteAccessories.appendChild(createAccessoryFavorites(userData.favAccessories));
+  userFavoriteAccessories.appendChild(
+    createAccessoryFavorites(userData.favAccessories)
+  );
 
   return userFavoritesContainer;
 }
@@ -311,7 +349,6 @@ function createProductFavorites(products) {
 
   return productFavoritesContainer;
 }
-
 
 function createToolFavorites(tools) {
   const toolFavoritesContainer = document.createElement("ul");
