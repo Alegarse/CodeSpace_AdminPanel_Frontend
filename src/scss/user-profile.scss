@@ -103,7 +103,12 @@
   & .photo-profile {
     border-radius: 15px;
     width: 130px;
+    min-height: 145px;
     margin: auto;
+  }
+
+  & .hidden-fileInput {
+    display: none;
   }
 
   & .user-lastaccess-label {
@@ -117,6 +122,10 @@
     height: 10px;
   }
 }
+
+.photo-profile:hover {
+      cursor: pointer;
+    }
 
 .info-container {
   display: flex;

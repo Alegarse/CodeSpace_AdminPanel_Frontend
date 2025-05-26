@@ -1,6 +1,7 @@
 import { getUserFavourite } from "../api/api";
 import { createSidebarElement } from "../complements/sidebar";
 import { clearSessionListener } from "../events/general-events";
+import { modifyProfileImgListener } from "../events/profile-events";
 import { getFormattedDate } from "../utils/general";
 
 function createSubscriptionInfo(subscription) {
@@ -30,10 +31,17 @@ function createProfileInfo(userData) {
 
   const userPhoto = document.createElement("img");
   userPhoto.classList = "photo-profile";
+  userPhoto.title = "Click en la imagen para cambiarla";
   userPhoto.src =
     userData.profilePictureUrl === ""
       ? "./src/imgs/empty-photo-profile.png"
       : userData.profilePictureUrl;
+
+  const hiddenInput = document.createElement("input");
+  hiddenInput.type = "file";
+  hiddenInput.id = "photo-fileInput";
+  hiddenInput.classList = "hidden-fileInput";
+  hiddenInput.accept = ".png,.jpg,.jpeg";
 
   const userLastAccessLabel = document.createElement("p");
   userLastAccessLabel.textContent = "Ultimo acceso:";
@@ -44,6 +52,7 @@ function createProfileInfo(userData) {
   userLastAccess.classList = "user-lastaccess";
 
   photoContainerElement.appendChild(userPhoto);
+  photoContainerElement.appendChild(hiddenInput);
   photoContainerElement.appendChild(userLastAccessLabel);
   photoContainerElement.appendChild(userLastAccess);
 
@@ -150,18 +159,10 @@ function createToolsAndFavouritesInfo(userData) {
     )
   );
   favsContainerElement.appendChild(
-    createGroupedFavsContainer(
-      "Productos",
-      userData.favProducts,
-      "product"
-    )
+    createGroupedFavsContainer("Productos", userData.favProducts, "product")
   );
   favsContainerElement.appendChild(
-    createGroupedFavsContainer(
-      "Herramientas",
-      userData.favTools,
-      "tool"
-    )
+    createGroupedFavsContainer("Herramientas", userData.favTools, "tool")
   );
 
   preFavsContainer.appendChild(titleFavourites);
@@ -224,6 +225,9 @@ export function createUserProfile() {
   userPanelElement.appendChild(usersPanelElement);
 
   appContainerElement.appendChild(userPanelElement);
+
+  // PROFILE PAGE LISTENERS
+  modifyProfileImgListener();
 
   // LOGOUT Listener
   clearSessionListener();
