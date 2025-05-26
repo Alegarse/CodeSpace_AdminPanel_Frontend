@@ -9,14 +9,14 @@ import {
 import { codeError } from "../utils/errors";
 
 // All endpoints call
-export async function callApi(method, url, data = null) {
+export async function callApi(method, url, data = null, upload = false) {
   try {
-    return await makeAuthorizedRequest(method, url, data);
+    return await makeAuthorizedRequest(method, url, data, upload);
   } catch (error) {
     if (error.status === 401) {
       try {
         await refreshToken();
-        return await makeAuthorizedRequest(method, url, data);
+        return await makeAuthorizedRequest(method, url, data, upload);
       } catch (refreshError) {
         goToLogin();
       }
@@ -26,20 +26,26 @@ export async function callApi(method, url, data = null) {
 }
 
 // Verify Authorized petition
-async function makeAuthorizedRequest(method, url, data = null) {
+async function makeAuthorizedRequest(method, url, data = null, upload) {
   const token = localStorage.getItem("access_token");
   if (!token) {
     throw new Error("Token no existe");
   }
-  const headers = { "Content-Type": "application/json", "auth-token": token };
+  let headers = {};
+  if (!upload) {
+    headers = { "Content-Type": "application/json", "auth-token": token };
+  } else {
+    headers = { "auth-token": token };
+  }
 
   const response = await fetch(url, {
     method,
     headers,
-    body: data ? JSON.stringify(data) : null,
+    body: data ? (upload ? data : JSON.stringify(data)) : null,
   });
 
   if (!response.ok) {
+    console.log("Error en la petición");
     const error = new Error("Error en la petición");
     error.status = response.status;
     throw error;

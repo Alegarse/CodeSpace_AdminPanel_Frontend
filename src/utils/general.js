@@ -20,3 +20,5 @@ export function getFormattedDate(date,includeTime = false) {
   }
   return constDate.toLocaleString('es-ES', options).replace(',','');
 }
+
+
