@@ -121,6 +121,7 @@ export function createCardsUsersContainer(dataUsers) {
 
   //El titulo del div
   const cardTitle = document.createElement("h2");
+  cardTitle.classList = "title-list"
   cardTitle.textContent = "Lista de Usuarios";
 
   //Creo el div donde van a ir todas las card

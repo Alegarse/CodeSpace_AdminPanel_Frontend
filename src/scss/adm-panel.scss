@@ -1,111 +1,141 @@
 .opacity-bg-img {
-    background-color: rgba(255,255,255,0.7);
-    background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.7);
+  background-blend-mode: lighten;
 }
 
 .sidebar-container {
-    background-color: #7fae7f;
-    //background-color: var(--color-bg-primary);
-    padding: 2rem;
-    text-align: center;
+  background-color: #7fae7f;
+  //background-color: var(--color-bg-primary);
+  padding: 2rem;
+  text-align: center;
 }
 
 .logo-admin {
-    width: 80%;
-    height: auto;
+  width: 80%;
+  height: auto;
 }
 
 .admin-name {
-    color: var(--color-font-title);
-    font-family: var(--font-title);
-    font-weight: normal;
-    margin-top: 1rem;
-
+  color: var(--color-font-title);
+  font-family: var(--font-title);
+  font-weight: normal;
+  margin-top: 1rem;
 }
 
 .line {
-    border: none;
-    border-top: 2px solid #1B4D2B;
-    margin: 20px 0;
+  border: none;
+  border-top: 0.125rem solid #1b4d2b;
+  margin: 1.25rem 0;
 }
 
 .sidebar-items {
-    text-align: left;
+  text-align: left;
 }
 
 .admin-navbar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .navbar-link {
-    text-decoration: none;
-    color: var(--color-font-title);
-    font-family: var(--font-title);
-    transition: color 0.3s ease;
+  text-decoration: none;
+  color: var(--color-font-title);
+  font-family: var(--font-title);
+  transition: color 0.3s ease;
 }
 
 .navbar-link:hover {
-    color: #1B4D2B;
-    font-weight: bold;
-    font-size: 18px;
-    transform: scale(1.2)
+  color: #1b4d2b;
+  font-weight: bold;
+  font-size: 1.125rem;
+  transform: scale(1.2);
 }
 
 .adminPanel-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 20% 80%;
-    height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  height: 100vh;
 }
 
 .sidebar-container {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 // CSS LISTA DE USUARIOS
 
-.cards-container{
-    display: flex;
-    flex-direction: column;
-    margin-inline: 10px;
-    gap: 10px;
-
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  margin-inline: 0.625rem;
+  gap: 0.625rem;
 }
 
-.user-card{
-    display: flex;
-    background-color:var(--color-font-title);
-    border-radius: 0.625rem;
-    border: 2px solid #1B4D2B;
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-font-title);
+  border-radius: 0.625rem;
+  border: 0.125rem solid #1b4d2b;
 }
 
-.h2 {
-  font-family: --font-title;  
+.title-list {
+  font-family: --font-title;
+  color: #1b4d2b;
 }
 
-.photo-user{
-    display: flex;
-    width: 10%;
-    height: auto;
+.photo-user {
+  display: flex;
+  width: 10%;
+  height: auto;
 }
 
-.name-user{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.name-user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem;
 }
 
 .mail-user {
-    display: flex;
-      flex-direction: column;
-     gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem;
 }
 
 .user-data {
-    display: flex;
-    flex-direction: column;
-     gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem;
+}
+
+//BOTONES
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-update {
+ padding: 0.75rem 0.75rem;
+    border-radius: 7rem;
+    border: 1.5px solid #426500;
+    margin: 10px;
+  
+  
+}
+
+.btn-delete {
+  padding: 0.75rem 0.75rem;
+    border-radius: 7rem;
+    border: 1.5px solid #426500;
+    margin: 10px;
+}
+
+.btn-disable {
+  padding: 0.75rem 0.75rem;
+    border-radius: 7rem;
+    border: 1.5px solid #426500;
+    margin: 10px;
 }
