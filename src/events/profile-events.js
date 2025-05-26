@@ -1,5 +1,5 @@
 import { apiConfig } from "../api/api-config";
-import { callApi } from "../api/api";
+import { callApi, removeUserFavourite } from "../api/api";
 
 export function modifyProfileImgListener() {
   const imgElement = document.querySelector(".photo-profile");
@@ -10,7 +10,6 @@ export function modifyProfileImgListener() {
   });
 
   fileInput.addEventListener("change", async (event) => {
-
     const photo = fileInput.files[0];
     if (!photo) return;
 
@@ -25,6 +24,24 @@ export function modifyProfileImgListener() {
 
     const uploadUrl = apiConfig.uploadProfileImgUrl;
     const response = await callApi("POST", uploadUrl, formData, true);
-    imgElement.src = response.data
+    imgElement.src = response.data;
+  });
+}
+
+export async function removeFavouritesUserListener() {
+
+  const clickContainer = document.querySelector('.favourites-general-container')
+
+  clickContainer.addEventListener("click", async (event) => {
+    const target = event.target;
+    let favouriteId = ""
+    let favouriteType = ""
+    if (target.hasAttribute("data-favourite-id")) {
+      favouriteId = target.getAttribute("data-favourite-id");
+    }
+    if (target.hasAttribute("data-favourite-type")) {
+      favouriteType = target.getAttribute("data-favourite-type");
+    }
+    if (favouriteId !== "" && favouriteType !== "") removeUserFavourite(favouriteId,favouriteType);
   });
 }

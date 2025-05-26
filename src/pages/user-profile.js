@@ -1,7 +1,10 @@
 import { getUserFavourite } from "../api/api";
 import { createSidebarElement } from "../complements/sidebar";
 import { clearSessionListener } from "../events/general-events";
-import { modifyProfileImgListener } from "../events/profile-events";
+import {
+  modifyProfileImgListener,
+  removeFavouritesUserListener,
+} from "../events/profile-events";
 import { getFormattedDate } from "../utils/general";
 
 function createSubscriptionInfo(subscription) {
@@ -183,11 +186,22 @@ function createGroupedFavsContainer(title, content, type) {
   contentContainer.classList = "favourites-content";
 
   content.forEach(async (fav) => {
+    const favouritesDiv = document.createElement("div");
+    favouritesDiv.classList = "favourite-line";
     const pElement = document.createElement("p");
     pElement.classList = "fav-item";
     const favourite = await getUserFavourite(fav, type);
     pElement.textContent = favourite.name;
-    contentContainer.appendChild(pElement);
+
+    const removeElement = document.createElement("img");
+    removeElement.src = "./src/imgs/recycle.png";
+    removeElement.setAttribute("data-favourite-id", favourite._id);
+    removeElement.setAttribute("data-favourite-type", type);
+    removeElement.classList = "recycle-favourite";
+
+    favouritesDiv.appendChild(pElement);
+    favouritesDiv.appendChild(removeElement);
+    contentContainer.appendChild(favouritesDiv);
   });
 
   favouritesContainer.appendChild(titleElement);
@@ -228,6 +242,9 @@ export function createUserProfile() {
 
   // PROFILE PAGE LISTENERS
   modifyProfileImgListener();
+  setTimeout(() => {
+    removeFavouritesUserListener();
+  }, 500);
 
   // LOGOUT Listener
   clearSessionListener();
