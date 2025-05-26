@@ -38,6 +38,15 @@ export function createRegisterPage() {
   inputTelefono.id = "input-telephone";
   inputTelefono.type = "number";
 
+  const labelFechadeNacimiento = document.createElement("label");
+  labelFechadeNacimiento.textContent = ("Fecha de Nacimiento");
+  labelFechadeNacimiento.htmlFor = "input-Fecha de Nacimiento";
+
+  const inputFechadeNacimiento =document.createElement("input");
+  inputFechadeNacimiento.setAttribute("required", true);
+  inputFechadeNacimiento.id = "input-Fecha de Nacimiento";
+  inputFechadeNacimiento.type = "number";
+
   const labelDireccion = document.createElement("label");
   labelDireccion.textContent = "Direccion";
   labelDireccion.htmlFor = "input-Direction";
@@ -78,6 +87,8 @@ export function createRegisterPage() {
   formContainer.appendChild(inputApellidos);
   formContainer.appendChild(labelTelefono);
   formContainer.appendChild(inputTelefono);
+  formContainer.appendChild(labelFechadeNacimiento);
+  formContainer.appendChild(inputFechadeNacimiento);
   formContainer.appendChild(labelDireccion);
   formContainer.appendChild(inputDireccion);
   formContainer.appendChild(labelEmail);
