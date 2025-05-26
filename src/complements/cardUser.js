@@ -20,8 +20,7 @@ function createCardUser(userData) {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
-
-  buttonsContainer.appendChild(createButtonforUpdateUser(userData.id)); // añadido id
+  buttonsContainer.appendChild(createButtonforUpdateUser(userData._id)); // añadido id
   buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
   buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
 
@@ -75,45 +74,6 @@ function createButtonforDisableUser() {
 
 export function createCardsUsersContainer(dataUsers) {
 
-  console.log(dataUsers);
-
- /*dataUsers = [
-    {
-      id: '6832ddc8b4e9dd83b536ac3b',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: '6832de11b4e9dd83b536ac41',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id3',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id4',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id5',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-  ]*/
   const anchorElement = document.querySelector("#elements-panel-container");
 
   //Creo un div para englobar todo
