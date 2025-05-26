@@ -41,12 +41,12 @@ export function createRegisterPage() {
 
   const labelFechadeNacimiento = document.createElement("label");
   labelFechadeNacimiento.textContent = ("Fecha de Nacimiento");
-  labelFechadeNacimiento.htmlFor = "input-Fecha de Nacimiento";
+  labelFechadeNacimiento.htmlFor = "input-birthDate";
 
   const inputFechadeNacimiento =document.createElement("input");
   inputFechadeNacimiento.setAttribute("required", true);
-  inputFechadeNacimiento.id = "input-Fecha de Nacimiento";
-  inputFechadeNacimiento.type = "number";
+  inputFechadeNacimiento.id = "input-birthDate";
+  inputFechadeNacimiento.type = "date";
 
   const labelDireccion = document.createElement("label");
   labelDireccion.textContent = "Direccion";
