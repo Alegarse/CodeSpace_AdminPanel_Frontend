@@ -32,7 +32,7 @@ function createProfileInfo(userData) {
   userPhoto.classList = "photo-profile";
   userPhoto.src =
     userData.profilePictureUrl === ""
-      ? "/src/imgs/empty-photo-profile.png"
+      ? "./src/imgs/empty-photo-profile.png"
       : userData.profilePictureUrl;
 
   const userLastAccessLabel = document.createElement("p");

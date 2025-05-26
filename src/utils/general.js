@@ -1,5 +1,4 @@
 import { getUserProfile, goToLogin } from "../api/api";
-import { codeError } from "./errors";
 
 export async function checkIsLogged() {
   const token = localStorage.getItem("access_token");

@@ -68,7 +68,7 @@ function createNavbarItemsElements() {
 function createLogoElement() {
   const logoElement = document.createElement("img");
   logoElement.classList = "logo-user";
-  logoElement.src = "/src/imgs/logo-plants.png";
+  logoElement.src = "./src/imgs/logo-plants.png";
   logoElement.alt = "logo";
 
   return logoElement;
