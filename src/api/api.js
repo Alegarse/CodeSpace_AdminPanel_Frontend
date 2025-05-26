@@ -214,3 +214,19 @@ export async function getUserDetails(userId) {
     throw error;
   }
 }
+
+//Fucntion to delete user favourite
+export async function removeUserFavourite(favouriteId, favouriteType) {
+  let urlRemoveFAvourite = apiConfig.removeFavouritesUrl;
+  urlRemoveFAvourite += `/${favouriteId}/${favouriteType}`;
+
+  const result = await callApi("PATCH", urlRemoveFAvourite);
+
+  if (result.status !== "Success") {
+    throw Error("No se ha podido borrar el favorito");
+  }
+  localStorage.setItem("userData", JSON.stringify(result.data));
+  const appContainerElement = document.querySelector("#app");
+  appContainerElement.innerHTML = "";
+  createUserProfile();
+}
