@@ -1,5 +1,5 @@
 import { createModalElement } from "../complements/modal-structure";
-import { createCardsUsersContainer } from "../complements/cardUser";
+import { createCardsUsersContainer } from "../complements/card-user";
 import { clearSessionListener } from "../events/general-events";
 import { createSidebarElement } from "../complements/sidebar";
 import { getAllUsers } from "../api/api";
