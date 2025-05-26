@@ -1,3 +1,5 @@
+import { getFormattedDate } from "../utils/general";
+
 //Creacion de hueco para la foto
 export function createImgUser(url, classList = "photo-user") {
   const imgUser = document.createElement("img");
@@ -32,6 +34,6 @@ export function createEMailUser(email, htmlTag = "h5") {
 export function createDateUser(date, htmlTag = "p") {
   const dateUser = document.createElement(htmlTag);
   dateUser.classList = "user-date";
-  dateUser.textContent = new Date(date).getFullYear();
+  dateUser.textContent = getFormattedDate(date);
   return dateUser;
 }

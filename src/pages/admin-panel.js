@@ -2,8 +2,9 @@ import { createModalElement } from "../complements/modal-structure";
 import { createCardsUsersContainer } from "../complements/cardUser";
 import { clearSessionListener } from "../events/general-events";
 import { createSidebarElement } from "../complements/sidebar";
+import { getAllUsers } from "../api/api";
 
-export function createAdminPanel() {
+export async function createAdminPanel() {
   const bodyElement = document.querySelector("body");
   bodyElement.classList.add("opacity-bg-img");
 
@@ -23,6 +24,6 @@ export function createAdminPanel() {
   appContainerElement.appendChild(adminPanelElement);
   appContainerElement.appendChild(createModalElement());
 
-  createCardsUsersContainer();
+  createCardsUsersContainer(await getAllUsers());
   clearSessionListener();
 }

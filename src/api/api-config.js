@@ -5,5 +5,6 @@ export const apiConfig = {
     removeFavouritesUrl: "http://localhost:3000/api/user/removefavourites",
     userDetailsUrl: "http://localhost:3000/api/user/details/",
     registerUrl: "http://localhost:3000/api/auth/signup",
-    uploadProfileImgUrl: "http://localhost:3000/api/user/profile/img"
+    uploadProfileImgUrl: "http://localhost:3000/api/user/profile/img",
+    baseUserUrl: "http://localhost:3000/api/user",
 }

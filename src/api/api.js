@@ -230,3 +230,11 @@ export async function removeUserFavourite(favouriteId, favouriteType) {
   appContainerElement.innerHTML = "";
   createUserProfile();
 }
+
+export async function getAllUsers() {
+  const urlGetAllUsers = apiConfig.baseUserUrl;
+
+  const users = await callApi("GET", urlGetAllUsers);
+
+  return users.data;
+}
