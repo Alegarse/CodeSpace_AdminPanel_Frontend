@@ -244,17 +244,21 @@ export async function getAllUsers() {
 }
 
 export async function deactiveUser() {
-  const urlDeactiveUser= apiConfig.botonDisableUserUrl;
-
-  const users = await callApi("PATCH", urlDeactiveUser);
-
-  return users.data;
+  try {
+    const urlDeactiveUser = apiConfig.botonDisableUserUrl;
+    const users = await callApi("PATCH", urlDeactiveUser);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function updateUser() {
-  const urlUpdateUser= apiConfig.botonUpdateUserUrl;
-
-  const users = await callApi("PATCH", urlUpdateUser);
-
-  return users.data;
+  try {
+    const urlUpdateUser = apiConfig.botonUpdateUserUrl;
+    const users = await callApi("PATCH", urlUpdateUser);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
 }
