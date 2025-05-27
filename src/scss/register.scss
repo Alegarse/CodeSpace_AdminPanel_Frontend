@@ -114,6 +114,40 @@
   cursor: pointer;
 }
 
+/*.form-register > label[for="input-password"],
+.form-register > #input-password {
+  grid-column: 2;
+}*/
+
+form.form-register {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(12, auto);
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+ 
+}
+
+ form.form-register label[for="input-email"] {
+  grid-column: 1;
+  grid-row: 7;
+}
+
+form.form-register #input-email {
+  grid-column: 1;
+  grid-row: 8;
+}
+
+form.form-register label[for="input-password"] {
+  grid-column: 2;
+  grid-row: 7; 
+}
+
+form.form-register #input-password {
+  grid-column: 2;
+  grid-row: 8;
+}
+
 .form-register .button-backtologin {
   background-color: #426500;
   color: white;
