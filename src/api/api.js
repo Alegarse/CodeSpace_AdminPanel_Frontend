@@ -242,3 +242,23 @@ export async function getAllUsers() {
 
   return users.data;
 }
+
+export async function deactiveUser() {
+  try {
+    const urlDeactiveUser = apiConfig.botonDisableUserUrl;
+    const users = await callApi("PATCH", urlDeactiveUser);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateUser() {
+  try {
+    const urlUpdateUser = apiConfig.botonUpdateUserUrl;
+    const users = await callApi("PATCH", urlUpdateUser);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
+}

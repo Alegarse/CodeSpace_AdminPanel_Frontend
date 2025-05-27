@@ -82,7 +82,7 @@
 }
 
 .h2 {
-  font-family: --font-title;  
+  font-family: --font-title;
   color: white;
 }
 .title-list {
@@ -95,6 +95,8 @@
   display: flex;
   width: 20%;
   height: auto;
+  min-width: 12.5rem;
+  max-width: 12.5rem;
 }
 
 .name-user {

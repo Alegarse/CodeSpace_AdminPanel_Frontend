@@ -3,10 +3,10 @@ body {
   background-image: url("../imgs/body-back.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
- }
+}
 
 #app {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -16,12 +16,12 @@ body {
   background-color: rgba(255, 255, 255, 0.849);
   padding: 2rem;
   border-radius: 0.625rem;
-  width: 350px;
+  width: 21.875rem;
   color: #1b4d2b;
 
   & .title-login {
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
   }
 }
 
@@ -32,7 +32,7 @@ body {
   & input {
     margin-bottom: 1rem;
     padding: 0.5rem;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
   }
 
   & button {
@@ -41,7 +41,7 @@ body {
     font-weight: 500;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     padding: 0.7rem;
     font-size: 1.2rem;
   }
@@ -49,8 +49,7 @@ body {
   & .button-register {
     background-color: white;
     color: #426500;
-    border: 2px solid #426500;
-
+    border: 0.125rem solid #426500;
   }
 
   & label {
@@ -59,16 +58,16 @@ body {
   }
 
   & .login-line {
-    background-color: #1B4D2B;
-    height: 2px;
-    margin: 30px 0;
+    background-color: #1b4d2b;
+    height: 0.125rem;
+    margin: 1.875rem 0;
   }
 
   & .separator {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     font-weight: 600;
   }
 }
