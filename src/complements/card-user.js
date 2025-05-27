@@ -57,6 +57,13 @@ function createButtonforDeleteUser() {
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
   buttonDelete.textContent = "Eliminar"
+   buttonDelete.setAttribute("data-bs-toggle", "modal");
+  buttonDelete.setAttribute("data-bs-target", "#modal");
+
+  buttonDelete.addEventListener('click', (event) => { 
+    
+    const modal = createUserModal(userId);
+  })
 
   return buttonDelete;
 }
