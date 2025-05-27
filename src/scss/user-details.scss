@@ -28,8 +28,8 @@
 }
 
 .favorites-container {
-    @extend .registration-container;
-    margin-bottom: 0px
+  @extend .registration-container;
+  margin-bottom: 0rem;
 }
 
 label {
@@ -49,11 +49,11 @@ input {
 }
 
 .user-date {
-    margin-left: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 #subscription {
-  padding: 8px;
+  padding: 0.5rem;
   box-sizing: border-box;
   border: var(--color-line);
   border-radius: 0.375rem;
