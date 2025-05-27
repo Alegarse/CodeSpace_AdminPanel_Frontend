@@ -1,7 +1,12 @@
 //import { user } from "../pages/user-details";
 import { createUserModal } from "../pages/user-details";
-import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
-
+import { createModalMini } from "./modal";
+import {
+  createImgUser,
+  createEMailUser,
+  createNameUser,
+  createDateUser,
+} from "./user-helper-methods";
 
 function createCardUser(userData) {
   //Creo el div para cada card
@@ -22,7 +27,7 @@ function createCardUser(userData) {
   // Aqui appenchild 3 botones
   buttonsContainer.appendChild(createButtonforUpdateUser(userData._id)); // añadido id
   buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
-  buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
+  buttonsContainer.appendChild(createButtonforDisableUser(userData)); // necesita id
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.profilePictureUrl));
@@ -42,10 +47,11 @@ export function createButtonforUpdateUser(userId) {
   buttonUpdate.setAttribute("data-bs-toggle", "modal");
   buttonUpdate.setAttribute("data-bs-target", "#modal");
 
-  buttonUpdate.addEventListener('click', (event) => { // añadido
+  buttonUpdate.addEventListener("click", (event) => {
+    // añadido
     //event.preventDefault();
     const modal = createUserModal(userId);
-  })
+  });
 
   return buttonUpdate;
 }
@@ -56,24 +62,31 @@ function createButtonforDeleteUser() {
   buttonDelete.setAttribute("id", "delete-btn");
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
-  buttonDelete.textContent = "Eliminar"
+  buttonDelete.textContent = "Eliminar";
 
   return buttonDelete;
 }
 
 //Creacion boton deshabilitar
-function createButtonforDisableUser() {
+function createButtonforDisableUser(userData) {
   const buttonDisable = document.createElement("button");
   buttonDisable.setAttribute("id", "disable-btn");
   buttonDisable.setAttribute("type", "button");
   buttonDisable.classList = "btn-disable";
-  buttonDisable.textContent = "Desahibilitar"
+  const action = userData.isActive === true ? "Desahibilitar" : "Habilitar";
+  buttonDisable.textContent = action;
+  buttonDisable.setAttribute("data-bs-toggle", "modal");
+  buttonDisable.setAttribute("data-bs-target", "#modal");
+
+  buttonDisable.addEventListener("click", (event) => {
+    console.log(`Click ${action.toLowerCase()}`)
+    const modal = createModalMini(userData,action.toLowerCase());
+  });
 
   return buttonDisable;
 }
 
 export function createCardsUsersContainer(dataUsers) {
-
   const anchorElement = document.querySelector("#elements-panel-container");
 
   //Creo un div para englobar todo
@@ -82,7 +95,7 @@ export function createCardsUsersContainer(dataUsers) {
 
   //El titulo del div
   const cardTitle = document.createElement("h2");
-  cardTitle.classList = "title-list"
+  cardTitle.classList = "title-list";
   cardTitle.textContent = "Lista de Usuarios";
 
   //Creo el div donde van a ir todas las card
@@ -92,7 +105,7 @@ export function createCardsUsersContainer(dataUsers) {
   dataUsers.forEach((user) => {
     cardsContainer.appendChild(createCardUser(user));
   });
-  
+
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);
 
