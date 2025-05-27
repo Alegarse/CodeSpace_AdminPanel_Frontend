@@ -158,11 +158,15 @@ export async function registerUser(
       errorContainer.textContent = codeError[dataUserRegistered.status];
       setTimeout(() => {
         errorContainer.textContent = "\u00A0";
-        //document.querySelector("#form-register").reset();
       }, 5000);
     } else {
-      //GO TO LOGIN PAGE
-      goToLogin();
+      //GO TO LOGIN PAGE AFTER MESSAGE
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = dataUserRegistered.message;
+      setTimeout(() => {
+        errorContainer.textContent = "\u00A0";
+        goToLogin();
+      }, 3000);
     }
   } catch (error) {
     throw error;
