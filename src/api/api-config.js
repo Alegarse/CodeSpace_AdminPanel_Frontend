@@ -7,4 +7,5 @@ export const apiConfig = {
     registerUrl: "http://localhost:3000/api/auth/signup",
     uploadProfileImgUrl: "http://localhost:3000/api/user/profile/img",
     baseUserUrl: "http://localhost:3000/api/user",
+    refreshTokenUrl: "http://localhost:3000/api/auth/refresh_token",
 }

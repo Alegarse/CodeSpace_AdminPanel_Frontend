@@ -58,8 +58,8 @@ async function refreshToken() {
   try {
     const refresh = localStorage.getItem("refresh_token");
     if (!refresh) throw new Error("Token de resfresco no existe");
-    const urlLogin = apiConfig.baseUrl;
-    const renoveTokens = await fetch(urlLogin, {
+    const urlRefreshToken = apiConfig.refreshTokenUrl;
+    const renoveTokens = await fetch(urlRefreshToken, {
       method: "GET",
       headers: { "Content-Type": "application/json", "auth-token": refresh },
     });
