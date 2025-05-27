@@ -2,18 +2,21 @@ import { apiConfig } from "./api-config";
 import { createAdminPanel } from "../pages/admin-panel";
 import { createUserProfile } from "../pages/user-profile";
 import { createLoginPage } from "../pages/login";
-import { loginListener } from "../events/login-events";
-import { errorMessage } from "../utils/general";
+import {
+  goToRegisterPageListener,
+  loginListener,
+} from "../events/login-events";
+import { codeError } from "../utils/errors";
 
 // All endpoints call
-export async function callApi(method, url, data = null) {
+export async function callApi(method, url, data = null, upload = false) {
   try {
-    return await makeAuthorizedRequest(method, url, data);
+    return await makeAuthorizedRequest(method, url, data, upload);
   } catch (error) {
     if (error.status === 401) {
       try {
         await refreshToken();
-        return await makeAuthorizedRequest(method, url, data);
+        return await makeAuthorizedRequest(method, url, data, upload);
       } catch (refreshError) {
         goToLogin();
       }
@@ -23,20 +26,26 @@ export async function callApi(method, url, data = null) {
 }
 
 // Verify Authorized petition
-async function makeAuthorizedRequest(method, url, data = null) {
+async function makeAuthorizedRequest(method, url, data = null, upload) {
   const token = localStorage.getItem("access_token");
   if (!token) {
     throw new Error("Token no existe");
   }
-  const headers = { "Content-Type": "application/json", "auth-token": token };
+  let headers = {};
+  if (!upload) {
+    headers = { "Content-Type": "application/json", "auth-token": token };
+  } else {
+    headers = { "auth-token": token };
+  }
 
   const response = await fetch(url, {
     method,
     headers,
-    body: data ? JSON.stringify(data) : null,
+    body: data ? (upload ? data : JSON.stringify(data)) : null,
   });
 
   if (!response.ok) {
+    console.log("Error en la petición");
     const error = new Error("Error en la petición");
     error.status = response.status;
     throw error;
@@ -78,6 +87,7 @@ export function goToLogin() {
   localStorage.clear();
   createLoginPage();
   loginListener();
+  goToRegisterPageListener();
 }
 
 // Function to Make Login
@@ -96,13 +106,12 @@ export async function loginUser(userEmail, userPassword) {
     const dataUserLogged = await userLogged.json();
 
     if (dataUserLogged.status !== "Success") {
-      const errorContainer = document.querySelector(".login-container");
-      const messageElement = errorMessage(dataUserLogged.status);
-      errorContainer.appendChild(messageElement);
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = codeError[dataUserLogged.status];
       setTimeout(() => {
-        errorContainer.removeChild(messageElement);
-        document.querySelector("#form-login").reset();
-      },5000);
+        errorContainer.textContent = "\u00A0";
+        //document.querySelector("#form-login").reset();
+      }, 5000);
     } else {
       // SAVE DATA TO LOCAL STORAGE
       localStorage.setItem("access_token", dataUserLogged.token);
@@ -110,6 +119,54 @@ export async function loginUser(userEmail, userPassword) {
 
       // Try to get Data User
       getUserProfile();
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Fucntion to register new user
+export async function registerUser(
+  userName,
+  userLastName,
+  userEmail,
+  userAddress,
+  userPhone,
+  userPassword,
+  userBirthdate
+) {
+  try {
+    const dataUserRegister = {
+      name: userName,
+      lastName: userLastName,
+      email: userEmail,
+      address: userAddress,
+      phone: userPhone,
+      password: userPassword,
+      birthDate: userBirthdate,
+    };
+    const urlRegister = apiConfig.registerUrl;
+    const userRegistered = await fetch(urlRegister, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataUserRegister),
+    });
+    const dataUserRegistered = await userRegistered.json();
+
+    if (dataUserRegistered.status !== "Success") {
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = codeError[dataUserRegistered.status];
+      setTimeout(() => {
+        errorContainer.textContent = "\u00A0";
+      }, 5000);
+    } else {
+      //GO TO LOGIN PAGE AFTER MESSAGE
+      const errorContainer = document.querySelector(".error-message-container");
+      errorContainer.textContent = dataUserRegistered.message;
+      setTimeout(() => {
+        errorContainer.textContent = "\u00A0";
+        goToLogin();
+      }, 3000);
     }
   } catch (error) {
     throw error;
@@ -139,17 +196,49 @@ export async function getUserProfile() {
   }
 }
 
+//Function to obtain user favourites
+export async function getUserFavourite(idFavourite, type) {
+  try {
+    let urlFavourites = apiConfig.favouritesUrl;
+    urlFavourites += `/${type}/${idFavourite}`;
+    const favourite = await callApi("GET", urlFavourites);
+    return favourite.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Function to get user details
 export async function getUserDetails(userId) {
   try {
     const userDetailsUrl = apiConfig.userDetailsUrl + userId;
-    console.log(userDetailsUrl)
     const user = await callApi("GET", userDetailsUrl);
-    console.log('prueba')
-    console.log(user);
-    
     return user;
   } catch (error) {
     throw error;
   }
+}
+
+//Fucntion to delete user favourite
+export async function removeUserFavourite(favouriteId, favouriteType) {
+  let urlRemoveFAvourite = apiConfig.removeFavouritesUrl;
+  urlRemoveFAvourite += `/${favouriteId}/${favouriteType}`;
+
+  const result = await callApi("PATCH", urlRemoveFAvourite);
+
+  if (result.status !== "Success") {
+    throw Error("No se ha podido borrar el favorito");
+  }
+  localStorage.setItem("userData", JSON.stringify(result.data));
+  const appContainerElement = document.querySelector("#app");
+  appContainerElement.innerHTML = "";
+  createUserProfile();
+}
+
+export async function getAllUsers() {
+  const urlGetAllUsers = apiConfig.baseUserUrl;
+
+  const users = await callApi("GET", urlGetAllUsers);
+
+  return users.data;
 }

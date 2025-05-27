@@ -6,6 +6,7 @@ export function createLoginPage() {
   loginElement.classList = "login-container";
 
   const loginTitle = document.createElement("h2");
+  loginTitle.classList = 'title-login'
   loginTitle.textContent = "Iniciar sesion";
 
   const formContainer = document.createElement("form");
@@ -37,11 +38,29 @@ export function createLoginPage() {
   buttonLogin.classList = "button-login";
   buttonLogin.textContent = "Entrar";
 
+  const errorMessageContainer = document.createElement('div');
+  errorMessageContainer.classList = "error-message-container" 
+  errorMessageContainer.textContent = "\u00A0"
+
+  const separatorElement = document.createElement('div');
+  separatorElement.classList = "separator"
+  separatorElement.textContent = "ó"
+
+
+  const buttonRegister = document.createElement("button");
+  buttonRegister.type = "button";
+  buttonRegister.classList = "button-register";
+  buttonRegister.textContent = "Registrarse";
+
+
   formContainer.appendChild(labelEmail);
   formContainer.appendChild(inputEmail);
   formContainer.appendChild(labelPassword);
   formContainer.appendChild(inputPassword);
   formContainer.appendChild(buttonLogin);
+  formContainer.appendChild(errorMessageContainer);
+  formContainer.appendChild(separatorElement);
+  formContainer.appendChild(buttonRegister);
 
   loginElement.appendChild(loginTitle);
   loginElement.appendChild(formContainer);

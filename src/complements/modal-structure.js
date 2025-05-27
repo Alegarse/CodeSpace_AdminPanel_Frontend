@@ -24,7 +24,7 @@ export function createModalElement() {
   modalContent.appendChild(modalHeader);
 
   const modalTitle = document.createElement("h1");
-  modalTitle.classList = "modal-title fs-5";
+  modalTitle.classList = "modal-title";
   modalTitle.id = "modal-title";
   modalHeader.appendChild(modalTitle);
 
@@ -62,20 +62,14 @@ export function createModalElement() {
 }
 
 export function updateModalElement(title, content, buttons) {
-  console.log('updateModalElement');
   const modalTitle = document.querySelector('#modal-title');
-  console.log(modalTitle)
   modalTitle.textContent = title;
 
   const modalBody = document.querySelector('#modal-body');
-  console.log(modalBody)
   modalBody.appendChild(content);
 
   const modalFooter = document.querySelector('#modal-footer');
-  console.log(modalFooter)
   buttons.forEach((button) => {
-    console.log(modalFooter);
-    console.log(button);
     modalFooter.appendChild(button);
   })
 }

@@ -12,21 +12,20 @@ function createCardUser(userData) {
   const dataUser = document.createElement("div");
   dataUser.classList = "user-data";
   // Aqui appendchild de los datos
-  dataUser.appendChild(createNameUser(userData.name, userData.lastname));
+  dataUser.appendChild(createNameUser(userData.name, userData.lastName));
   dataUser.appendChild(createEMailUser(userData.email));
-  dataUser.appendChild(createDateUser(userData.date));
+  dataUser.appendChild(createDateUser(userData.birthDate));
 
   //Creo un div para los botones
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
-
-  buttonsContainer.appendChild(createButtonforUpdateUser(userData.id)); // añadido id
+  buttonsContainer.appendChild(createButtonforUpdateUser(userData._id)); // añadido id
   buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
   buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
 
   // Metemos todo en el contenedor de la card
-  cardContainer.appendChild(createImgUser(userData.url));
+  cardContainer.appendChild(createImgUser(userData.profilePictureUrl));
   cardContainer.appendChild(dataUser);
   cardContainer.appendChild(buttonsContainer);
 
@@ -75,44 +74,6 @@ function createButtonforDisableUser() {
 
 export function createCardsUsersContainer(dataUsers) {
 
- dataUsers = [
-    {
-      id: 'id1',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id2',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id3',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id4',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-    {
-      id: 'id5',
-      name: "Pepito",
-      email: "aaa@aaa.es",
-      date: "20-05-2021",
-      url: ""
-    },
-  ]
-
   const anchorElement = document.querySelector("#elements-panel-container");
 
   //Creo un div para englobar todo
@@ -121,6 +82,7 @@ export function createCardsUsersContainer(dataUsers) {
 
   //El titulo del div
   const cardTitle = document.createElement("h2");
+  cardTitle.classList = "title-list"
   cardTitle.textContent = "Lista de Usuarios";
 
   //Creo el div donde van a ir todas las card

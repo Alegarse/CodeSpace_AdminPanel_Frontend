@@ -31,10 +31,21 @@ function createNavbarItemsElements() {
   const userNavbarElement = document.createElement("ul");
   userNavbarElement.classList = "user-navbar";
 
-  const navItems = [
-    { name: "PERFIL", href: "#" },
-    { name: "CERRAR SESIÓN", href: "#logOut", id: "clear-session" },
-  ];
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  const navItems = [{ name: "PERFIL", href: "#" }];
+
+  if (userData.role === "admin") {
+    navItems.push(
+      { name: "USUARIOS", href: "#users" },
+      { name: "CONFIGURACIÓN", href: "#config" }
+    );
+  }
+  navItems.push({
+    name: "CERRAR SESIÓN",
+    href: "#logOut",
+    id: "clear-session",
+  });
 
   navItems.forEach((item) => {
     const liElement = document.createElement("li");
@@ -57,7 +68,7 @@ function createNavbarItemsElements() {
 function createLogoElement() {
   const logoElement = document.createElement("img");
   logoElement.classList = "logo-user";
-  logoElement.src = "/src/imgs/logo-plants.png";
+  logoElement.src = "./src/imgs/logo-plants.png";
   logoElement.alt = "logo";
 
   return logoElement;
