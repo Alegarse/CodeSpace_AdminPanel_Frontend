@@ -235,9 +235,13 @@ export async function removeUserFavourite(favouriteId, favouriteType) {
   createUserProfile();
 }
 
-
 export async function deleteUserListener() {
   const clickContainer = document.querySelector('.users-general-container');
+  const modal = document.getElementById('confirmModal');
+  const confirmYes = document.getElementById('confirmYes');
+  const confirmNo = document.getElementById('confirmNo');
+
+  let selectedUserId = "";
 
   clickContainer.addEventListener("click", async (event) => {
     const target = event.target;
@@ -252,9 +256,25 @@ export async function deleteUserListener() {
     }
 
     if (userId !== "" && actionType === "delete") {
-      deleteUser(userId);
+      selectedUserId = userId;
+      modal.classList.remove("hidden");  
     }
   });
+
+  confirmYes.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    if (selectedUserId) {
+      deleteUser(selectedUserId); 
+      selectedUserId = "";
+    }
+  });
+
+  confirmNo.addEventListener("click", () => {
+    modal.classList.add("hidden"); 
+    selectedUserId = "";
+  });
 }
+
+
 
 
