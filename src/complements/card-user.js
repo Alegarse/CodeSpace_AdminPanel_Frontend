@@ -1,5 +1,6 @@
 //import { user } from "../pages/user-details";
 import { createUserModal } from "../pages/user-details";
+import { createModalYesNoQuestion } from "./modal-yes-no";
 import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
 
 
@@ -51,23 +52,37 @@ export function createButtonforUpdateUser(userId) {
 }
 
 //Creacion boton borrar
-function createButtonforDeleteUser() {
+function createButtonforDeleteUser(userData) {
   const buttonDelete = document.createElement("button");
   buttonDelete.setAttribute("id", "delete-btn");
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
   buttonDelete.textContent = "Eliminar"
+  buttonDelete.setAttribute("data-bs-toggle", "modal");
+  buttonDelete.setAttribute("data-bs-target", "#modal");
+
+  buttonDelete.addEventListener('click', (event) => { // añadido
+    //event.preventDefault();
+    const modal = createModalYesNoQuestion(userData, "eliminar");
+  })
 
   return buttonDelete;
 }
 
 //Creacion boton deshabilitar
-function createButtonforDisableUser() {
+function createButtonforDisableUser(userData) {
   const buttonDisable = document.createElement("button");
   buttonDisable.setAttribute("id", "disable-btn");
   buttonDisable.setAttribute("type", "button");
   buttonDisable.classList = "btn-disable";
   buttonDisable.textContent = "Desahibilitar"
+  buttonDisable.setAttribute("data-bs-toggle", "modal");
+  buttonDisable.setAttribute("data-bs-target", "#modal");
+
+  buttonDisable.addEventListener('click', (event) => { // añadido
+    //event.preventDefault();
+    const modal = createModalYesNoQuestion(userData, "deshabilitar");
+  })
 
   return buttonDisable;
 }
