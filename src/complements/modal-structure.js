@@ -8,6 +8,7 @@ export function createModalElement() {
   modalContainer.setAttribute("tabindex", "-1");
   modalContainer.setAttribute("aria-labelledby", "modalTitle");
   modalContainer.setAttribute("aria-hidden", "true");
+  modalContainer.setAttribute("data-bs-backdrop", "static");
   app.appendChild(modalContainer);
 
   const modalDialog = document.createElement("div");
