@@ -48,17 +48,6 @@ export function createModalElement() {
   resetModalFooter(modalButton, modalBody, modalFooter, modalFooterCloseButtonId);
   modalHeader.appendChild(modalButton);
 
-  const modalFooterCloseButton = document.createElement("button");
-  modalFooterCloseButton.classList = "btn btn-secondary";
-  modalFooterCloseButton.setAttribute("type", "button");
-  modalFooterCloseButton.setAttribute("data-bs-dismiss", "modal");
-  modalFooterCloseButton.textContent = "Close";
-  
-  modalFooterCloseButton.id = modalFooterCloseButtonId;
-//en el cierre , vacio el modal para que no se dupliquen los datos
-  resetModalFooter(modalFooterCloseButton, modalBody, modalFooter, modalFooterCloseButtonId);
-  modalFooter.appendChild(modalFooterCloseButton);
-
   return modalContainer;
 }
 

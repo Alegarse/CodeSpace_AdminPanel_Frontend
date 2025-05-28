@@ -47,6 +47,7 @@ function createUserModalSaveButton() {
   modalFooterButton.setAttribute("type", "button");
   modalFooterButton.textContent = "Guardar cambios";
 
+
   return modalFooterButton;
 }
 
