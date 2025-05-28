@@ -7,7 +7,7 @@
 }
 
 .modal-title {
-  color: var(--color-font-title);
+  color: white;
   font-family: var(--font-title);
   font-weight: normal;
   margin-block: 0.5rem !important;
@@ -63,8 +63,7 @@ input {
 }
 
 #buttonPassword {
-  background-color: var(--color-bar-bg);
-  border: var(--color-line);
+  background-color: var(--color-bg-primary);
   border-radius: 0.375rem;
   margin-top: 0.5rem;
   color: var(--color-font-title);
@@ -114,10 +113,7 @@ input {
 }
 
 #saveButton {
-  background-color: var(--color-bar-bg) !important;
-  border: var(--color-line);
+  background-color: var(--color-bg-primary) !important;
+  border: var(--color-bg-primary) !important;
 }
 
-.btn-secondary {
-  border: var(--color-line) !important;
-}
