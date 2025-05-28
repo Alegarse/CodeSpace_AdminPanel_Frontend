@@ -235,10 +235,26 @@ export async function removeUserFavourite(favouriteId, favouriteType) {
   createUserProfile();
 }
 
-export async function getAllUsers() {
-  const urlGetAllUsers = apiConfig.baseUserUrl;
 
-  const users = await callApi("GET", urlGetAllUsers);
+export async function deleteUserListener() {
+  const clickContainer = document.querySelector('.users-general-container');
 
-  return users.data;
+  clickContainer.addEventListener("click", async (event) => {
+    const target = event.target;
+    let userId = "";
+    let actionType = "";
+
+    if (target.hasAttribute("data-user-id")) {
+      userId = target.getAttribute("data-user-id"); 
+    }
+    if (target.hasAttribute("data-action-type")) {
+      actionType = target.getAttribute("data-action-type");
+    }
+
+    if (userId !== "" && actionType === "delete") {
+      deleteUser(userId);
+    }
+  });
 }
+
+

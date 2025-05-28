@@ -244,6 +244,7 @@ export function createUserProfile() {
   modifyProfileImgListener();
   setTimeout(() => {
     removeFavouritesUserListener();
+    deleteUserListener(); 
   }, 500);
 
   // LOGOUT Listener
