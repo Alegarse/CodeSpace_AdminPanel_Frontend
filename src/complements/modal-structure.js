@@ -1,5 +1,4 @@
 export function createModalElement() {
-  const modalFooterCloseButtonId = "modal-footer-close-button";
   const app = document.querySelector("#app");
 
   const modalContainer = document.createElement("div");
@@ -45,7 +44,7 @@ export function createModalElement() {
   modalButton.setAttribute("data-bs-dismiss", "modal");
   modalButton.setAttribute("aria-label", "Close");
   //en el cierre , vacio el modal para que no se dupliquen los datos
-  resetModalFooter(modalButton, modalBody, modalFooter, modalFooterCloseButtonId);
+  resetModalFooter(modalButton, modalBody, modalFooter);
   modalHeader.appendChild(modalButton);
 
   return modalContainer;
@@ -64,9 +63,13 @@ export function updateModalElement(title, content, buttons) {
   })
 }
 
-//Creo una función para que elimine los botones y el contenido cuando cierre la ventana modal y así al volver a pulsar no se dupliquen los datos
-function resetModalFooter(closeElement, modalBody, modalFooter, id_) {
- closeElement.addEventListener( "click", () => {
+//Creo una función para que elimine los botones y el contenido cuando cierre la ventana modal y así al volver a pulsar no se dupliquen los datos, 
+export function resetModalFooter(closeElement, modalBody, modalFooter, preCloseAction=null, id_=null) {
+  closeElement.addEventListener("click", async () => {
+    if (preCloseAction && typeof preCloseAction === 'function') {
+      await preCloseAction();
+    }
+    
     modalBody.textContent = "";
     Array.from(modalFooter.children).forEach((button) => {
       if (button.id !== id_) {

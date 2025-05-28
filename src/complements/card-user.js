@@ -90,6 +90,7 @@ function createButtonforDisableUser(userData) {
 export function createCardsUsersContainer(dataUsers) {
 
   const anchorElement = document.querySelector("#elements-panel-container");
+  anchorElement.textContent = ""
 
   //Creo un div para englobar todo
   const userListContainer = document.createElement("div");
