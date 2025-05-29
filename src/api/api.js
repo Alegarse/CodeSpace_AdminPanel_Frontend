@@ -253,10 +253,10 @@ export async function deactiveUser() {
   }
 }
 
-export async function updateUser() {
+export async function updateUser(userId, newUserData) {
   try {
-    const urlUpdateUser = apiConfig.botonUpdateUserUrl;
-    const users = await callApi("PATCH", urlUpdateUser);
+    const urlUpdateUser = apiConfig.botonUpdateUserUrl + '/' + userId;
+    const users = await callApi("PATCH", urlUpdateUser, newUserData);
     return users.data;
   } catch (error) {
     throw error;

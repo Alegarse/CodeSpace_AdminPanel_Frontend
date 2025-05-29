@@ -1,10 +1,14 @@
-import { callApi, getUserDetails } from "../api/api";
-import { updateModalElement } from "../complements/modal-structure";
+import { getAllUsers, getUserDetails, updateUser } from "../api/api";
+import { createCardsUsersContainer } from "../complements/card-user";
+import { resetModalFooter, updateModalElement } from "../complements/modal-structure";
 import {
   createDateUser,
   createImgUser,
   createNameUser,
 } from "../complements/user-helper-methods";
+
+
+let selectedUserId;
 
 //Creo el modal anidando todo
 export async function createUserModal(userId = null) {
@@ -15,8 +19,8 @@ export async function createUserModal(userId = null) {
   modalPrincipalInfoElement.classList = "modal-principalInfo";
 
   // Llamamos al backend para traer detalles de usuario
-  //const testUserId = "682795eb78fdfc8b6e247647"; // borrar es solo para test
   const userData = (await getUserDetails(userId))?.data;
+  selectedUserId = userId;
 
   modalPrincipalInfoElement.appendChild(
     createImgUser(userData.profilePictureUrl, "photo-user-details")
@@ -40,14 +44,42 @@ export async function createUserModal(userId = null) {
   return modal;
 }
 
+async function saveActions() {
+  updateUser(selectedUserId, getFormData());
+  createCardsUsersContainer(await getAllUsers());
+}
+
 function createUserModalSaveButton() {
   const modalFooterButton = document.createElement("button");
   modalFooterButton.classList = "btn btn-primary";
+  modalFooterButton.setAttribute("data-bs-dismiss", "modal");
   modalFooterButton.id = "saveButton";
   modalFooterButton.setAttribute("type", "button");
   modalFooterButton.textContent = "Guardar cambios";
 
+  const modalBody = document.querySelector('#modal-body');
+  const modalFooter = document.querySelector('#modal-footer');
+  resetModalFooter(modalFooterButton, modalBody, modalFooter, saveActions);
+
   return modalFooterButton;
+}
+
+function getFormData(){
+  const email = document.querySelector("#email").value;
+  const phone = document.querySelector("#phone").value;
+  const address = document.querySelector("#address").value;
+  const password = document.querySelector("#password").value;
+  const subscription = document.querySelector("#subscription").value;
+  
+  const userData = {
+    email: email,
+    phone: phone,
+    address: address,
+    password: password,
+    subscription: subscription,
+  }
+
+  return userData
 }
 
 //Creo el apartado para los datos personales y sus minifunciones adheridas
@@ -142,17 +174,12 @@ function createUserResgistration(userData) {
   userRegistrationContainer.appendChild(userRegistrationTitle);
 
   userRegistrationContainer.appendChild(createDateUserElement(userData.date));
-  userRegistrationContainer.appendChild(
-    createOrderCountElement(userData.orderCount)
-  );
+ 
   userRegistrationContainer.appendChild(
     createPasswordElement(userData.password)
   );
   userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
-  );
-  userRegistrationContainer.appendChild(
-    createBankAccountNumberElement(userData.bankAccountNumber)
   );
 
   return userRegistrationContainer;
@@ -174,25 +201,6 @@ function createDateUserElement(date) {
   return dateUserContainer;
 }
 
-function createOrderCountElement(orderCountData) {
-  const orderCountContainer = document.createElement("div");
-  orderCountContainer.classList = "order-count-container";
-
-  const orderCountTitle = document.createElement("label");
-  orderCountTitle.textContent = "Número de pedidos:";
-  orderCountTitle.setAttribute("for", "orderCount");
-
-  const orderCount = document.createElement("input");
-  orderCount.setAttribute("type", "number");
-  orderCount.setAttribute("id", "orderCount");
-  orderCount.setAttribute("name", "orderCount");
-  orderCount.setAttribute("value", orderCountData);
-
-  orderCountContainer.appendChild(orderCountTitle);
-  orderCountContainer.appendChild(orderCount);
-
-  return orderCountContainer;
-}
 
 function createPasswordElement(passwordData) {
   const passwordContainer = document.createElement("div");
@@ -262,25 +270,6 @@ function createSubscriptionTypeElement(subscriptionData) {
   return subscriptionTypeContainer;
 }
 
-function createBankAccountNumberElement(bankAccountNumberData) {
-  const bankAccountNumberContainer = document.createElement("div");
-  bankAccountNumberContainer.classList = "bank-account-container";
-
-  const bankAccountNumberTitle = document.createElement("label");
-  bankAccountNumberTitle.textContent = "Cuenta bancaria:";
-  bankAccountNumberTitle.setAttribute("for", "bankAccountNumber");
-
-  const bankAccountNumber = document.createElement("input");
-  bankAccountNumber.setAttribute("type", "number");
-  bankAccountNumber.setAttribute("id", "bankAccountNumber");
-  bankAccountNumber.setAttribute("name", "bankAccountNumber");
-  bankAccountNumber.setAttribute("value", bankAccountNumberData);
-
-  bankAccountNumberContainer.appendChild(bankAccountNumberTitle);
-  bankAccountNumberContainer.appendChild(bankAccountNumber);
-
-  return bankAccountNumberContainer;
-}
 
 //Creo la sección de Favoritos del usuario y sus minifunciones anidadas
 function createUserFavorites(userData) {
@@ -330,7 +319,7 @@ function createPlantFavorites(plants) {
 
   plants.forEach((plant) => {
     const itemPlant = document.createElement("li");
-    itemPlant.textContent = plant;
+    itemPlant.textContent = plant.name;
     plantFavoritesContainer.appendChild(itemPlant);
   });
 
