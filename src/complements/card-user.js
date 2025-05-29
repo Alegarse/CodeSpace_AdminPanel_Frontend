@@ -1,8 +1,12 @@
 //import { user } from "../pages/user-details";
 import { createUserModal } from "../pages/user-details";
 import { createModalYesNoQuestion } from "./modal-yes-no";
-import { createImgUser, createEMailUser, createNameUser, createDateUser } from "./user-helper-methods";
-
+import {
+  createImgUser,
+  createEMailUser,
+  createNameUser,
+  createDateUser,
+} from "./user-helper-methods";
 
 function createCardUser(userData) {
   //Creo el div para cada card
@@ -43,10 +47,10 @@ export function createButtonforUpdateUser(userId) {
   buttonUpdate.setAttribute("data-bs-toggle", "modal");
   buttonUpdate.setAttribute("data-bs-target", "#modal");
 
-  buttonUpdate.addEventListener('click', (event) => {
+  buttonUpdate.addEventListener("click", (event) => {
     //event.preventDefault();
     const modal = createUserModal(userId);
-  })
+  });
 
   return buttonUpdate;
 }
@@ -57,7 +61,7 @@ function createButtonforDeleteUser(userData) {
   buttonDelete.setAttribute("id", "delete-btn");
   buttonDelete.setAttribute("type", "button");
   buttonDelete.classList = "btn-delete";
-  buttonDelete.textContent = "Eliminar"
+  buttonDelete.textContent = "Eliminar";
   buttonDelete.setAttribute("data-bs-toggle", "modal");
   buttonDelete.setAttribute("data-bs-target", "#modal");
 
@@ -69,10 +73,10 @@ function createButtonforDeleteUser(userData) {
     buttonDelete.classList.remove("btn-disabled");
   }
 
-  buttonDelete.addEventListener('click', (event) => {
+  buttonDelete.addEventListener("click", (event) => {
     //event.preventDefault();
     const modal = createModalYesNoQuestion(userData, "eliminar");
-  })
+  });
 
   return buttonDelete;
 }
@@ -83,7 +87,13 @@ function createButtonforDisableUser(userData) {
   buttonDisable.setAttribute("id", "disable-btn");
   buttonDisable.setAttribute("type", "button");
   buttonDisable.classList = "btn-disable";
-  buttonDisable.textContent = "Desahibilitar"
+  if (userData.isActive === true) {
+    buttonDisable.textContent = "Deshabilitar";
+  } else {
+    buttonDisable.textContent = "Habilitar";
+  }
+  console.log(userData);
+
   buttonDisable.setAttribute("data-bs-toggle", "modal");
   buttonDisable.setAttribute("data-bs-target", "#modal");
 
@@ -95,17 +105,17 @@ function createButtonforDisableUser(userData) {
     buttonDisable.classList.remove("btn-disabled");
   }
 
-  buttonDisable.addEventListener('click', (event) => {
-    const modal = createModalYesNoQuestion(userData, "deshabilitar");
-  })
+  buttonDisable.addEventListener("click", (event) => {
+    const actionToModify = buttonDisable.textContent;
+    const modal = createModalYesNoQuestion(userData, actionToModify);
+  });
 
   return buttonDisable;
 }
 
 export function createCardsUsersContainer(dataUsers) {
-
   const anchorElement = document.querySelector("#elements-panel-container");
-  anchorElement.textContent = ""
+  anchorElement.textContent = "";
 
   //Creo un div para englobar todo
   const userListContainer = document.createElement("div");
@@ -113,7 +123,7 @@ export function createCardsUsersContainer(dataUsers) {
 
   //El titulo del div
   const cardTitle = document.createElement("h2");
-  cardTitle.classList = "title-list"
+  cardTitle.classList = "title-list";
   cardTitle.textContent = "Lista de Usuarios";
 
   //Creo el div donde van a ir todas las card
@@ -123,7 +133,7 @@ export function createCardsUsersContainer(dataUsers) {
   dataUsers.forEach((user) => {
     cardsContainer.appendChild(createCardUser(user));
   });
-  
+
   userListContainer.appendChild(cardTitle);
   userListContainer.appendChild(cardsContainer);
 
@@ -132,5 +142,5 @@ export function createCardsUsersContainer(dataUsers) {
 
 function checkUserIdentifyed(userId) {
   const userLogged = JSON.parse(localStorage.getItem("userData"))._id;
-  return (userId === userLogged);
+  return userId === userLogged;
 }
