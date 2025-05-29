@@ -68,14 +68,12 @@ function getFormData(){
   const email = document.querySelector("#email").value;
   const phone = document.querySelector("#phone").value;
   const address = document.querySelector("#address").value;
-  const password = document.querySelector("#password").value;
   const subscription = document.querySelector("#subscription").value;
   
   const userData = {
     email: email,
     phone: phone,
     address: address,
-    password: password,
     subscription: subscription,
   }
 
