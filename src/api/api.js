@@ -274,7 +274,6 @@ export async function deleteUser(idUser) {
 }
 
 export async function deactiveUser(idUser, action) {
-  console.log("Llega:",idUser, action)
   try {
     let urlDeactiveUser = apiConfig.botonDisableUserUrl;
     urlDeactiveUser += `/${idUser}/${action}`
