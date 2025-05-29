@@ -6,8 +6,8 @@ export function registerButtonListener() {
   const passwordElement = document.querySelector("#input-password");
   const nameElement = document.querySelector("#input-name");
   const lastNameElement = document.querySelector("#input-lastname");
-  const addressElement = document.querySelector("#input-telephone");
-  const phoneElement = document.querySelector("#input-address");
+  const addressElement = document.querySelector("#input-address");
+  const phoneElement = document.querySelector("#input-telephone");
 
   formElement.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -18,6 +18,7 @@ export function registerButtonListener() {
     const phone = phoneElement.value;
     const address = addressElement.value;
     const birthDate = "1980-09-16";
+
     registerUser(name, lastName, email, address, phone, password, birthDate);
   });
 }

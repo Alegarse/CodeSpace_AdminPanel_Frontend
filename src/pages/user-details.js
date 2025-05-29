@@ -1,12 +1,15 @@
 import { getAllUsers, getUserDetails, updateUser } from "../api/api";
 import { createCardsUsersContainer } from "../complements/card-user";
-import { resetModalFooter, updateModalElement } from "../complements/modal-structure";
+import {
+  resetModalFooter,
+  updateModalElement,
+} from "../complements/modal-structure";
 import {
   createDateUser,
   createImgUser,
   createNameUser,
 } from "../complements/user-helper-methods";
-
+import { createGroupedFavsContainer } from "./user-profile";
 
 let selectedUserId;
 
@@ -57,29 +60,27 @@ function createUserModalSaveButton() {
   modalFooterButton.setAttribute("type", "button");
   modalFooterButton.textContent = "Guardar cambios";
 
-  const modalBody = document.querySelector('#modal-body');
-  const modalFooter = document.querySelector('#modal-footer');
+  const modalBody = document.querySelector("#modal-body");
+  const modalFooter = document.querySelector("#modal-footer");
   resetModalFooter(modalFooterButton, modalBody, modalFooter, saveActions);
 
   return modalFooterButton;
 }
 
-function getFormData(){
+function getFormData() {
   const email = document.querySelector("#email").value;
   const phone = document.querySelector("#phone").value;
   const address = document.querySelector("#address").value;
-  const password = document.querySelector("#password").value;
   const subscription = document.querySelector("#subscription").value;
-  
+
   const userData = {
     email: email,
     phone: phone,
     address: address,
-    password: password,
     subscription: subscription,
-  }
+  };
 
-  return userData
+  return userData;
 }
 
 //Creo el apartado para los datos personales y sus minifunciones adheridas
@@ -164,7 +165,6 @@ function createPersonalAddressElement(address) {
 
 //Creo el apartado de los datos de registro y sus mini funciones anidadas
 function createUserResgistration(userData) {
-
   const userRegistrationContainer = document.createElement("div");
   userRegistrationContainer.classList = "registration-container";
 
@@ -174,8 +174,10 @@ function createUserResgistration(userData) {
 
   userRegistrationContainer.appendChild(userRegistrationTitle);
 
-  userRegistrationContainer.appendChild(createDateUserElement(userData.birthDate));
- 
+  userRegistrationContainer.appendChild(
+    createDateUserElement(userData.birthDate)
+  );
+
   userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
   );
@@ -235,7 +237,6 @@ function createSubscriptionTypeElement(subscriptionData) {
   return subscriptionTypeContainer;
 }
 
-
 //Creo la sección de Favoritos del usuario y sus minifunciones anidadas
 function createUserFavorites(userData) {
   const userFavoritesContainer = document.createElement("div");
@@ -247,7 +248,15 @@ function createUserFavorites(userData) {
 
   userFavoritesContainer.appendChild(userFavoritesTitle);
 
-  const userFavoritePlants = document.createElement("h3");
+  userFavoritesContainer.appendChild(
+    createGroupedFavsContainer("Plantas", userData.favPlants, "plant", false)
+  );
+  userFavoritesContainer.appendChild(createGroupedFavsContainer("Productos", userData.favProducts, "product", false));
+  userFavoritesContainer.appendChild(createGroupedFavsContainer("Herramientas", userData.favTools, "tool", false));
+  userFavoritesContainer.appendChild(createGroupedFavsContainer("Accesorios", userData.favAccessories, "accesory", false));
+
+  //Comentado temporalmente hasta ver si gusta esta estetica
+/*   const userFavoritePlants = document.createElement("h3");
   userFavoritePlants.textContent = "PLANTAS FAVORITAS";
   userFavoritePlants.classList = "favorite-plants";
   userFavoritesTitle.appendChild(userFavoritePlants);
@@ -273,7 +282,7 @@ function createUserFavorites(userData) {
   userFavoritesTitle.appendChild(userFavoriteAccessories);
   userFavoriteAccessories.appendChild(
     createAccessoryFavorites(userData.favAccessories)
-  );
+  ); */
 
   return userFavoritesContainer;
 }
