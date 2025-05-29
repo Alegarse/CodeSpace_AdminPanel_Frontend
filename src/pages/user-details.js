@@ -164,6 +164,7 @@ function createPersonalAddressElement(address) {
 
 //Creo el apartado de los datos de registro y sus mini funciones anidadas
 function createUserResgistration(userData) {
+
   const userRegistrationContainer = document.createElement("div");
   userRegistrationContainer.classList = "registration-container";
 
@@ -173,11 +174,8 @@ function createUserResgistration(userData) {
 
   userRegistrationContainer.appendChild(userRegistrationTitle);
 
-  userRegistrationContainer.appendChild(createDateUserElement(userData.date));
+  userRegistrationContainer.appendChild(createDateUserElement(userData.birthDate));
  
-  userRegistrationContainer.appendChild(
-    createPasswordElement(userData.password)
-  );
   userRegistrationContainer.appendChild(
     createSubscriptionTypeElement(userData.subscription)
   );
@@ -199,39 +197,6 @@ function createDateUserElement(date) {
   dateUserContainer.appendChild(dateUser);
 
   return dateUserContainer;
-}
-
-
-function createPasswordElement(passwordData) {
-  const passwordContainer = document.createElement("div");
-  passwordContainer.classList = "password-container";
-
-  const passwordTitle = document.createElement("label");
-  passwordTitle.textContent = "Contraseña:";
-  passwordTitle.setAttribute("for", "password");
-
-  const password = document.createElement("input");
-  password.setAttribute("type", "password");
-  password.setAttribute("id", "password");
-  password.setAttribute("name", "password");
-  password.setAttribute("value", passwordData);
-
-  const buttonPassword = document.createElement("button");
-  buttonPassword.setAttribute("type", "button");
-  buttonPassword.classList = "btn";
-  buttonPassword.id = "buttonPassword";
-  buttonPassword.textContent = "Mostrar";
-
-  buttonPassword.addEventListener("click", () => {
-    const isPassword = password.type === "password";
-    password.type = isPassword ? "text" : "password";
-  });
-
-  passwordContainer.appendChild(passwordTitle);
-  passwordContainer.appendChild(password);
-  passwordContainer.appendChild(buttonPassword);
-
-  return passwordContainer;
 }
 
 function createSubscriptionTypeElement(subscriptionData) {
