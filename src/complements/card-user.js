@@ -21,9 +21,9 @@ function createCardUser(userData) {
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
-  buttonsContainer.appendChild(createButtonforUpdateUser(userData._id)); // añadido id
-  buttonsContainer.appendChild(createButtonforDeleteUser(userData)); // necesita id
-  buttonsContainer.appendChild(createButtonforDisableUser(userData)); // necesita id
+  buttonsContainer.appendChild(createButtonforUpdateUser(userData._id));
+  buttonsContainer.appendChild(createButtonforDeleteUser(userData));
+  buttonsContainer.appendChild(createButtonforDisableUser(userData));
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.profilePictureUrl));
@@ -43,7 +43,7 @@ export function createButtonforUpdateUser(userId) {
   buttonUpdate.setAttribute("data-bs-toggle", "modal");
   buttonUpdate.setAttribute("data-bs-target", "#modal");
 
-  buttonUpdate.addEventListener('click', (event) => { // añadido
+  buttonUpdate.addEventListener('click', (event) => {
     //event.preventDefault();
     const modal = createUserModal(userId);
   })
@@ -61,7 +61,15 @@ function createButtonforDeleteUser(userData) {
   buttonDelete.setAttribute("data-bs-toggle", "modal");
   buttonDelete.setAttribute("data-bs-target", "#modal");
 
-  buttonDelete.addEventListener('click', (event) => { // añadido
+  if (checkUserIdentifyed(userData._id)) {
+    buttonDelete.setAttribute("Disabled", true);
+    buttonDelete.classList.add("btn-disabled");
+  } else {
+    buttonDelete.removeAttribute("Disabled");
+    buttonDelete.classList.remove("btn-disabled");
+  }
+
+  buttonDelete.addEventListener('click', (event) => {
     //event.preventDefault();
     const modal = createModalYesNoQuestion(userData, "eliminar");
   })
@@ -79,8 +87,15 @@ function createButtonforDisableUser(userData) {
   buttonDisable.setAttribute("data-bs-toggle", "modal");
   buttonDisable.setAttribute("data-bs-target", "#modal");
 
-  buttonDisable.addEventListener('click', (event) => { // añadido
-    //event.preventDefault();
+  if (checkUserIdentifyed(userData._id)) {
+    buttonDisable.setAttribute("Disabled", true);
+    buttonDisable.classList.add("btn-disabled");
+  } else {
+    buttonDisable.removeAttribute("Disabled");
+    buttonDisable.classList.remove("btn-disabled");
+  }
+
+  buttonDisable.addEventListener('click', (event) => {
     const modal = createModalYesNoQuestion(userData, "deshabilitar");
   })
 
@@ -113,4 +128,9 @@ export function createCardsUsersContainer(dataUsers) {
   userListContainer.appendChild(cardsContainer);
 
   anchorElement.appendChild(userListContainer);
+}
+
+function checkUserIdentifyed(userId) {
+  const userLogged = JSON.parse(localStorage.getItem("userData"))._id;
+  return (userId === userLogged);
 }
