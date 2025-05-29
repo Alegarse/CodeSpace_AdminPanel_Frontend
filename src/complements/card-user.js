@@ -92,7 +92,6 @@ function createButtonforDisableUser(userData) {
   } else {
     buttonDisable.textContent = "Habilitar";
   }
-  console.log(userData);
 
   buttonDisable.setAttribute("data-bs-toggle", "modal");
   buttonDisable.setAttribute("data-bs-target", "#modal");
