@@ -22,8 +22,8 @@ function createCardUser(userData) {
   buttonsContainer.classList = "button-container";
   // Aqui appenchild 3 botones
   buttonsContainer.appendChild(createButtonforUpdateUser(userData._id)); // añadido id
-  buttonsContainer.appendChild(createButtonforDeleteUser()); // necesita id
-  buttonsContainer.appendChild(createButtonforDisableUser()); // necesita id
+  buttonsContainer.appendChild(createButtonforDeleteUser(userData)); // necesita id
+  buttonsContainer.appendChild(createButtonforDisableUser(userData)); // necesita id
 
   // Metemos todo en el contenedor de la card
   cardContainer.appendChild(createImgUser(userData.profilePictureUrl));

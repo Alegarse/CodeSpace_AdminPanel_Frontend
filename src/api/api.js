@@ -262,3 +262,23 @@ export async function updateUser(userId, newUserData) {
     throw error;
   }
 }
+
+export async function deleteUser(idUser) {
+  try {
+    let urlDeleteUser = apiConfig.botonDisableUserUrl;
+    urlDeleteUser += `/${idUser}`
+
+    const data = {
+      idUserToDelete: idUser
+    }
+
+    const result = await callApi("DELETE", urlDeleteUser, data);
+
+    if (result.status !== "Success") {
+      throw Error("No se ha podido borrar el usuario");
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
