@@ -91,7 +91,7 @@ function createProfileInfo(userData) {
 
   const userAddress = document.createElement("p");
   userAddress.textContent = userData.address;
-  userAddress.classList = "address.user";
+  userAddress.classList = "address-user";
 
   const userPhoneLabel = document.createElement("p");
   userPhoneLabel.textContent = "Teléfono:";
@@ -174,7 +174,7 @@ function createToolsAndFavouritesInfo(userData) {
   return preFavsContainer;
 }
 
-function createGroupedFavsContainer(title, content, type) {
+export function createGroupedFavsContainer(title, content, type, deleteBtns = true) {
   const favouritesContainer = document.createElement("div");
   favouritesContainer.classList = "favourites-container";
 
@@ -198,6 +198,7 @@ function createGroupedFavsContainer(title, content, type) {
     removeElement.setAttribute("data-favourite-id", favourite._id);
     removeElement.setAttribute("data-favourite-type", type);
     removeElement.classList = "recycle-favourite";
+    if (!deleteBtns) removeElement.setAttribute("hidden", true);
 
     favouritesDiv.appendChild(pElement);
     favouritesDiv.appendChild(removeElement);
