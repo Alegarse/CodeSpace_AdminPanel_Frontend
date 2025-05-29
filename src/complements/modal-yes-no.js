@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers } from "../api/api";
+import { deleteUser, deactiveUser, getAllUsers } from "../api/api";
 import { createCardsUsersContainer } from "./card-user";
 
 export function createModalYesNoQuestion(userData, action) {
@@ -30,17 +30,23 @@ export function createModalYesNoQuestion(userData, action) {
   });
 
   buttonYes.addEventListener("click", async (event) => {
-    switch (action){
+    switch (action) {
       case "eliminar": //
-      // Necesita permisos Admin
         const result = await deleteUser(userData._id);
-        if(result.status === "Success") {
+        if (result.status === "Success") {
           const close = document.querySelector("#btn-not");
           close.click();
           createCardsUsersContainer(await getAllUsers());
         }
         break;
-        case "deshabilitar":
+      case "Deshabilitar":
+      case "Habilitar":
+        const result_ = await deactiveUser(userData._id, action);
+        if (result_.status === "Success") {
+          const close = document.querySelector("#btn-not");
+          close.click();
+          createCardsUsersContainer(await getAllUsers());
+        }
         break;
     }
   });

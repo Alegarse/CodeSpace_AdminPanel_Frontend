@@ -243,16 +243,6 @@ export async function getAllUsers() {
   return users.data;
 }
 
-export async function deactiveUser() {
-  try {
-    const urlDeactiveUser = apiConfig.botonDisableUserUrl;
-    const users = await callApi("PATCH", urlDeactiveUser);
-    return users.data;
-  } catch (error) {
-    throw error;
-  }
-}
-
 export async function updateUser(userId, newUserData) {
   try {
     const urlUpdateUser = apiConfig.botonUpdateUserUrl + '/' + userId;
@@ -276,6 +266,23 @@ export async function deleteUser(idUser) {
 
     if (result.status !== "Success") {
       throw Error("No se ha podido borrar el usuario");
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deactiveUser(idUser, action) {
+  console.log("Llega:",idUser, action)
+  try {
+    let urlDeactiveUser = apiConfig.botonDisableUserUrl;
+    urlDeactiveUser += `/${idUser}/${action}`
+
+    const result = await callApi("PATCH", urlDeactiveUser);
+
+    if (result.status !== "Success") {
+      throw Error("No se ha podido deshabilitar el usuario");
     }
     return result;
   } catch (error) {
