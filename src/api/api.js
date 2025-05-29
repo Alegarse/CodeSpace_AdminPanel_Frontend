@@ -58,8 +58,8 @@ async function refreshToken() {
   try {
     const refresh = localStorage.getItem("refresh_token");
     if (!refresh) throw new Error("Token de resfresco no existe");
-    const urlLogin = apiConfig.baseUrl;
-    const renoveTokens = await fetch(urlLogin, {
+    const urlRefreshToken = apiConfig.refreshTokenUrl;
+    const renoveTokens = await fetch(urlRefreshToken, {
       method: "GET",
       headers: { "Content-Type": "application/json", "auth-token": refresh },
     });
@@ -241,4 +241,44 @@ export async function getAllUsers() {
   const users = await callApi("GET", urlGetAllUsers);
 
   return users.data;
+}
+
+export async function deactiveUser() {
+  try {
+    const urlDeactiveUser = apiConfig.botonDisableUserUrl;
+    const users = await callApi("PATCH", urlDeactiveUser);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateUser(userId, newUserData) {
+  try {
+    const urlUpdateUser = apiConfig.botonUpdateUserUrl + '/' + userId;
+    const users = await callApi("PATCH", urlUpdateUser, newUserData);
+    return users.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteUser(idUser) {
+  try {
+    let urlDeleteUser = apiConfig.botonDisableUserUrl;
+    urlDeleteUser += `/${idUser}`
+
+    const data = {
+      idUserToDelete: idUser
+    }
+
+    const result = await callApi("DELETE", urlDeleteUser, data);
+
+    if (result.status !== "Success") {
+      throw Error("No se ha podido borrar el usuario");
+    }
+    return result;
+  } catch (error) {
+    throw error;
+  }
 }

@@ -3,7 +3,10 @@ import { getFormattedDate } from "../utils/general";
 //Creacion de hueco para la foto
 export function createImgUser(url, classList = "photo-user") {
   const imgUser = document.createElement("img");
-  imgUser.setAttribute("src", url);
+  imgUser.src =
+    url === ""
+      ? "./src/imgs/empty-photo-profile.png"
+      : url;
   imgUser.setAttribute("alt", "user photo");
   imgUser.classList = classList;
   return imgUser;
