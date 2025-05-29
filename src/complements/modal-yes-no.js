@@ -1,10 +1,14 @@
+import { deleteUser } from "../api/api";
+
 export function createModalYesNoQuestion(userData, action) {
   const modalContainer = document.createElement("div");
   modalContainer.classList = "modal-container";
 
   const titleBodyModal = document.createElement("h4");
   titleBodyModal.classList = "title-body-modal";
-  titleBodyModal.textContent = `¿Esta seguro que desea ${action.toLowerCase()} el usuario?`;
+  titleBodyModal.textContent = `¿Esta seguro que desea ${action.toLowerCase()} el usuario ${
+    userData.name
+  }?`;
 
   const buttonsContainer = document.createElement("div");
   buttonsContainer.classList = "modal-buttons";
@@ -22,6 +26,20 @@ export function createModalYesNoQuestion(userData, action) {
 
   buttonNot.addEventListener("click", (event) => {
     resetContentModal(modalContainer, buttonsContainer);
+  });
+
+  buttonYes.addEventListener("click", (event) => {
+    switch (action){
+      case "eliminar": //
+      // Necesita permisos Admin
+        const result = deleteUser(userData._id);
+        if(result.status === "Success") {
+          buttonNot.click();
+        }
+        break;
+        case "deshabilitar":
+        break;
+    }
   });
 
   buttonsContainer.appendChild(buttonYes);
@@ -52,7 +70,4 @@ function resetContentModal(content, buttons) {
 
   const modalFooter = document.querySelector("#modal-footer");
   modalFooter.removeChild(buttons);
-
-  const buttonClose = document.querySelector("#modal-footer-close-button");
-  buttonClose.removeAttribute("hidden");
 }
