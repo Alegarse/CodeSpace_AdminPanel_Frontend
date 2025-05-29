@@ -174,7 +174,12 @@ function createToolsAndFavouritesInfo(userData) {
   return preFavsContainer;
 }
 
-export function createGroupedFavsContainer(title, content, type, deleteBtns = true) {
+export function createGroupedFavsContainer(
+  title,
+  content,
+  type,
+  deleteBtns = true
+) {
   const favouritesContainer = document.createElement("div");
   favouritesContainer.classList = "favourites-container";
 
@@ -185,25 +190,35 @@ export function createGroupedFavsContainer(title, content, type, deleteBtns = tr
   const contentContainer = document.createElement("div");
   contentContainer.classList = "favourites-content";
 
-  content.forEach(async (fav) => {
+  if (!content.length) {
     const favouritesDiv = document.createElement("div");
     favouritesDiv.classList = "favourite-line";
     const pElement = document.createElement("p");
     pElement.classList = "fav-item";
-    const favourite = await getUserFavourite(fav, type);
-    pElement.textContent = favourite.name;
-
-    const removeElement = document.createElement("img");
-    removeElement.src = "./src/imgs/recycle.png";
-    removeElement.setAttribute("data-favourite-id", favourite._id);
-    removeElement.setAttribute("data-favourite-type", type);
-    removeElement.classList = "recycle-favourite";
-    if (!deleteBtns) removeElement.setAttribute("hidden", true);
-
+    pElement.textContent = "No se ha añadido ningún favorito";
     favouritesDiv.appendChild(pElement);
-    favouritesDiv.appendChild(removeElement);
     contentContainer.appendChild(favouritesDiv);
-  });
+  } else {
+    content.forEach(async (fav) => {
+      const favouritesDiv = document.createElement("div");
+      favouritesDiv.classList = "favourite-line";
+      const pElement = document.createElement("p");
+      pElement.classList = "fav-item";
+      const favourite = await getUserFavourite(fav, type);
+      pElement.textContent = favourite.name;
+
+      const removeElement = document.createElement("img");
+      removeElement.src = "./src/imgs/recycle.png";
+      removeElement.setAttribute("data-favourite-id", favourite._id);
+      removeElement.setAttribute("data-favourite-type", type);
+      removeElement.classList = "recycle-favourite";
+      if (!deleteBtns) removeElement.setAttribute("hidden", true);
+
+      favouritesDiv.appendChild(pElement);
+      favouritesDiv.appendChild(removeElement);
+      contentContainer.appendChild(favouritesDiv);
+    });
+  }
 
   favouritesContainer.appendChild(titleElement);
   favouritesContainer.appendChild(contentContainer);
