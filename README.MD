@@ -55,7 +55,6 @@ http://localhost:3000, y con MongoDb operativo,además de tener instalado npm.
  
 
 ---
-<a id="estructura-del-repositorio"></a>
 ## Estructura del Repositorio 📂 
 Este repositorio está organizado de la siguiente manera:  
 
@@ -74,4 +73,42 @@ Este repositorio está organizado de la siguiente manera:
 ├── .index.html          # Página base del proyecto en SPA
 ├── package.json         # Configuración del proyecto y dependencias  
 ├── README.md            # Este archivo
-```
+```   
+
+---   
+
+## 🖼️ Imágenes de ejemplo del proyecto
+<p align="center">Página de login de usuario</p>
+<p align="center">
+  <img src="public/Login.PNG" alt="Página de login" width="550">
+</p>
+<p align="center">Página de registro de usuario</p>
+<p align="center">
+  <img src="public/Registro.PNG" alt="Página de registro" width="550">
+</p>
+<p align="center">Panel de usuario normal</p>
+<p align="center">
+  <img src="public/Panel_Usuario.PNG" alt="Panel de usuario normal" width="550">
+</p>
+<p align="center">Panel de administración</p>
+<p align="center">
+  <img src="public/Panel_Admin.PNG" alt="Panel de administrador" width="550">
+</p>
+<p align="center">Detalle del modal para ver y modificar datos de usuario</p>
+<p align="center">
+  <img src="public/Modal_modificar.PNG" alt="Modal de modificación de datos de usuario" width="550">
+</p>
+<p align="center">Detalle del modal para confirmar la eliminación de un usuario</p>
+<p align="center">
+  <img src="public/Modal_eliminar.PNG" alt="Modal de confirmar eliminación de usuario" width="550">
+</p>
+<p align="center">Detalle del modal para confirmar el deshabilitar de un usuario</p>
+<p align="center">
+  <img src="public/Modal_Deshabilitar.PNG" alt="Modal de confirmar deshabilitar usuario" width="550">
+</p>
+<p align="center">Detalle del modal para confirmar habilitar de un usuario</p>
+<p align="center">
+  <img src="public/Modal_habilitar.PNG" alt="Modal de confirmar habilitar usuario" width="550">
+</p>
+
+
