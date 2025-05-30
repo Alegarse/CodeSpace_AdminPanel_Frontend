@@ -50,7 +50,7 @@ http://localhost:3000, y con MongoDb operativo,además de tener instalado npm.
 1. Clona este repositorio
 2. Realiza la instalación de las dependencias con "npm i"
 3. Ejecutalo con el comando "npm run dev"
-4. Ejecútalo en : http://localhost:5173/
+4. Visualízalo en : http://localhost:5173/
 
  
 
