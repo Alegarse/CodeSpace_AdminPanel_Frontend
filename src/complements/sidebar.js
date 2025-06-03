@@ -1,3 +1,5 @@
+import logoPlants from "../imgs/logo-plants.png"
+
 export function createSidebarElement() {
   const userSidebarContainer = document.createElement("nav");
   userSidebarContainer.classList = "sidebar-container";
@@ -68,7 +70,7 @@ function createNavbarItemsElements() {
 function createLogoElement() {
   const logoElement = document.createElement("img");
   logoElement.classList = "logo-user";
-  logoElement.src = "./src/imgs/logo-plants.png";
+  logoElement.src = logoPlants;
   logoElement.alt = "logo";
 
   return logoElement;

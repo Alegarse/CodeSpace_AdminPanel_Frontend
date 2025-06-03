@@ -44,6 +44,8 @@ async function makeAuthorizedRequest(method, url, data = null, upload) {
     body: data ? (upload ? data : JSON.stringify(data)) : null,
   });
 
+  console.log(response);
+
   if (!response.ok) {
     console.log("Error en la petición");
     const error = new Error("Error en la petición");
@@ -103,6 +105,7 @@ export async function loginUser(userEmail, userPassword) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataUserLogin),
     });
+    console.log("Aqui");
     const dataUserLogged = await userLogged.json();
 
     if (dataUserLogged.status !== "Success") {

@@ -6,6 +6,8 @@ import {
   removeFavouritesUserListener,
 } from "../events/profile-events";
 import { getFormattedDate } from "../utils/general";
+import emptyPhoto from "../imgs/empty-photo-profile.png";
+import recycle from "../imgs/recycle.png"
 
 function createSubscriptionInfo(subscription) {
   const subscriptionElement = document.createElement("div");
@@ -37,7 +39,7 @@ function createProfileInfo(userData) {
   userPhoto.title = "Click en la imagen para cambiarla";
   userPhoto.src =
     userData.profilePictureUrl === ""
-      ? "./src/imgs/empty-photo-profile.png"
+      ? emptyPhoto
       : userData.profilePictureUrl;
 
   const hiddenInput = document.createElement("input");
@@ -208,7 +210,7 @@ export function createGroupedFavsContainer(
       pElement.textContent = favourite.name;
 
       const removeElement = document.createElement("img");
-      removeElement.src = "./src/imgs/recycle.png";
+      removeElement.src = recycle;
       removeElement.setAttribute("data-favourite-id", favourite._id);
       removeElement.setAttribute("data-favourite-type", type);
       removeElement.classList = "recycle-favourite";
